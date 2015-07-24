@@ -4,5 +4,5 @@
 
 ## 环境 ##
 
-* [开发演示环境](http://visualsbest.coding.io/)
-* [测试环境(国外，略慢)](http://visualsbest.herokuapp.com)
+* [测试环境](http://visualsbest.coding.io/)
+* [开发环境(国外，略慢)](http://visualsbest.herokuapp.com)
