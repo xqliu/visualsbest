@@ -20,7 +20,6 @@ class FlaskrTestCase(unittest.TestCase):
     def test_empty_db(self):
         rv = self.app.get('/')
         assert 'Hello World' in rv.data
-        assert 'Money' in rv.data
         return
 
 if __name__ == '__main__':
