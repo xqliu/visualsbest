@@ -29,4 +29,4 @@ def hello():
     return "Hello World!, <a href='static/index.html'>click here</a> for UI demo"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=80)

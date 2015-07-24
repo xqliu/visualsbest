@@ -12,4 +12,4 @@ RUN pip install -r /tmp/app/requirements.txt
 
 EXPOSE 80
 WORKDIR "/tmp/app"
-ENTRYPOINT ["gunicorn", "-b" "0.0.0.0:80", "app:app"]
+ENTRYPOINT ["python", "app.py"]
