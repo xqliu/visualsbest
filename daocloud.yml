@@ -5,13 +5,9 @@ services:
 env:
 
 install:
-    - echo "Begin to install dependencies for testing"
-    - echo "Running pip install -r requirements.txt"
-    - pip install -r test_requirements.txt
 
 before_script:
+    - pip install -r test_requirements.txt
 
 script:
-    - echo "Begin to run unit tests with code coverage"
-    - echo "Running nosetests -w test --with-coverage" 
     - nosetests -w test --with-coverage	
