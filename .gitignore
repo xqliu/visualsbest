@@ -1,3 +1,5 @@
 venv
 .Python
 .idea
+*.pyc
+.coverage
