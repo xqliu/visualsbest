@@ -14,5 +14,4 @@ before_script:
 script:
     - echo "Begin to run unit tests with code coverage"
     - echo "Running nosetests -w test --with-coverage" 
-    - nosetests -w test --with-coverage
-	
+    - nosetests -w test --with-coverage	
