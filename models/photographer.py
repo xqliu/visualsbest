@@ -6,6 +6,6 @@ from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
 
-class Payment(db.Model):
-    __tablename__ = 'payment'
+class Photographer(db.Model):
+    __tablename__ = 'photographer'
     id = Column(Integer, primary_key=True)
