@@ -2,6 +2,6 @@
 # Reference: http://levibostian.com/python-code-coverage-and-coveralls-io/
 pip install -r test_requirements.txt
 mkdir -p reports/coverage_html
-nosetests -w test --with-coverage --cover-erase
+nosetests -w test --with-coverage --cover-erase --with-xunit
 coverage html -d reports/coverage_html
 # coveralls
