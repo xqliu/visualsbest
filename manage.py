@@ -6,26 +6,29 @@ from flask.ext.script import Manager
 #   - generate migration script from current schema version.
 # 'python manage.py db upgrade'
 #   - migrate DB.
-app = Flask(__name__)
 
-import config
-app.config.from_object(config)
+import app.config as config
+application = Flask(__name__)
+application.config.from_object(config)
 
 from flask.ext.sqlalchemy import SQLAlchemy
-db = SQLAlchemy(app)
-from app_provider import AppInfo
-AppInfo.set_app(app)
+db = SQLAlchemy(application)
+from app.app_provider import AppInfo
+AppInfo.set_app(application)
 AppInfo.set_db(db)
-from models import *
-db.init_app(app)
 
-migrate = Migrate(app, db)
-manager = Manager(app)
+# 本行必须在 db初始化之后调用，不然会报
+# AttributeError: 'NoneType' object has no attribute 'Model'
+# 的错误
+from app.models import *
+db.init_app(application)
+migrate = Migrate(application, db)
+manager = Manager(application)
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
 
-@app.teardown_appcontext
+@application.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()

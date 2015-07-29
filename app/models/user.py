@@ -2,8 +2,8 @@
 
 from app.app_provider import AppInfo
 from flask.ext.security import RoleMixin, UserMixin
-from app.models import Image
-from sqlalchemy import Column, Integer, ForeignKey
+from image import Image
+from sqlalchemy import Column, Integer, ForeignKey, Text
 from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
@@ -53,3 +53,17 @@ class User(db.Model, UserMixin):
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     recommend_by = db.relation("User", remote_side=id, backref=backref(
         'recommended_users', uselist=True))
+
+
+class UserExperience(db.Model):
+    """
+    用户的经历
+    """
+    __tablename__ = 'user_experience'
+    id = Column(Integer, primary_key=True)
+    content = Column(Text, nullable=False)
+
+    # 该经历所属的用户
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = db.relation("User", backref=backref(
+        'experience', uselist=False, cascade='all, delete-orphan'))
