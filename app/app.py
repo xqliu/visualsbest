@@ -1,5 +1,9 @@
 # coding=utf-8
+import sys
+from alembic import command
 from flask import Flask, url_for, redirect
+from flask.ext.migrate import Migrate, Config
+from flask.ext.script import Manager
 from flask.ext.security import SQLAlchemyUserDatastore, Security
 import os
 import rollbar
@@ -36,6 +40,18 @@ security = Security(app, user_datastore)
 from views import init_admin_views
 admin = init_admin_views(app, db)
 AppInfo.set_admin(admin)
+
+
+@app.before_first_request
+def upgrade_db_schema():
+    try:
+        base_path = os.path.join(os.path.dirname(__file__), 'migrations')
+        migrate = Migrate(app, db, directory=base_path)
+        from flask.ext.migrate import upgrade
+        # migrate database to latest revision
+        upgrade()
+    except:
+        print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
 
 
 @app.before_first_request
