@@ -17,7 +17,10 @@ class AppTestCase(unittest.TestCase):
 
     def test_empty_db(self):
         rv = self.app.get('/')
-        assert 'Hello World' in rv.data
+        assert 302, rv.status_code
+        assert '/static/index.html' in rv.location
+        assert '/static/index.html' in rv.data
+        assert 'utf-8', rv.charset
         return
 
 if __name__ == '__main__':

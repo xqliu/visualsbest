@@ -1,7 +1,6 @@
 # coding=utf-8
-from flask import Flask
+from flask import Flask, url_for, redirect
 from flask.ext.security import SQLAlchemyUserDatastore, Security
-
 import os
 import rollbar
 import rollbar.contrib.flask
@@ -57,8 +56,8 @@ def init_rollbar():
 
 
 @app.route("/")
-def hello():
-    return "Hello World!, <a href='static/index.html'>click here</a> for UI demo"
+def index():
+    return redirect(url_for('static', filename='index.html'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
