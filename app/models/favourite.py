@@ -1,8 +1,8 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
-from app.models import PhotoWork
-from app.models import User
+from photo_work import PhotoWork
+from user import User
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import backref
 

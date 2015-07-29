@@ -30,6 +30,7 @@ from models import *
 db.init_app(app)
 
 # Setup Flask-Security
+from models.user import User, Role
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 

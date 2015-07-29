@@ -1,8 +1,9 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
-from app.models import Image, PhotoOmnibus
-from app.models import PhotoCollection
+from image import Image
+from photo_omnibus import PhotoOmnibus
+from photo_collection import PhotoCollection
 from sqlalchemy import Column, Integer, ForeignKey, Text
 from sqlalchemy.orm import backref, relationship
 

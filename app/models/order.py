@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
-from app.models import Request
+from request import Request
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import backref, relationship
 
