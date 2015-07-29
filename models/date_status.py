@@ -10,7 +10,7 @@ db = AppInfo.get_db()
 
 class DateStatus(db.Model):
     """
-    某摄影师某时间段的状态记录
+    某摄影师某时间段的状态记录，默认只记录不可用的时间段
     """
     __tablename__ = 'date_status'
     id = Column(Integer, primary_key=True)

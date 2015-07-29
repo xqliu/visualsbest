@@ -8,6 +8,9 @@ db = AppInfo.get_db()
 
 
 class EnumValues(db.Model):
+    """
+    系统中用到的各种枚举字段，如各种状态和类型的列表等。
+    """
     __tablename__ = 'enum_values'
     id = Column(Integer, primary_key=True)
     type_id = Column(Integer, ForeignKey('enum_values.id'))

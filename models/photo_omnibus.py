@@ -12,4 +12,8 @@ class PhotoOmnibus(db.Model):
     主推的照片列表
     """
     __tablename__ = 'photo_omnibus'
-    id = Column(Integer, primary_key=True)    
+    id = Column(Integer, primary_key=True)
+
+    # 模板
+    template_id = Column(Integer, ForeignKey('omnibus_template.id'), nullable=False)
+    template = relationship('OmnibusTemplate', backref=backref('omnibuses', uselist=True))

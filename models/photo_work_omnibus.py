@@ -26,3 +26,9 @@ class PhotoWorkOmnibus(db.Model):
     photo_work_id = Column(Integer, ForeignKey(PhotoWork.id), nullable=False)
     photo_work = db.relation(PhotoWork, backref=backref('omnibuses', uselist=True))
 
+    # 该作品放置的行
+    work_row = Column(Integer, nullable=False)
+
+    # 该作品放置的列
+    work_col = Column(Integer, nullable=False)
+
