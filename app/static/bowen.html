@@ -1,0 +1,367 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>博文页面</title>
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".la").click(function(){
+		$(".la_block").slideToggle(100);
+		$(this).parent(".bowen").siblings(".bowen").children(".la_block").css("display","none");
+	});
+	$(".bowen_xiangqing p a.all").click(function(){
+		$(this).css("display","none");
+		$(this).siblings().css("display","block");
+		$(this).siblings("span").css("display","inline");
+	});
+	$(".bowen_xiangqing p a.shouqi").click(function(){
+		$(this).css("display","none");
+		$(this).siblings().css("display","block");
+		$(this).siblings("span").css("display","none");
+	});
+});
+</script>
+<script language="javascript" src="js/public.js"></script>
+</head>
+<body>
+<!--导航 strat-->
+<div class="header_bg others_header_bg"></div>
+<div class="header">
+	<div class="layer">
+    	<div class="logo"><a href="index.html"><img src="images/logo.png" /></a></div>
+        <ul class="nav">
+        	<li><a href="works.html">摄影作品</a></li>
+            <li><a href="sheying.html">摄影师</a></li>
+        </ul>
+        <div class="header_right">
+            <div class="search">
+                <label><input type="text" /></label>
+                <label><button onclick="location='search.html'"><img src="images/serach_small.png" /></button></label>
+            </div>
+            <div class="login">
+                <a href="#"><img src="pic/youxiang.png" /></a>
+            </div>
+            <div class="help"><a href="#">帮助</a></div>
+            <div class="header_last"><a href="fb_works.html">发布您的作品</a></div>
+        </div>
+    </div>
+</div>
+<!--导航 end-->
+<!--main strat-->
+<div class="main">
+	<div class="layer">
+    	<!--other_left strat-->
+    	<div class="others_left">
+        	 <!--个人简介 strat-->
+        	<div class="others_jj">
+            	<div class="others_tx"><img src="pic/big_tx.png" /></div>
+                <div class="zuozhe_name">Name</div>
+                <div class="about"><a href="#">官方简介</a></div>
+                <div class="others_xq">
+                	<h5>经验值<span>12</span></h5>
+                    <h5>服务次数<span>34</span></h5>
+                </div>
+            </div>
+            <!--日历 strat-->
+            <div class="others_jj">
+            	<h4>预定</h4>
+                <div class="other_time">
+                	<div class="time_head">
+                    	<h6>档期:</h6>
+                        <p>拍摄人数:</p>
+                    </div>
+                    <div class="time_select">
+                    	<select>
+                        	<option>2015-06-29</option>
+                            <option>2015-06-29</option>
+                            <option>2015-06-29</option>
+                        </select>
+                        <select>
+                        	<option>2015-06-29</option>
+                            <option>2015-06-29</option>
+                            <option>2015-06-29</option>
+                        </select>
+                        <select class="time_num">
+                        	<option>1人</option>
+                            <option>1人</option>
+                            <option>1人</option>
+                        </select>
+                    </div>
+                    <div class="time_other">
+                    	<div class="time_other_left">￥492*3晚</div>
+                        <div>￥1469</div>
+                        <div class="time_other_left">服务费</div>
+                        <div>￥177</div>
+                        <div class="time_other_left">总价</div>
+                        <div>￥1646</div>
+                    </div>
+                    <button>快速预定</button>
+                </div>
+            </div>
+            <!--快速链接 strat-->
+            <div class="others_jj">
+            	<h3>快速链接</h3>
+                <div class="others_links">
+                	<a href="#">即将开始的旅程</a>
+                    <a href="#">在携程出租</a>
+                    <a href="#">在携程旅行</a>
+                    <a href="#">帮助中心</a>
+                </div>
+            </div>
+        </div>
+        <!--other_left end-->
+        <!--other_right strat-->
+        <div class="others_right">
+        	<div class="others_right_top">
+            	<div class="others_right_head">
+                    <h4>他的博文</h4>
+                    <div><a href="#">查看全部</a></div>
+                </div>
+                <div class="bowen">
+                	<div class="bowen_touxiang"><a href="#"><img src="images/tx1.png" /></a></div>
+                    <div class="bowen_xiangqing">
+                    	<h5><a href="#">你希望你的男票是哪种身材...</a></h5>
+                        <p>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。<span>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。</span>
+                        <a href="javascript:;" class="all">查看全部</a>
+                        <a href="javascript:;" class="shouqi">收起</a>
+                        </p>
+                        <div class="bowen_img">
+                        	<a href="#"><img src="pic/photo_11.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_10.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_09.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_08.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_07.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_06.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_05.png" width="80" height="70"/></a>
+                        </div>
+                        <div class="bowen_time">
+                        	<a href="#">今天14:01</a> 来自 <a href="#">微博 weibo.com</a>
+                        </div>
+                        <div class="pinglun">
+                        	<p><img src="images/top_ico.png" /></p>
+                        	<span><a href="#">熊贝贝</a>：无论如何，我很喜欢你发布的内容，机油咯亲~~</span>
+                            <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><a href="#">转发</a></li>	
+                            <li><a href="#">评论<span>3333</span></a></li>
+                            <li><a href="#">分享<span>3333</span></a></li>
+                            <li class="zan1" title="赞"><a href="#">1500</a></li>
+                        </ul>
+                    </div>
+                    <div class="la"><img src="images/la.png" width="21" height="18"/></div>
+                    <div class="la_block">
+                    	<a href="#">帮上头条</a>
+                        <a href="#">举报</a>
+                    </div>
+                </div>
+                <div class="bowen">
+                	<div class="bowen_touxiang"><a href="#"><img src="images/tx1.png" /></a></div>
+                    <div class="bowen_xiangqing">
+                    	<h5><a href="#">你希望你的男票是哪种身材...</a></h5>
+                        <p>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。<span>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。</span>
+                        <a href="javascript:;" class="all">查看全部</a>
+                        <a href="javascript:;" class="shouqi">收起</a>
+                        </p>
+                        <div class="bowen_img">
+                        	<a href="#"><img src="pic/photo_11.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_10.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_09.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_08.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_07.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_06.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_05.png" width="80" height="70"/></a>
+                        </div>
+                        <div class="bowen_time">
+                        	<a href="#">今天14:01</a> 来自 <a href="#">微博 weibo.com</a>
+                        </div>
+                        <div class="pinglun">
+                        	<p><img src="images/top_ico.png" /></p>
+                        	<span><a href="#">熊贝贝</a>：无论如何，我很喜欢你发布的内容，机油咯亲~~</span>
+                            <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><a href="#">转发</a></li>	
+                            <li><a href="#">评论<span>3333</span></a></li>
+                            <li><a href="#">分享<span>3333</span></a></li>
+                            <li class="zan1" title="赞"><a href="#">1500</a></li>
+                        </ul>
+                    </div>
+                    <div class="la"><img src="images/la.png" width="21" height="18"/></div>
+                    <div class="la_block">
+                    	<a href="#">帮上头条</a>
+                        <a href="#">举报</a>
+                    </div>
+                </div>
+                <div class="bowen">
+                	<div class="bowen_touxiang"><a href="#"><img src="images/tx1.png" /></a></div>
+                    <div class="bowen_xiangqing">
+                    	<h5><a href="#">你希望你的男票是哪种身材...</a></h5>
+                        <p>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。<span>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。</span>
+                        <a href="javascript:;" class="all">查看全部</a>
+                        <a href="javascript:;" class="shouqi">收起</a>
+                        </p>
+                        <div class="bowen_img">
+                        	<a href="#"><img src="pic/photo_11.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_10.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_09.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_08.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_07.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_06.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_05.png" width="80" height="70"/></a>
+                        </div>
+                        <div class="bowen_time">
+                        	<a href="#">今天14:01</a> 来自 <a href="#">微博 weibo.com</a>
+                        </div>
+                        <div class="pinglun">
+                        	<p><img src="images/top_ico.png" /></p>
+                        	<span><a href="#">熊贝贝</a>：无论如何，我很喜欢你发布的内容，机油咯亲~~</span>
+                            <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><a href="#">转发</a></li>	
+                            <li><a href="#">评论<span>3333</span></a></li>
+                            <li><a href="#">分享<span>3333</span></a></li>
+                            <li class="zan1" title="赞"><a href="#">1500</a></li>
+                        </ul>
+                    </div>
+                    <div class="la"><img src="images/la.png" width="21" height="18"/></div>
+                    <div class="la_block">
+                    	<a href="#">帮上头条</a>
+                        <a href="#">举报</a>
+                    </div>
+                </div>
+                <div class="bowen">
+                	<div class="bowen_touxiang"><a href="#"><img src="images/tx1.png" /></a></div>
+                    <div class="bowen_xiangqing">
+                    	<h5><a href="#">你希望你的男票是哪种身材...</a></h5>
+                        <p>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。<span>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。</span>
+                        <a href="javascript:;" class="all">查看全部</a>
+                        <a href="javascript:;" class="shouqi">收起</a>
+                        </p>
+                        <div class="bowen_img">
+                        	<a href="#"><img src="pic/photo_11.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_10.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_09.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_08.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_07.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_06.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_05.png" width="80" height="70"/></a>
+                        </div>
+                        <div class="bowen_time">
+                        	<a href="#">今天14:01</a> 来自 <a href="#">微博 weibo.com</a>
+                        </div>
+                        <div class="pinglun">
+                        	<p><img src="images/top_ico.png" /></p>
+                        	<span><a href="#">熊贝贝</a>：无论如何，我很喜欢你发布的内容，机油咯亲~~</span>
+                            <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><a href="#">转发</a></li>	
+                            <li><a href="#">评论<span>3333</span></a></li>
+                            <li><a href="#">分享<span>3333</span></a></li>
+                            <li class="zan1" title="赞"><a href="#">1500</a></li>
+                        </ul>
+                    </div>
+                    <div class="la"><img src="images/la.png" width="21" height="18"/></div>
+                    <div class="la_block">
+                    	<a href="#">帮上头条</a>
+                        <a href="#">举报</a>
+                    </div>
+                </div>
+                <div class="bowen">
+                	<div class="bowen_touxiang"><a href="#"><img src="images/tx1.png" /></a></div>
+                    <div class="bowen_xiangqing">
+                    	<h5><a href="#">你希望你的男票是哪种身材...</a></h5>
+                        <p>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。<span>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。</span>
+                        <a href="javascript:;" class="all">查看全部</a>
+                        <a href="javascript:;" class="shouqi">收起</a>
+                        </p>
+                        <div class="bowen_img">
+                        	<a href="#"><img src="pic/photo_11.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_10.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_09.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_08.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_07.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_06.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_05.png" width="80" height="70"/></a>
+                        </div>
+                        <div class="bowen_time">
+                        	<a href="#">今天14:01</a> 来自 <a href="#">微博 weibo.com</a>
+                        </div>
+                        <div class="pinglun">
+                        	<p><img src="images/top_ico.png" /></p>
+                        	<span><a href="#">熊贝贝</a>：无论如何，我很喜欢你发布的内容，机油咯亲~~</span>
+                            <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><a href="#">转发</a></li>	
+                            <li><a href="#">评论<span>3333</span></a></li>
+                            <li><a href="#">分享<span>3333</span></a></li>
+                            <li class="zan1" title="赞"><a href="#">1500</a></li>
+                        </ul>
+                    </div>
+                    <div class="la"><img src="images/la.png" width="21" height="18"/></div>
+                    <div class="la_block">
+                    	<a href="#">帮上头条</a>
+                        <a href="#">举报</a>
+                    </div>
+                </div>
+                <div class="bowen">
+                	<div class="bowen_touxiang"><a href="#"><img src="images/tx1.png" /></a></div>
+                    <div class="bowen_xiangqing">
+                    	<h5><a href="#">你希望你的男票是哪种身材...</a></h5>
+                        <p>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。<span>天蝎给人的感觉就是贼要强！她们最不怕有人跟自己较劲，甭管明的暗的她们都玩得起，这种天生自带的女王气场一般人真学不来。但是你要知道，女王并不是理所应当的天不怕地不怕，很多时候她们反而比小公主更需要人疼。</span>
+                        <a href="javascript:;" class="all">查看全部</a>
+                        <a href="javascript:;" class="shouqi">收起</a>
+                        </p>
+                        <div class="bowen_img">
+                        	<a href="#"><img src="pic/photo_11.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_10.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_09.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_08.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_07.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_06.png" width="80" height="70"/></a>
+                            <a href="#"><img src="pic/photo_05.png" width="80" height="70"/></a>
+                        </div>
+                        <div class="bowen_time">
+                        	<a href="#">今天14:01</a> 来自 <a href="#">微博 weibo.com</a>
+                        </div>
+                        <div class="pinglun">
+                        	<p><img src="images/top_ico.png" /></p>
+                        	<span><a href="#">熊贝贝</a>：无论如何，我很喜欢你发布的内容，机油咯亲~~</span>
+                            <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul>
+                            <li><a href="#">转发</a></li>	
+                            <li><a href="#">评论<span>3333</span></a></li>
+                            <li><a href="#">分享<span>3333</span></a></li>
+                            <li class="zan1" title="赞"><a href="#">1500</a></li>
+                        </ul>
+                    </div>
+                    <div class="la"><img src="images/la.png" width="21" height="18"/></div>
+                    <div class="la_block">
+                    	<a href="#">帮上头条</a>
+                        <a href="#">举报</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--other_right end-->
+    </div>
+</div>
+<!--main end-->
+<!--版权 start-->
+<div class="copyright">Copyright© 2007-2014 摄影有限公司. All Rights Reserved.</div>
+<!--版权 end-->
+</body>
+</html>
