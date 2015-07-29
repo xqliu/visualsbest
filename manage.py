@@ -13,7 +13,7 @@ application.config.from_object(config)
 
 from flask.ext.sqlalchemy import SQLAlchemy
 db = SQLAlchemy(application)
-from app_provider import AppInfo
+from app.app_provider import AppInfo
 AppInfo.set_app(application)
 AppInfo.set_db(db)
 

@@ -1,4 +1,5 @@
-"""empty message
+# coding=utf-8
+"""创建所有基础表格
 
 Revision ID: db26c7d0854
 Revises: None
