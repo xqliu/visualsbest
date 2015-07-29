@@ -1,14 +1,14 @@
 import unittest
 
-from app import app
+from app.app import app
 
 
-class FlaskrTestCase(unittest.TestCase):
+class AppTestCase(unittest.TestCase):
 
     def setUp(self):
         # self.db_fd, app.app.config['DATABASE'] = tempfile.mkstemp()
-        app.app.config['TESTING'] = True
-        self.app = app.app.test_client()
+        app.config['TESTING'] = True
+        self.app = app.test_client()
         # app.init_database()
 
     def tearDown(self):
