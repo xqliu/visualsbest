@@ -1,0 +1,74 @@
+<!-- Header start -->
+{% block header %}
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>作品</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" />
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.7.2.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.sochange.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/n_public.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/public.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/preview.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.masonry.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.infinitescroll.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/works.js')}}"></script>
+    {% block header_tail %}
+    {% endblock %}
+  </head>
+{% endblock %}
+<!-- Header end -->
+
+<body>
+{% block before_nav %}
+{% endblock %}
+
+<!--导航 start -->
+{% block navigator %}
+<div class="{% block header_bg_css %} header_bg others_header_bg {% endblock %}"></div>
+<div class="header">
+	<div class="layer">
+    	<div class="logo"><a href="{{ url_for('index') }}"><img src="../../static/images/logo.png" /></a></div>
+        <ul class="nav">
+        	<li><a href="{{ url_for('works') }}">摄影作品</a></li>
+          <li><a href="{{ url_for('photograph') }}">摄影师</a></li>
+        </ul>
+        <div class="header_right">
+            <div class="search">
+                <label><input type="text" /></label>
+                <label><button onclick="location='{{ url_for('search') }}'"><img src="../../static/images/serach_small.png" /></button></label>
+            </div>
+            <div class="login">
+                <a href="#"><img src="../../static/pic/youxiang.png" /></a>
+            </div>
+            <div class="help"><a href="#">帮助</a></div>
+            <div class="header_last"><a href="../create_collection.html">发布您的作品</a></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<!--导航 end-->
+
+<!--main start-->
+<div class="main">
+  {% block main %}
+  {% endblock %}
+</div>
+<!--main end-->
+
+<!-- footer start -->
+{% block footer %}
+{% endblock %}
+<!-- footer end -->
+
+<!--版权 start-->
+{% block copyright %}
+<div class="copyright">Copyright© 2007-2014 摄影有限公司. All Rights Reserved.</div>
+{% endblock %}
+<!--版权 end-->
+
+{% block before_body_end %}
+{% endblock %}
+</body>
+</html>

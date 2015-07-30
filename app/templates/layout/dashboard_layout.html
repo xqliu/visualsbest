@@ -1,0 +1,14 @@
+{% extends 'layout/front_layout.html' %}
+{% block main %}
+  {{ super() }}
+  <div class="main_head">
+    <div class="layer">
+      <ul>
+        <li class="curr"><a href="javascript:;">我的中心</a></li>
+        <li><a href="{{ url_for('orders') }}">订单管理</a></li>
+        <li><a href="{{ url_for('messages') }}">消息中心</a></li>
+        <li><a href="{{ url_for('settings') }}">账户设置</a></li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

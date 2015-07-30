@@ -35,7 +35,7 @@ $(function(){
 
 	$('.item').fadeIn();
 
-	var sp = 1
+	var sp = 1;
 	
 	$(".infinite_scroll").infinitescroll({
 		navSelector  	: "#more",
@@ -43,7 +43,7 @@ $(function(){
 		itemSelector 	: ".item",
 		
 		loading:{
-			img: "images/masonry_loading_1.gif",
+			img: "/static/images/masonry_loading_1.gif",
 			msgText: ' ',
 			finishedMsg: '木有了',
 			finished: function(){
@@ -64,7 +64,6 @@ $(function(){
 		$('.infinite_scroll').masonry('appended', $newElems, false);
 		$newElems.fadeIn();
 		item_callback();
-		return;
 	});
 
 });

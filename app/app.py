@@ -1,7 +1,7 @@
 # coding=utf-8
 import sys
 from alembic import command
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, render_template
 from flask.ext.migrate import Migrate, Config
 from flask.ext.script import Manager
 from flask.ext.security import SQLAlchemyUserDatastore, Security
@@ -17,12 +17,15 @@ import config as config
 app.config.from_object(config)
 
 from flask_babelex import Babel
+
 babel = Babel(default_locale='zh_Hans_CN')
 babel.init_app(app)
 
 from flask.ext.sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy(app)
 from app_provider import AppInfo
+
 AppInfo.set_app(app)
 AppInfo.set_db(db)
 
@@ -30,14 +33,17 @@ AppInfo.set_db(db)
 # AttributeError: 'NoneType' object has no attribute 'Model'
 # 的错误
 from models import *
+
 db.init_app(app)
 
 # Setup Flask-Security
 from models.user import User, Role
+
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
 from views import init_admin_views
+
 admin = init_admin_views(app, db)
 AppInfo.set_admin(admin)
 
@@ -73,7 +79,68 @@ def init_rollbar():
 
 @app.route("/")
 def index():
-    return redirect(url_for('static', filename='index.html'))
+    return render_template('index.html')
+
+
+@app.route("/works")
+def works():
+    return render_template('works.html')
+
+
+@app.route("/work_details")
+def work_details():
+    return render_template('work_details.html')
+
+
+@app.route("/photograph")
+def photograph():
+    return render_template('photograph.html')
+
+
+@app.route("/search")
+def search():
+    return render_template('search.html')
+
+
+@app.route("/comments")
+def comments():
+    return render_template('comments.html')
+
+
+@app.route("/create_collection")
+def create_collection():
+    return render_template('create_collection.html')
+
+
+@app.route("/blog")
+def blog():
+    return render_template('blog.html')
+
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template('dashboard.html')
+
+
+@app.route("/my_photos")
+def my_photos():
+    return render_template('my_photos.html')
+
+
+@app.route("/orders")
+def orders():
+    return render_template('orders.html')
+
+
+@app.route("/messages")
+def messages():
+    return render_template('messages.html')
+
+
+@app.route("/settings")
+def settings():
+    return render_template('settings.html')
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=80, debug=True)

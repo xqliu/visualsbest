@@ -522,3 +522,9 @@ _background: none;opacity:1;}
 .yuding_ul li div{ width:122px;height:32px;  background:#FAFAFA;color:#000;line-height:32px; border:1px solid #E3E3E3; float:left; margin:0 5px; text-align: center;}
 .yuding_ul li div input{ float:right; margin-top:10px; margin-right:5px; background:#fff; display:block;}
 .yuding_ul li textarea{ width:390px; background:#FAFAFA; color:#000;border:1px solid #E3E3E3; margin-left:5px; height:50px;}
+
+@media (min-width: 1280px) {
+    .demo{
+        width:1000px;
+    }
+}

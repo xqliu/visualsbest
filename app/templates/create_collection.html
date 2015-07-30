@@ -1,10 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>发布作品</title>
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+{% extends 'layout/dashboard_layout.html' %}
+
+{% block header_tail %}
 <script type="text/javascript">
 $(function(){
 	$(".shangchuang_cuo").click(function(){
@@ -12,50 +8,16 @@ $(function(){
 	});
 });
 </script>
-<script type="text/javascript" src="js/public.js"></script>
-</head>
-<body>
-<!--导航 strat-->
-<div class="header_bg others_header_bg"></div>
-<div class="header">
-	<div class="layer">
-    	<div class="logo"><a href="index.html"><img src="images/logo.png" /></a></div>
-        <ul class="nav">
-        	<li><a href="works.html">摄影作品</a></li>
-            <li><a href="sheying.html">摄影师</a></li>
-        </ul>
-        <div class="header_right">
-            <div class="search">
-                <label><input type="text" /></label>
-                <label><button onclick="location='search.html'"><img src="images/serach_small.png" /></button></label>
-            </div>
-            <div class="login">
-                <a href="#"><img src="pic/youxiang.png" /></a>
-            </div>
-            <div class="help"><a href="#">帮助</a></div>
-            <div class="header_last curr"><a href="fb_works.html">发布您的作品</a></div>
-        </div>
-    </div>
-</div>
-<!--导航 end-->
-<!--main strat-->
-<div class="main">
-	<div class="main_head">
-    	<div class="layer">
-        	<ul>
-            	<li class="curr"><a href="home_page1.html">我的中心</a></li>
-                <li><a href="home_page2.html">订单管理</a></li>
-                <li><a href="home_page3.html">消息中心</a></li>
-                <li><a href="home_page4.html">账户设置</a></li>
-            </ul>
-        </div>
-    </div>
+{% endblock %}
+
+{% block main %}
+  {{ super() }}
 	<div class="layer">
     	<!--other_left strat-->
     	<div class="others_left">
         	 <!--个人简介 strat-->
         	<div class="others_jj">
-            	<div class="others_tx"><img src="pic/big_tx.png" /></div>
+            	<div class="others_tx"><img src="../static/pic/big_tx.png" /></div>
                 <div class="zuozhe_name">Name</div>
                 <div class="others_xq page_xq">
                     <h5><a href="#">查看个人资料</a></h5>
@@ -111,11 +73,11 @@ $(function(){
             </div>
             <div class="others_right_bottom shangchuang">
             	<ul>
-                	<li><img src="pic/fabu_pic1.png" /><img src="images/fabu_cuo.png" class="shangchuang_cuo"/></li>
-                    <li><img src="pic/fabu_pic1.png" /><img src="images/fabu_cuo.png" class="shangchuang_cuo"/></li>
-                    <li><img src="pic/fabu_pic1.png" /><img src="images/fabu_cuo.png" class="shangchuang_cuo"/></li>
+                	<li><img src="../static/pic/fabu_pic1.png" /><img src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
+                    <li><img src="../static/pic/fabu_pic1.png" /><img src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
+                    <li><img src="../static/pic/fabu_pic1.png" /><img src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
                 </ul>
-                <div class="shangchuang_more"><a href="#"><img src="images/fabu_more.png" /></a></div>
+                <div class="shangchuang_more"><a href="#"><img src="../static/images/fabu_more.png" /></a></div>
                 <h1>点击此处上传图片</h1>
             </div>
             <div class="baocun"><button>保存</button></div>
@@ -123,10 +85,4 @@ $(function(){
         
         <!--other_right end-->
     </div>
-</div>
-<!--main end-->
-<!--版权 start-->
-<div class="copyright">Copyright© 2007-2014 摄影有限公司. All Rights Reserved.</div>
-<!--版权 end-->
-</body>
-</html>
+{% endblock %}

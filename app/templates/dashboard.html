@@ -1,10 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>摄影师界面</title>
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+{% extends 'layout/dashboard_layout.html' %}
+{% block header_tail %}
 <script type="text/javascript" >
 $(function(){
 	$(".renwu_x").click(function(){
@@ -12,51 +7,16 @@ $(function(){
 	});
 });
 </script>
-<script language="javascript" src="js/page.js"></script>
-<script language="javascript" src="js/public.js"></script>
-</head>
-<body>
-<!--导航 strat-->
-<div class="header_bg others_header_bg"></div>
-<div class="header">
-	<div class="layer">
-    	<div class="logo"><a href="index.html"><img src="images/logo.png" /></a></div>
-        <ul class="nav">
-        	<li><a href="works.html">摄影作品</a></li>
-            <li><a href="sheying.html">摄影师</a></li>
-        </ul>
-        <div class="header_right">
-            <div class="search">
-                <label><input type="text" /></label>
-                <label><button onclick="location='search.html'"><img src="images/serach_small.png" /></button></label>
-            </div>
-            <div class="login">
-                <a href="#"><img src="pic/youxiang.png" /></a>
-            </div>
-            <div class="help"><a href="#">帮助</a></div>
-            <div class="header_last"><a href="fb_works.html">发布您的作品</a></div>
-        </div>
-    </div>
-</div>
-<!--导航 end-->
-<!--main strat-->
-<div class="main">
-	<div class="main_head">
-    	<div class="layer">
-        	<ul>
-            	<li class="curr"><a href="javascript:;">我的中心</a></li>
-                <li><a href="home_page2.html">订单管理</a></li>
-                <li><a href="home_page3.html">消息中心</a></li>
-                <li><a href="home_page4.html">账户设置</a></li>
-            </ul>
-        </div>
-    </div>
+{% endblock %}
+
+{% block main %}
+ {{ super() }}
 	<div class="layer">
     	<!--other_left strat-->
     	<div class="others_left">
         	 <!--个人简介 strat-->
         	<div class="others_jj">
-            	<div class="others_tx"><img src="pic/big_tx.png" /></div>
+            	<div class="others_tx"><img src="../static/pic/big_tx.png" /></div>
                 <div class="zuozhe_name">Name</div>
                 <div class="others_xq page_xq">
                     <h5><a href="#">查看个人资料</a></h5>
@@ -142,7 +102,7 @@ $(function(){
             </div>
             <div class="others_jj me_works">
             	<h5>我的作品与服务</h5>
-                <div><a href="fb_works.html">发布作品</a></div>
+                <div><a href="{{ url_for('create_collection') }}">发布作品</a></div>
             </div>
             <!--我的心愿单 strat-->
             <div class="others_jj">
@@ -178,7 +138,7 @@ $(function(){
                 <ul class="others_works renwu">
                     <li>
                     	<div class="rw">
-                        	<p class="rw_img"><img src="pic/renwu_img.png"/></p>
+                        	<p class="rw_img"><img src="../static/pic/renwu_img.png"/></p>
                             <div class="rw_details">
                             	<h4>大海，我是海的女儿</h4>
                                 <p>以大海为背景，显示人物与海融为一体，爱大海</p>
@@ -189,11 +149,11 @@ $(function(){
                                 </div>
                             </div>
                         </div>
-                    	<img src="images/renwu_x.png" class="renwu_x"/>
+                    	<img src="../static/images/renwu_x.png" class="renwu_x"/>
                     </li>
                     <li>
                     	<div class="rw">
-                        	<p class="rw_img"><img src="pic/renwu_img.png" /></p>
+                        	<p class="rw_img"><img src="../static/pic/renwu_img.png" /></p>
                             <div class="rw_details">
                             	<h4>大海，我是海的女儿</h4>
                                 <p>以大海为背景，显示人物与海融为一体，爱大海</p>
@@ -204,11 +164,11 @@ $(function(){
                                 </div>
                             </div>
                         </div>
-                    	<img src="images/renwu_x.png" class="renwu_x"/>
+                    	<img src="../static/images/renwu_x.png" class="renwu_x"/>
                     </li>
                     <li>
                     	<div class="rw">
-                        	<p class="rw_img"><img src="pic/renwu_img.png" /></p>
+                        	<p class="rw_img"><img src="../static/pic/renwu_img.png" /></p>
                             <div class="rw_details">
                             	<h4>大海，我是海的女儿</h4>
                                 <p>以大海为背景，显示人物与海融为一体，爱大海</p>
@@ -219,7 +179,7 @@ $(function(){
                                 </div>
                             </div>
                         </div>
-                    	<img src="images/renwu_x.png" class="renwu_x"/>
+                    	<img src="../static/images/renwu_x.png" class="renwu_x"/>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -290,16 +250,14 @@ $(function(){
         </div>
         <!--other_right end-->
     </div>
-</div>
-<!--main end-->
-<!--版权 start-->
-<div class="copyright">Copyright© 2007-2014 摄影有限公司. All Rights Reserved.</div>
-<!--版权 end-->
+{% endblock %}
+
+{% block before_body_end %}
 <div class="all_bg"></div>
 <div class="all_neirong">
 	<div class="others_jj fixed_time">
         <div class="other_time">
-            <h5>当周日程（5月）<p class="prev"><img src="images/fixed_left.png" /></p><p class="next"><img src="images/fixed_right1.png" /></p></h5>
+            <h5>当周日程（5月）<p class="prev"><img src="../static/images/fixed_left.png" /></p><p class="next"><img src="../static/images/fixed_right1.png" /></p></h5>
             <dl>
                 <dt>
                     <a href="#">SUN</a>
@@ -359,8 +317,7 @@ $(function(){
         </div>
         <div class="fixed_time_shuom">按到某日，有颜色背景（即为设置为忙碌）</div>
         <button>确认</button>
-        <img src="images/fixed_cuo.png" class="fixed_time_img"/>
+        <img src="../static/images/fixed_cuo.png" class="fixed_time_img"/>
     </div>
 </div>
-</body>
-</html>
+{% endblock %}
