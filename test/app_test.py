@@ -1,6 +1,7 @@
+# coding=utf-8
 import unittest
 
-import app
+from manage import app
 
 
 class AppTestCase(unittest.TestCase):
@@ -17,9 +18,11 @@ class AppTestCase(unittest.TestCase):
 
     def test_empty_db(self):
         rv = self.app.get('/')
-        assert 302, rv.status_code
-        assert '/static/index.html' in rv.location
-        assert '/static/index.html' in rv.data
+        assert 200, rv.status_code
+        assert '<!-- Header start -->' in rv.data
+        assert '<!--导航 start -->' in rv.data
+        assert '<!--main start-->' in rv.data
+        assert '<!--版权 start-->' in rv.data
         assert 'utf-8', rv.charset
         return
 
