@@ -20,13 +20,3 @@ class Favourite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relation(User, backref=backref(
         'favourites', uselist=True, cascade='all, delete-orphan'))
-
-    # 收藏的作品
-    photo_work_id = Column(Integer, ForeignKey(PhotoWork.id), nullable=True)
-    photo_work = db.relation(PhotoWork, backref=backref(
-        'related_favourites', uselist=True))
-
-    # 收藏的套系
-    photo_collection_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=True)
-    photo_collection = db.relation(User, backref=backref(
-        'related_favourites', uselist=True))

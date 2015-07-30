@@ -20,7 +20,7 @@ class Order(db.Model):
     request = db.relation(Request, backref=backref(
         'associated_order', uselist=False))
 
-    # 订单的状态，可以由平台或者摄影师标记为以付款
+    # 订单的状态，可以由平台或者摄影师标记为已付款
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     status = relationship('EnumValues', foreign_keys=[status_id],
                           backref=backref('orders_with_status', uselist=True))

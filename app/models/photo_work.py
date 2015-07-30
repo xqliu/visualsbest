@@ -67,7 +67,7 @@ class PhotoWorkFavourite(db.Model):
     photo_work = relationship('PhotoWork', foreign_keys=[photo_work_id],
                               backref=backref('associated_favourites', uselist=True))
 
-    # 关联的评论
+    # 关联的收藏
     favourite_id = Column(Integer, ForeignKey('favourite.id'), nullable=False)
     favourite = relationship('Favourite', foreign_keys=[favourite_id],
                              backref=backref('associated_photo_work', uselist=False))
