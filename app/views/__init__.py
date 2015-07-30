@@ -8,6 +8,6 @@ def init_admin_views(app, db):
     db_session = db.session
     admin_views = Admin(app, lazy_gettext('Visual\'s Best'),
                         index_view=AdminMainView(),
-                        base_template='admin_layout.html',
+                        base_template='layout/admin_layout.html',
                         template_mode='bootstrap3')
     return admin_views
