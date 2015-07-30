@@ -2,5 +2,4 @@
 
 import config
 from app_provider import AppInfo
-from app import app
 
