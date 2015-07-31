@@ -1,5 +1,5 @@
 # coding=utf-8
-"""增加用户相关的列表值选项种子数据
+"""增加用户相关的列表值选项和管理员用户的种子数据
 
 Revision ID: 38ef93735a7d
 Revises: 4fc66ef91a3a
@@ -8,6 +8,8 @@ Create Date: 2015-07-31 10:26:37.979994
 """
 
 # revision identifiers, used by Alembic.
+from werkzeug.security import generate_password_hash
+
 revision = '38ef93735a7d'
 down_revision = '4fc66ef91a3a'
 
@@ -35,6 +37,24 @@ def upgrade():
         {'id': 7, 'type_id': 6, 'code': 'VERIFIED', 'display': u'已确认'},
         {'id': 8, 'type_id': 6, 'code': 'UN_VERIFIED', 'display': u'未确认'},
     ], multiinsert=False)
+
+    user_table = table('user',
+                       sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
+                       sa.Column('login', sa.String(length=64), nullable=False, unique=True),
+                       sa.Column('display', sa.String(length=255), nullable=False),
+                       sa.Column('email', sa.String(length=255), nullable=True),
+                       sa.Column('password', sa.String(length=255), nullable=True),
+                       sa.Column('active', sa.Boolean(), nullable=True),
+                       sa.Column('type_id', sa.Integer(), nullable=True),
+                       sa.Column('status_id', sa.Integer(), nullable=True),
+                       )
+
+    op.bulk_insert(user_table, [{
+        'id': 1, 'login': 'admin', 'display': 'Administrator',
+        'email': 'lawrence@betterlife.io', 'type_id': 2, 'status_id': 7,
+        'password': generate_password_hash('password'), 'active': True
+    }], multiinsert=False)
+
 
 def downgrade():
     pass
