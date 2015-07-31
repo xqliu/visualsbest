@@ -1,3 +1,4 @@
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
 <!-- Header start -->
 {% block header %}
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -39,23 +40,38 @@
                 <label><input type="text" /></label>
                 <label><button onclick="location='{{ url_for('search') }}'"><img src="../../static/images/serach_small.png" /></button></label>
             </div>
+          {% if current_user.is_authenticated() %}
+            <div class="logout">
+                <a href="{{ url_for('security.logout') }}">退出</a>
+            </div>
+          {% else %}
             <div class="login">
                 <a href="#" class="denglu">登录</a>|<a href="#" class="zhuce">注册</a>
                 <div class="login_fixed">
                     <div class="fixed_login_op"></div>
                     <div class="fixed_login">
-                        <div class="fixed_login_head"><a href="#" id="register_link_in_login">注册</a>登录</div>
+                      <div class="fixed_login_head"><a href="#" id="register_link_in_login">注册</a>登录</div>
+                      <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
                         <ul>
-                            <li>用户名/Emall:</li>
-                            <li><label><input type="text" class="txt"/></label></li>
-                            <li>密码:</li>
-                            <li><label><input type="text" class="txt"/></label></li>
-                            <li><label><input type="checkbox"  class="checkbox"/>记住我</label></li>
+                            {{ login_user_form.hidden_tag() }}
+                            <li><label for="email">Email:</label></li>
+                            <li>
+                              <input id="email" name="email" type="text" value="" class="txt">
+                            </li>
+                            <li><label for="password">密码:</label></li>
+                            <li>
+                              <input id="password" name="password" type="password" value="" class="txt">
+                            </li>
+                            <li>
+                              <input id="remember" name="remember" type="checkbox" value="y" class="checkbox">
+                              <label for="remember">记住我</label>
+                            </li>
                             <li><button>登录</button><a href="#" class="wangji">忘记密码？</a></li>
                             <li class="line"><span>或者</span></li>
                             <li>使用你的社交账户登录:</li>
                             <li class="hezuo"><a href="#">微博登录</a>|<a href="#">QQ登录</a>|<a href="#">人人网</a></li>
-                        </lu>
+                        </ul>
+                      </form>
                     </div>
                 </div>
                 <div class="zhuce_fixed">
@@ -72,6 +88,7 @@
                     </div>
                 </div>
             </div>
+          {% endif %}
             <div class="help"><a href="#">帮助</a></div>
             <div class="header_last"><a href="{{ url_for('create_collection') }}">发布您的作品</a></div>
         </div>

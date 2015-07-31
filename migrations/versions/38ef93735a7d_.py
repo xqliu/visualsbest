@@ -8,6 +8,7 @@ Create Date: 2015-07-31 10:26:37.979994
 """
 
 # revision identifiers, used by Alembic.
+from flask.ext.security.utils import encrypt_password
 from werkzeug.security import generate_password_hash
 
 revision = '38ef93735a7d'
@@ -52,7 +53,7 @@ def upgrade():
     op.bulk_insert(user_table, [{
         'id': 1, 'login': 'admin', 'display': 'Administrator',
         'email': 'lawrence@betterlife.io', 'type_id': 2, 'status_id': 7,
-        'password': generate_password_hash('password'), 'active': True
+        'password': encrypt_password('password'), 'active': True
     }], multiinsert=False)
 
     role_table = table('role',

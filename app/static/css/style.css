@@ -43,8 +43,8 @@ table{border-collapse:collapse;border-spacing:0;}
 .search button{ border:none;}
 .search button img{ margin-top:3px; margin-left:-3px;}
 /*登录注册*/
-.login{ float:left;color:#fff; margin-left:10px; height:53px; line-height:53px; position:relative;}
-.login a{ color:#fff; padding:0 10px; font-size:14px;}
+.login, .logout { float:left;color:#fff; margin-left:10px; height:53px; line-height:53px; position:relative;}
+.login a, .logout a{ color:#fff; padding:0 10px; font-size:14px;}
 .help{ width:80px; height:53px; line-height:53px; float:left; text-align:center;}
 .help a{ color:#fff; font-size:14px;}
 .header_last{ width:120px; height:53px; background:url(../images/pen.png) no-repeat 10px; float:left; line-height:53px; text-indent:2em;}

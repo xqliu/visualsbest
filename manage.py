@@ -3,7 +3,7 @@ import sys
 from flask import Flask, url_for, redirect, render_template
 from flask.ext.migrate import Migrate, Config, MigrateCommand
 from flask.ext.script import Manager
-from flask.ext.security import SQLAlchemyUserDatastore, Security, login_required
+from flask.ext.security import SQLAlchemyUserDatastore, Security, login_required, LoginForm
 import os
 import rollbar
 import rollbar.contrib.flask
@@ -78,73 +78,73 @@ def init_rollbar():
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('index.html', login_user_form=LoginForm())
 
 
 @app.route("/works")
 def works():
-    return render_template('works.html')
+    return render_template('works.html', login_user_form=LoginForm())
 
 
 @app.route("/work_details")
 def work_details():
-    return render_template('work_details.html')
+    return render_template('work_details.html', login_user_form=LoginForm())
 
 
 @app.route("/photograph")
 def photograph():
-    return render_template('photograph.html')
+    return render_template('photograph.html', login_user_form=LoginForm())
 
 
 @app.route("/search")
 def search():
-    return render_template('search.html')
+    return render_template('search.html', login_user_form=LoginForm())
 
 
 @app.route("/comments")
 def comments():
-    return render_template('comments.html')
+    return render_template('comments.html', login_user_form=LoginForm())
 
 
 @app.route("/create_collection")
 @login_required
 def create_collection():
-    return render_template('create_collection.html')
+    return render_template('create_collection.html', login_user_form=LoginForm())
 
 
 @app.route("/blog")
 def blog():
-    return render_template('blog.html')
+    return render_template('blog.html', login_user_form=LoginForm())
 
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', login_user_form=LoginForm())
 
 
 @app.route("/my_photos")
 @login_required
 def my_photos():
-    return render_template('my_photos.html')
+    return render_template('my_photos.html', login_user_form=LoginForm())
 
 
 @app.route("/orders")
 @login_required
 def orders():
-    return render_template('orders.html')
+    return render_template('orders.html', login_user_form=LoginForm())
 
 
 @app.route("/messages")
 @login_required
 def messages():
-    return render_template('messages.html')
+    return render_template('messages.html', login_user_form=LoginForm())
 
 
 @app.route("/settings")
 @login_required
 def settings():
-    return render_template('settings.html')
+    return render_template('settings.html', login_user_form=LoginForm())
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=80, debug=True)

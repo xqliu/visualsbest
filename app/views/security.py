@@ -2,6 +2,7 @@
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.babelex import lazy_gettext
 from base_view import ModelViewWithAccess
+from flask.ext.security.utils import encrypt_password
 from wtforms import PasswordField
 from werkzeug.security import generate_password_hash
 
@@ -67,7 +68,7 @@ class UserAdmin(ModelViewWithAccess):
         if len(model.password2):
             # ... then encrypt the new password prior to storing it in the database. If the password field is blank,
             # the existing password in the database will be retained.
-            model.password = generate_password_hash(model.password2)
+            model.password = encrypt_password(model.password2)
 
 
 # Customized Role model for SQL-Admin
