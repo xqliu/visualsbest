@@ -40,8 +40,38 @@
                 <label><button onclick="location='{{ url_for('search') }}'"><img src="../../static/images/serach_small.png" /></button></label>
             </div>
             <div class="login">
-                <a href="#"><img src="../../static/pic/youxiang.png" /></a>
-            </div>
+                <a href="#" class="denglu">登录</a>|<a href="#"  class="zhuce">注册</a>
+                <div class="login_fixed">
+                    <div class="fixed_login_op"></div>
+                    <div class="fixed_login">
+                        <div class="fixed_login_head"><a href="#">注册</a>登录</div>
+                        <ul>
+                            <li>用户名/Emall:</li>
+                            <li><label><input type="text" class="txt"/></label></li>
+                            <li>密码:</li>
+                            <li><label><input type="text" class="txt"/></label></li>
+                            <li><label><input type="checkbox"  class="checkbox"/>记住我</label></li>
+                            <li><button>登录</button><a href="#" class="wangji">忘记密码？</a></li>
+                            <li class="line"><span>或者</span></li>
+                            <li>使用你的社交账户登录:</li>
+                            <li class="hezuo"><a href="#">微博登录</a>|<a href="#">QQ登录</a>|<a href="#">人人网</a></li>
+                        </lu>
+                    </div>
+                </div>
+                <div class="zhuce_fixed">
+                	<div class="fixed_zhuce_op"></div>
+                    <div class="fixed_zhuce">
+                    	<ul>
+                        	<li class="iphone"><a href="#">使用手机登录</a></li>
+                            <li class="qq"><a href="#">使用QQ注册</a></li>
+                            <li class="line"><span>或者</span></li>
+                            <li class="youxiang"><a href="#">使用邮箱登录</a></li>
+                            <li class="green">注册即代表我同意<a href="#">服务条款</a>、<a href="#">隐私政策</a>、<a href="#">隐私政策</a>及<a href="#">隐私政策</a></li>
+                        </ul>
+                        <p>已经有XXX会员?<a href="#">登录</a></p>
+                    </div>
+                </div>
+            </div>            
             <div class="help"><a href="#">帮助</a></div>
             <div class="header_last"><a href="{{ url_for('create_collection') }}">发布您的作品</a></div>
         </div>
