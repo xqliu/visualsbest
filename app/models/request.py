@@ -18,12 +18,13 @@ class Request(db.Model):
     # 提起申请的用户
     requester_id = db.Column(db.Integer, db.ForeignKey(User.id))
     requester = db.relation(User, backref=backref(
-        'sent_requests', uselist=True, cascade='all, delete-orphan'))
+        'sent_requests', uselist=True, cascade='all, delete-orphan'),
+                            foreign_keys=[requester_id])
 
     # 接收申请的用户
     photographer_id = db.Column(db.Integer, db.ForeignKey(User.id))
     photographer = db.relation(User, backref=backref(
-        'received_requests', uselist=True))
+        'received_requests', uselist=True), foreign_keys=[photographer_id])
 
     # 开始时间
     start_date = Column(DateTime, nullable=False)

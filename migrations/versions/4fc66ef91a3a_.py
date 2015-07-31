@@ -1,4 +1,5 @@
-"""empty message
+# coding=utf-8
+"""修改作品集和收藏的表结构，将其联系挪到独立表里面去
 
 Revision ID: 4fc66ef91a3a
 Revises: db26c7d0854

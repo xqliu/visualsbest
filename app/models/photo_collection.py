@@ -17,11 +17,13 @@ class PhotoCollection(db.Model):
     # 作品的作者摄影师
     photographer_id = db.Column(db.Integer, db.ForeignKey(User.id))
     photographer = db.relation(User, backref=backref(
-        'produced_photo_collections', uselist=True, cascade='all, delete-orphan'))
+        'produced_photo_collections', uselist=True, cascade='all, delete-orphan'),
+                               foreign_keys=[photographer_id])
     # 上传作品到系统中的用户
     uploader_id = db.Column(db.Integer, db.ForeignKey(User.id))
     uploader = db.relation(User, backref=backref(
-        'uploaded_photo_collections', uselist=True, cascade='all, delete-orphan'))
+        'uploaded_photo_collections', uselist=True, cascade='all, delete-orphan'),
+                           foreign_keys=[uploader_id])
 
 
 class PhotoCollectionFavourite(db.Model):

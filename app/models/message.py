@@ -14,11 +14,13 @@ class Message(db.Model):
     # 发送消息的人
     from_user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     from_user = db.relation(User, backref=backref('sent_messages',
-                                                  uselist=True, cascade='all, delete-orphan'))
+                                                  uselist=True, cascade='all, delete-orphan'),
+                            foreign_keys=[from_user_id])
     # 接收消息的人
     receive_user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     receive_user = db.relation(User, backref=backref('received_messages',
-                                                     uselist=True, cascade='all, delete-orphan'))
+                                                     uselist=True, cascade='all, delete-orphan'),
+                               foreign_keys=[receive_user_id])
 
     # 消息内容
     content = Column(Text, nullable=False)

@@ -1,0 +1,34 @@
+@media (min-width: 768px) {
+    .container {
+        min-width: 750px;
+        width:100%
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        min-width: 970px
+        width:100%
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        min-width: 1170px
+        width:100%
+    }
+}
+
+.glyphicon-pencil {
+    margin-right:10px;
+}
+
+input[name='_continue_editing'],
+input[name='_add_another'] {
+    margin-left:20px;
+    margin-right:20px;
+}
+
+#admin-navbar-collapse>.glyphicon {
+    padding-right:10px;
+}

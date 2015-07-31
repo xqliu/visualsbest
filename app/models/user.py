@@ -42,12 +42,12 @@ class User(db.Model, UserMixin):
     # 用户类型
     type_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     type = relationship('EnumValues', backref=backref(
-        'users_of_type', uselist=True))
+        'users_of_type', uselist=True), foreign_keys=[type_id])
 
     # 用户状态
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     status = relationship('EnumValues', backref=backref(
-        'users_of_status', uselist=True))
+        'users_of_status', uselist=True), foreign_keys=[status_id])
 
     # 该用户是由哪个用户推荐的
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("user.id"))
