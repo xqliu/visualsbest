@@ -3,6 +3,6 @@
 . venv/bin/activate
 pip install -q -r test_requirements.txt
 mkdir -p reports/coverage_html
-nosetests -w test --with-coverage --cover-erase --with-xunit
+nosetests -w test --with-coverage --cover-erase --with-xunit --with-json-extended
 coverage html -d reports/coverage_html
 # coveralls

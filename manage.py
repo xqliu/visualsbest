@@ -107,6 +107,7 @@ def comments():
 
 
 @app.route("/create_collection")
+@login_required
 def create_collection():
     return render_template('create_collection.html')
 
@@ -117,21 +118,25 @@ def blog():
 
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
     return render_template('dashboard.html')
 
 
 @app.route("/my_photos")
+@login_required
 def my_photos():
     return render_template('my_photos.html')
 
 
 @app.route("/orders")
+@login_required
 def orders():
     return render_template('orders.html')
 
 
 @app.route("/messages")
+@login_required
 def messages():
     return render_template('messages.html')
 

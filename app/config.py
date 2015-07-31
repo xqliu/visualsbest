@@ -11,4 +11,5 @@ try:
     SQLALCHEMY_DATABASE_URI = os.environ['VISUALS_BEST_DATABASE_URL']
 except KeyError:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
 SECRET_KEY = '123QWEasDzXcqazw'
