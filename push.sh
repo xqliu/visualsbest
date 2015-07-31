@@ -1,3 +1,3 @@
-./run_tests.sh
+./test.sh
 git push coding master
 git push github master

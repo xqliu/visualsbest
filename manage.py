@@ -59,22 +59,22 @@ def upgrade_db_schema():
         print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
 
 
-# @app.before_first_request
-# def init_rollbar():
-#     """init rollbar module"""
-#     rollbar.init(
-#         # access token for the demo app: https://rollbar.com/demo
-#         '90a56a42d47d4343a45b1105338d47c8',
-#         # environment name
-#         'heroku_development',
-#         # server root directory, makes tracebacks prettier
-#         root=os.path.dirname(os.path.realpath(__file__)),
-#         # flask already sets up logging
-#         allow_logging_basic_config=False)
-#
-#     # send exceptions from `app` to rollbar, using flask's signal system.
-#     got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
-#
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        # access token for the demo app: https://rollbar.com/demo
+        '90a56a42d47d4343a45b1105338d47c8',
+        # environment name
+        'heroku_development',
+        # server root directory, makes tracebacks prettier
+        root=os.path.dirname(os.path.realpath(__file__)),
+        # flask already sets up logging
+        allow_logging_basic_config=False)
+
+    # send exceptions from `app` to rollbar, using flask's signal system.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
 
 @app.route("/")
 def index():

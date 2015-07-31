@@ -23,7 +23,7 @@ class Order(db.Model):
     # 订单的状态，可以由平台或者摄影师标记为已付款
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     status = relationship('EnumValues', foreign_keys=[status_id],
-                          backref=backref('orders_with_status', uselist=True))
+                          backref=backref('orders_of_status', uselist=True))
 
 
 class OrderComment(db.Model):

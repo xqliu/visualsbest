@@ -15,6 +15,8 @@ class UserAdmin(ModelView):
 
     column_editable_list = ('display', 'email', 'active')
 
+    column_searchable_list = ('login', 'display', 'email', 'type.display', 'status.display')
+
     column_labels = dict(
         id=lazy_gettext('id'),
         login=lazy_gettext('Login Name'),
@@ -25,7 +27,14 @@ class UserAdmin(ModelView):
     )
 
     # Don't include the standard password field when creating or editing a User (but see below)
-    form_excluded_columns = ('password',)
+    form_excluded_columns = ('password', 'image', 'recommend_by', 'sent_requests', 'received_requests',
+                             'data_statuses', 'favourites', 'comments_created', 'photo_categories',
+                             'experience', 'recommended_users', 'produced_photo_collections',
+                             'uploaded_photo_collections', 'sent_messages', 'received_messages')
+
+    form_edit_rules = ('login', 'display', 'email', 'type', 'status', 'password2', 'active')
+
+    form_create_rules = form_edit_rules
 
     form_args = dict(
         active=dict(description=lazy_gettext('Un-check this checkbox to disable a user from login to the system')),
@@ -64,6 +73,7 @@ class UserAdmin(ModelView):
 class RoleAdmin(ModelView):
     # Prevent administration of Roles unless the currently logged-in user has the "admin" role
     column_list = ('id', 'name', 'description',)
+    column_searchable_list = ('name', 'description')
     column_labels = dict(
         id=lazy_gettext('id'),
         name=lazy_gettext('Name'),

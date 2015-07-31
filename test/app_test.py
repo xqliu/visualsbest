@@ -16,7 +16,7 @@ class AppTestCase(unittest.TestCase):
         pass
         # os.unlink(app.app.config['DATABASE'])
 
-    def test_empty_db(self):
+    def test_index_page(self):
         rv = self.app.get('/')
         assert 200, rv.status_code
         assert '<!-- Header start -->' in rv.data
@@ -24,7 +24,14 @@ class AppTestCase(unittest.TestCase):
         assert '<!--main start-->' in rv.data
         assert '<!--版权 start-->' in rv.data
         assert 'utf-8', rv.charset
-        return
+
+    def test_admin_index_page(self):
+        rv = self.app.get('/admin')
+        assert 200, rv.status_code
+        assert '<a href="/admin/user/">', rv.data
+        assert '<a href="/admin/role/">', rv.data
+        assert '<a href="/admin/enumvalues/">', rv.data
+        assert 'utf-8', rv.charset
 
 if __name__ == '__main__':
     unittest.main()
