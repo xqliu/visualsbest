@@ -8,10 +8,8 @@ from wtforms import form, fields, validators
 
 
 class LoginForm(form.Form):
-    login = fields.StringField(validators=[validators.required()],
-                               label=lazy_gettext('Login Name'), )
-    password = fields.PasswordField(validators=[validators.required()],
-                                    label=lazy_gettext('Password'))
+    login = fields.StringField(validators=[validators.required()], label=u'用户名',)
+    password = fields.PasswordField(validators=[validators.required()], label=u'密码')
 
     def validate_login(self, field):
         user = self.get_user()

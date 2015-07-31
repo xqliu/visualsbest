@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash
 
 
 # Customized User model for SQL-Admin
-class UserAdmin(ModelView):
+class UserAdmin(ModelViewWithAccess):
     # Don't display the password on the list of Users
     column_exclude_list = list = ('password',)
 
@@ -71,7 +71,7 @@ class UserAdmin(ModelView):
 
 
 # Customized Role model for SQL-Admin
-class RoleAdmin(ModelView):
+class RoleAdmin(ModelViewWithAccess):
     # Prevent administration of Roles unless the currently logged-in user has the "admin" role
     column_list = ('id', 'name', 'description',)
     column_searchable_list = ('name', 'description')

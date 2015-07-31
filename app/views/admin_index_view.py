@@ -13,4 +13,24 @@ from flask_admin import helpers, expose
 class AdminMainView(admin.AdminIndexView):
     @expose('/')
     def index(self):
-        return redirect(url_for('user.index_view'))
+        if not current_user.is_authenticated():
+            return redirect(url_for('.login_view'))
+        return super(AdminMainView, self).index()
+
+    @expose('/login/', methods=('GET', 'POST'))
+    def login_view(self):
+        # handle user login
+        form = LoginForm(request.form)
+        if helpers.validate_form_on_submit(form):
+            user = form.get_user()
+            login_user(user)
+
+        if current_user.is_authenticated():
+            return redirect(url_for('.index'))
+        self._template_args['form'] = form
+        return super(AdminMainView, self).index()
+
+    @expose('/logout/')
+    def logout_view(self):
+        logout_user()
+        return redirect(url_for('.index'))

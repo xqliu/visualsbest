@@ -1,5 +1,5 @@
 # coding=utf-8
-"""增加用户相关的列表值选项和管理员用户的种子数据
+"""增加用户相关的列表值选项和管理员用户、角色的种子数据
 
 Revision ID: 38ef93735a7d
 Revises: 4fc66ef91a3a
@@ -53,6 +53,24 @@ def upgrade():
         'id': 1, 'login': 'admin', 'display': 'Administrator',
         'email': 'lawrence@betterlife.io', 'type_id': 2, 'status_id': 7,
         'password': generate_password_hash('password'), 'active': True
+    }], multiinsert=False)
+
+    role_table = table('role',
+                       sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
+                       sa.Column('name', sa.String(length=80), nullable=True),
+                       sa.Column('description', sa.String(length=255), nullable=True),
+                       )
+    op.bulk_insert(role_table, [{
+        'id': 1, 'name': 'admin', 'description': 'admin role'
+    }], multiinsert=False)
+
+    roles_users_table = table('roles_users',
+                              sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
+                              sa.Column('user_id', sa.Integer(), nullable=True),
+                              sa.Column('role_id', sa.Integer(), nullable=True),
+                              )
+    op.bulk_insert(roles_users_table, [{
+        'id': 1, 'user_id': 1, 'role_id': 1
     }], multiinsert=False)
 
 

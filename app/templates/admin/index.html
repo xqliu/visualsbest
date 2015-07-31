@@ -1,0 +1,29 @@
+{% import 'admin/lib.html' as lib with context %}
+{% extends 'admin/master.html' %}
+{% block body %}
+{{ super() }}
+<div class="row-fluid">
+
+    <div>
+        {% if current_user.is_authenticated() %}
+          <div style="text-align:center">欢迎访问系统后台</div>
+        {% else %}
+        <form method="POST" action="" class="form-horizontal">
+        <div class="col-sm-offset-2 col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <h3>欢迎登陆后台管理界面</h3>
+                </div>
+            </div>
+            {{ lib.render_form_fields(form)}}
+            <div class="form-group-lg form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="submit" class="btn-lg btn-default">登录系统</button>
+                </div>
+            </div>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}
