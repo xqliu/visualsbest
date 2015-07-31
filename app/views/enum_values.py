@@ -8,13 +8,13 @@ class EnumValuesAdmin(ModelView):
 
     column_editable_list = ['display']
     column_searchable_list = ['code', 'display']
-    # column_filters = ('code', 'display',)
+    column_filters = ('code', 'display',)
     column_labels = {
-        'id': lazy_gettext('id'),
-        'type': lazy_gettext('Type'),
-        'code': lazy_gettext('Code'),
-        'display': lazy_gettext('Display'),
-        'type_values': lazy_gettext('Type Values'),
+        'id': u'编号',
+        'type': u'类型',
+        'code': u'编码',
+        'display': u'显示名称',
+        'type_values': u'子列表',
     }
 
     form_excluded_columns = ('users_of_type', 'users_of_status', 'orders_of_status')

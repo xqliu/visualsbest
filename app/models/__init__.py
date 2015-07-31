@@ -1,4 +1,10 @@
 # coding=utf-8
+import sys
+
+# 重要以下两行是为了解决问题 https://rollbar.com/xqliu/visualsbest/items/12/
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 from image import Image
 from user import User, Role, UserExperience
 from comment import Comment

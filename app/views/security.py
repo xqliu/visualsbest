@@ -18,12 +18,14 @@ class UserAdmin(ModelView):
     column_searchable_list = ('login', 'display', 'email', 'type.display', 'status.display')
 
     column_labels = dict(
-        id=lazy_gettext('id'),
-        login=lazy_gettext('Login Name'),
-        display=lazy_gettext('Display'),
-        email=lazy_gettext('Email'),
-        active=lazy_gettext('Active'),
-        roles=lazy_gettext('Role')
+        id=u'编号',
+        login=u'登陆名',
+        display=u'显示名称',
+        email=u'电子邮箱',
+        active=u'允许登陆系统?',
+        roles=u'角色',
+        type=u'用户类型',
+        status=u'用户状态',
     )
 
     # Don't include the standard password field when creating or editing a User (but see below)
@@ -37,7 +39,7 @@ class UserAdmin(ModelView):
     form_create_rules = form_edit_rules
 
     form_args = dict(
-        active=dict(description=lazy_gettext('Un-check this checkbox to disable a user from login to the system')),
+        active=dict(description=u'如果取消选中状态则禁止该用户登陆'),
     )
 
     # Automatically display human-readable names for the current and available Roles when creating or editing a User
@@ -53,9 +55,8 @@ class UserAdmin(ModelView):
         form_class = super(UserAdmin, self).scaffold_form()
 
         # Add a password field, naming it "password2" and labeling it "New Password".
-        form_class.password2 = PasswordField(label=lazy_gettext('New Password'),
-                                             description=lazy_gettext('Left blank if you don\'t want to change it, '
-                                                                      'input the new password to change it'))
+        form_class.password2 = PasswordField(label=u'密码',
+                                             description=lazy_gettext('如果不修改密码请留空'))
         return form_class
 
     # This callback executes when the user saves changes to a newly-created or edited User -- before the changes are
@@ -75,9 +76,9 @@ class RoleAdmin(ModelView):
     column_list = ('id', 'name', 'description',)
     column_searchable_list = ('name', 'description')
     column_labels = dict(
-        id=lazy_gettext('id'),
-        name=lazy_gettext('Name'),
-        description=lazy_gettext('Description'),
-        users=lazy_gettext('User')
+        id=u'编号',
+        name=u'名称',
+        description=u'描述',
+        users=u'该角色下的用户'
     )
     column_editable_list = ('description',)
