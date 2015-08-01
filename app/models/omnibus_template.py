@@ -12,3 +12,9 @@ class OmnibusTemplate(db.Model):
     """
     __tablename__ = 'omnibus_template'
     id = Column(Integer, primary_key=True)
+
+    # 模板名称
+    name = db.Column(db.String(32), nullable=False)
+
+    # 主推的显示模板的路径
+    path = db.Column(db.String(128), nullable=False)

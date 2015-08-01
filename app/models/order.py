@@ -2,7 +2,7 @@
 
 from app.app_provider import AppInfo
 from request import Request
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, Numeric
 from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
@@ -24,6 +24,9 @@ class Order(db.Model):
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     status = relationship('EnumValues', foreign_keys=[status_id],
                           backref=backref('orders_of_status', uselist=True))
+
+    # 订单的总金额
+    amount = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=False)
 
 
 class OrderComment(db.Model):

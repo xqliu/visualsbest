@@ -54,6 +54,15 @@ class User(db.Model, UserMixin):
     recommend_by = db.relation("User", remote_side=id, backref=backref(
         'recommended_users', uselist=True))
 
+    def __repr__(self):
+        return self.display
+
+    def __unicode__(self):
+        return self.__repr__()
+
+    def __str__(self):
+        return self.__repr__()
+
 
 class UserExperience(db.Model):
     """
