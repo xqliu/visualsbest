@@ -12,7 +12,7 @@ class UserAdmin(ModelViewWithAccess):
     # Don't display the password on the list of Users
     column_exclude_list = list = ('password',)
 
-    column_list = ('id', 'login', 'display', 'email', 'active',)
+    column_list = ('id', 'login', 'display', 'email', 'type', 'status', 'active', 'confirmed_at',)
 
     column_editable_list = ('display', 'email', 'active')
 
@@ -27,6 +27,7 @@ class UserAdmin(ModelViewWithAccess):
         roles=u'角色',
         type=u'用户类型',
         status=u'用户状态',
+        confirmed_at=u'确认时间',
     )
 
     # Don't include the standard password field when creating or editing a User (but see below)
