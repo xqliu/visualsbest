@@ -10,6 +10,10 @@ class UserRegisterForm(RegisterForm):
     login = StringField('Login', [Required()])
     display = StringField('Display', [Required()])
     email = StringField('Email', [Required()])
-    # normal_user_type_id = EnumValues.find_one_by_code('')
+    type_id = StringField('User Type', [Required()])
+    status_id = StringField('Verify Status', [Required()])
+    normal_user_type = EnumValues.find_one_by_code('NORMAL_USER')
+    photographer_user_type = EnumValues.find_one_by_code('PHOTOGRAPHER_USER')
+    status = EnumValues.find_one_by_code('UN_VERIFIED')
 
 

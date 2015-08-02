@@ -8,7 +8,7 @@ $(function() {
 		changeTime:5000,
 		thumbObj: '.banner .nums a',
 		botPrev:'.banner .prev', // 按钮，上一个
-		botNext:'.banner .next', // 按钮，下一个
+		botNext:'.banner .next' // 按钮，下一个
 	});
 });
 /*banner上面的选择*/
@@ -29,7 +29,7 @@ $(function(){
 		$(this).children("em").children("img").css("display","none");
 	});
 	$("ul.shooting_style li").toggle(function(){
-		$(this).children("dl").stop().slideToggle(200)
+		$(this).children("dl").stop().slideToggle(200);
 		$(this).siblings("li").children("dl.one").slideUp(300);
 	},function(){
 		$(this).children("dl").stop().slideUp();
@@ -86,11 +86,15 @@ $(function(){
         $(".fixed_zhuce_op").css('height', '400px');
     }
 
+    var type_id_elem = $("#type_id");
+
 	$("#normal_user_register_link").click(function(){
         show_register_layer();
+        type_id_elem.value($("#normal_user_type_id").value())
     });
 	$("#photographer_register_link").click(function(){
         show_register_layer();
+        type_id_elem.value($("#photographer_user_type_id").value())
 	})
 
 });

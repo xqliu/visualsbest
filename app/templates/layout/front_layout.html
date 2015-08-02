@@ -31,7 +31,7 @@
 <div class="{% block header_bg_css %} header_bg others_header_bg {% endblock %}"></div>
 <div class="header">
 	<div class="layer">
-    	<div class="logo"><a href="{{ url_for('index') }}"><img src="../../static/images/logo.png" /></a></div>
+    	<div class="logo"><a href="{{ url_for('index') }}"><img src="../../static/images/logo.png"  alt="Logo"/></a></div>
         <ul class="nav">
         	<li><a href="{{ url_for('works') }}">摄影作品</a></li>
           <li><a href="{{ url_for('photograph') }}">摄影师</a></li>
@@ -39,7 +39,7 @@
         <div class="header_right">
             <div class="search">
                 <label><input type="text" /></label>
-                <label><button onclick="location='{{ url_for('search') }}'"><img src="../../static/images/serach_small.png" /></button></label>
+                <label><button onclick="location='{{ url_for('search') }}'"><img src="../../static/images/serach_small.png"  alt="search"/></button></label>
             </div>
           {% if current_user.is_authenticated() %}
             <div class="logout">
@@ -95,6 +95,10 @@
                       <div id="fixed_zhuce_form">
                         <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
                           {{ register_user_form.hidden_tag() }}
+                          <input type="hidden" id="normal_user_type_id" name="type_id" value="{{ register_user_form.normal_user_type.id }}"/>
+                          <input type="hidden" id="photographer_user_type_id" name="type_id" value="{{ register_user_form.photographer_user_type.id }}"/>
+                          <input type="hidden" id="type_id" name="type_id" value=""/>
+                          <input type="hidden" id="status_id" name="status_id" value="{{ register_user_form.status.id }}"/>
                           <ul>
                             <li><label for="login">登陆用户名:</label></li>
                             <li><input id="login" name="login" type="text" class="txt"></li>
