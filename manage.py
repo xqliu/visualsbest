@@ -38,6 +38,9 @@ db.init_app(app)
 # Setup Flask-Security
 from app.models.user import User, Role, roles_users
 
+for key, value in config.security_messages.items():
+    app.config['SECURITY_MSG_' + key] = value
+
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 from app.forms.register_form import UserRegisterForm
 security = Security(app, user_datastore, register_form=UserRegisterForm)

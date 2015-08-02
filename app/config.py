@@ -19,3 +19,38 @@ except KeyError:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 SECRET_KEY = '123QWEasDzXcqazw'
+
+security_messages = {
+    'UNAUTHORIZED': (u'您没有权限查看本信息', 'error'),
+    'CONFIRM_REGISTRATION': (u'感谢您的注册，确认信息已经发送到了邮箱 %(email)s', 'success'),
+    'EMAIL_CONFIRMED': (u'感谢您的注册，您的邮箱已经确认', 'success'),
+    'ALREADY_CONFIRMED': (u'邮箱已经被确认', 'info'),
+    'INVALID_CONFIRMATION_TOKEN': (u'错误的确认代码', 'error'),
+    'EMAIL_ALREADY_ASSOCIATED': (u'邮箱 %(email)s 已经被注册了', 'error'),
+    'PASSWORD_MISMATCH': (u'密码不匹配', 'error'),
+    'RETYPE_PASSWORD_MISMATCH': (u'两次输入的密码不匹配', 'error'),
+    'INVALID_REDIRECT': (u'禁止重定向到其他的域名', 'error'),
+    'PASSWORD_RESET_REQUEST': (u'重置密码的邮件已经发送到邮箱 %(email)s.', 'info'),
+    'PASSWORD_RESET_EXPIRED': (u'您没有在 %(within)s 内重置您的密码. 新的重置密码邮件再次发送到了邮箱 %(email)s', 'error'),
+    'INVALID_RESET_PASSWORD_TOKEN': (u'错误的重置密码验证信息.', 'error'),
+    'CONFIRMATION_REQUIRED': (u'邮箱地址需要确认.', 'error'),
+    'CONFIRMATION_REQUEST': (u'确认的帮助邮件已经发到到邮箱%(email)s.', 'info'),
+    'CONFIRMATION_EXPIRED': (u'您没有在 %(within)s 内确认账号，新的确认账号的邮件已经发到到邮箱 %(email)s', 'error'),
+    'LOGIN_EXPIRED': (u'您没有在 %(within)s 内登陆系统. 新的登陆帮助信息已经发送到了邮箱 ''%(email)s', 'error'),
+    'LOGIN_EMAIL_SENT': (u'登陆的帮助信息已经发送到邮箱 %(email)s', 'success'),
+    'INVALID_LOGIN_TOKEN': (u'错误的系统内部登陆验证信息.', 'error'),
+    'DISABLED_ACCOUNT': (u'账号被禁用了', 'error'),
+    'EMAIL_NOT_PROVIDED': (u'未输入邮箱地址', 'error'),
+    'INVALID_EMAIL_ADDRESS': (u'错误的邮箱地址', 'error'),
+    'PASSWORD_NOT_PROVIDED': (u'未输入密码', 'error'),
+    'PASSWORD_NOT_SET': (u'未设定用户密码', 'error'),
+    'PASSWORD_INVALID_LENGTH': (u'密码最低要求6位以上', 'error'),
+    'USER_DOES_NOT_EXIST': (u'用户不存在', 'error'),
+    'INVALID_PASSWORD': (u'密码错误', 'error'),
+    'PASSWORDLESS_LOGIN_SUCCESSFUL': (u'登录成功', 'success'),
+    'PASSWORD_RESET': (u'密码重置成功，自动为您登录到了系统', 'success'),
+    'PASSWORD_IS_THE_SAME': (u'新密码必须与旧密码不相同', 'error'),
+    'PASSWORD_CHANGE': (u'密码修改成功', 'success'),
+    'LOGIN': (u'请登录系统查看本页面', 'info'),
+    'REFRESH': (u'请重新登录查看本页面', 'info'),
+}
