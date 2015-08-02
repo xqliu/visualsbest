@@ -3,7 +3,7 @@
 from app.app_provider import AppInfo
 from flask.ext.security import RoleMixin, UserMixin
 from image import Image
-from sqlalchemy import Column, Integer, ForeignKey, Text
+from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime
 from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
@@ -33,6 +33,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean())
+    mobile_phone = db.Column(db.String(16), nullable=False)
+    qq_number = db.Column(db.String(16), nullable=True)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
@@ -53,6 +55,9 @@ class User(db.Model, UserMixin):
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     recommend_by = db.relation("User", remote_side=id, backref=backref(
         'recommended_users', uselist=True))
+
+    confirmed_at = Column(DateTime, nullable=True)
+
 
     def __repr__(self):
         return self.display

@@ -38,30 +38,34 @@ $(function(){
 /*首页登录注册*/
 $(function(){
 	$(".denglu").click(function(){
-		if ($(".login_fixed").css('display') != 'none') {
-			$(".login_fixed").css('display', 'none');
+        var $loginFixed = $(".login_fixed");
+        if ($loginFixed.css('display') != 'none') {
+			$loginFixed.css('display', 'none');
 		} else {
-		    $(".login_fixed").show().delay(10000).hide(0);
+		    $loginFixed.show().delay(60000).hide(0);
 	    }
-		$(".login_fixed").siblings(".zhuce_fixed").css("display","none");
+		$loginFixed.siblings(".zhuce_fixed").css("display","none");
 	});
 	$(".zhuce").click(function(){
-		if ($(".zhuce_fixed").css('display') != 'none') {
-			$(".zhuce_fixed").css('display', 'none');
+        var $zhuceFixed = $(".zhuce_fixed");
+        if ($zhuceFixed.css('display') != 'none') {
+			$zhuceFixed.css('display', 'none');
 		} else {
-			$(".zhuce_fixed").show().delay(10000).hide(0);
+			$zhuceFixed.show().delay(60000).hide(0);
 		}
-		$(".zhuce_fixed").siblings(".login_fixed").css("display","none");
+		$zhuceFixed.siblings(".login_fixed").css("display","none");
 	});
 	$(".fixed_zhuce p a").click(function(){
-		if ($(".login_fixed").css('display') != 'none')	{
-			$(".login_fixed").show().delay(1000).hide(0);
+        var $loginFixed = $(".login_fixed");
+        if ($loginFixed.css('display') != 'none')	{
+			$loginFixed.show().delay(1000).hide(0);
     	}
 		$(".zhuce_fixed").css("display","none");
 	});
 	$(".fixed_login_head a").click(function(){
-		if ($(".zhuce_fixed").css('display') != 'none')	{
-			$(".zhuce_fixed").show().delay(1000).hide(0);
+        var $zhuceFixed = $(".zhuce_fixed");
+        if ($zhuceFixed.css('display') != 'none')	{
+			$zhuceFixed.show().delay(1000).hide(0);
 		}
 		$(".login_fixed").css("display","none");
 	});
@@ -73,5 +77,20 @@ $(function(){
 		$(".login_fixed").css("display","none");
 		$(".zhuce_fixed").show();
 	});
+
+    function show_register_layer() {
+        $("#fixed_zhuce_link").css('display', 'none');
+        $("#fixed_zhuce_form").show();
+        $(".fixed_zhuce").css('height', '400px');
+        $(".zhuce_fixed").css('height', '400px');
+        $(".fixed_zhuce_op").css('height', '400px');
+    }
+
+	$("#normal_user_register_link").click(function(){
+        show_register_layer();
+    });
+	$("#photographer_register_link").click(function(){
+        show_register_layer();
+	})
 
 });

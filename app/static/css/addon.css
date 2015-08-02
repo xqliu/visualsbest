@@ -1,0 +1,38 @@
+/*.fixed_zhuce, .zhuce_fixed, .fixed_zhuce_op {*/
+    /*height:400px;*/
+/*}*/
+
+#fixed_zhuce_form {
+    display: none;
+}
+#fixed_zhuce_form ul {
+    width: 85%;
+    margin: 0 auto;
+}
+
+#fixed_zhuce_form ul li {
+    height: 28px;
+    line-height: 28px;
+    color: #BDBDBD;
+    text-align: left;
+    margin-top:0;
+}
+
+#fixed_zhuce_form ul li input.txt {
+    width: 100%;
+    height: 25px;
+    background: #EAEAEA;
+    border: none;
+    border-radius: 3px;
+}
+
+#fixed_zhuce_form ul li button {
+    width: 80px;
+    height: 25px;
+    border: none;
+    background: #4ABDCC;
+    border-radius: 3px;
+    color: #fff;
+    font-family: "Microsoft Yahei", sans-serif;
+    margin-top:10px;
+}

@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>作品</title>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/addon.css')}}" />
     <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.7.2.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.sochange.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/n_public.js')}}"></script>
@@ -50,7 +51,7 @@
                 <div class="login_fixed">
                     <div class="fixed_login_op"></div>
                     <div class="fixed_login">
-                      <div class="fixed_login_head"><a href="#" id="register_link_in_login">注册</a>登录</div>
+                      <div class="fixed_login_head">登录<a href="#" id="register_link_in_login">注册</a></div>
                       <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
                         <ul>
                             {{ login_user_form.hidden_tag() }}
@@ -77,14 +78,41 @@
                 <div class="zhuce_fixed">
                 	<div class="fixed_zhuce_op"></div>
                     <div class="fixed_zhuce">
-                    	<ul>
-                        	<li class="iphone"><a href="#">使用手机注册</a></li>
-                            <li class="qq"><a href="#">使用QQ注册</a></li>
-                            <li class="line"><span>或者</span></li>
-                            <li class="youxiang"><a href="#">使用邮箱注册</a></li>
-                            <li class="green">注册即代表我同意<a href="#">服务条款</a>、<a href="#">隐私政策</a>、<a href="#">隐私政策</a>及<a href="#">隐私政策</a></li>
-                        </ul>
-                        <p>已经是会员?<a id='login_link_in_register' href="#">登录</a></p>
+                      <div id="fixed_zhuce_link">
+                        <ul>
+                            <li class="register_normal_user">
+                              <a id='normal_user_register_link' href="#">注册成为普通用户</a>
+                            </li>
+                              <li class="register_photographer">
+                                <a id='photographer_register_link' href="#">注册成为摄影师</a>
+                              </li>
+                              <li class="line"></li>
+                              <!--<li class="youxiang"><a href="#">使用邮箱注册</a></li>-->
+                              <li class="green">注册即代表您同意<br/><a href="#">服务条款</a>、<a href="#">隐私政策</a></li>
+                          </ul>
+                          <p>已经是会员?<a id='login_link_in_register' href="#">登录</a></p>
+                      </div>
+                      <div id="fixed_zhuce_form">
+                        <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+                          {{ register_user_form.hidden_tag() }}
+                          <ul>
+                            <li><label for="login">登陆用户名:</label></li>
+                            <li><input id="login" name="login" type="text" class="txt"></li>
+                            <li><label for="display">昵称:</label></li>
+                            <li><input id="display" name="display" type="text" class="txt"></li>
+                            <li><label for="mobile_phone">手机号码:</label></li>
+                            <li><input id="mobile_phone" name="mobile_phone" type="text" class="txt"></li>
+                            <li><label for="email">邮箱:</label></li>
+                            <li><input id="email" name="email" type="text" class="txt"></li>
+                            <li><label for="password">密码:</label></li>
+                            <li><input id="password" name="password" type="password" class="txt"></li>
+                            <li><label for="password_confirm">确认密码:</label></li>
+                            <li><input id="password_confirm" name="password_confirm" type="password" class="txt"></li>
+                            <!--<input id="submit" name="submit" type="submit" value="注册">-->
+                            <li><div style="text-align: center;"><button type="submit">注册</button></div></li>
+                          </ul>
+                        </form>
+                      </div>
                     </div>
                 </div>
             </div>

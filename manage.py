@@ -3,7 +3,7 @@ import sys
 from flask import Flask, url_for, redirect, render_template
 from flask.ext.migrate import Migrate, Config, MigrateCommand
 from flask.ext.script import Manager
-from flask.ext.security import SQLAlchemyUserDatastore, Security, login_required, LoginForm
+from flask.ext.security import SQLAlchemyUserDatastore, Security, login_required, LoginForm, RegisterForm
 import os
 import rollbar
 import rollbar.contrib.flask
@@ -39,7 +39,8 @@ db.init_app(app)
 from app.models.user import User, Role, roles_users
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore)
+from app.forms.register_form import UserRegisterForm
+security = Security(app, user_datastore, register_form=UserRegisterForm)
 
 from app.views import init_admin_views
 
@@ -78,73 +79,99 @@ def init_rollbar():
 
 @app.route("/")
 def index():
-    return render_template('index.html', login_user_form=LoginForm())
+    return render_template('index.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/works")
 def works():
-    return render_template('works.html', login_user_form=LoginForm())
+    return render_template('works.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/work_details")
 def work_details():
-    return render_template('work_details.html', login_user_form=LoginForm())
+    return render_template('work_details.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/photograph")
 def photograph():
-    return render_template('photograph.html', login_user_form=LoginForm())
+    return render_template('photograph.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/search")
 def search():
-    return render_template('search.html', login_user_form=LoginForm())
+    return render_template('search.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/comments")
 def comments():
-    return render_template('comments.html', login_user_form=LoginForm())
+    return render_template('comments.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/create_collection")
 @login_required
 def create_collection():
-    return render_template('create_collection.html', login_user_form=LoginForm())
+    return render_template('create_collection.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/blog")
 def blog():
-    return render_template('blog.html', login_user_form=LoginForm())
+    return render_template('blog.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template('dashboard.html', login_user_form=LoginForm())
+    return render_template('dashboard.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/my_photos")
 @login_required
 def my_photos():
-    return render_template('my_photos.html', login_user_form=LoginForm())
+    return render_template('my_photos.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/orders")
 @login_required
 def orders():
-    return render_template('orders.html', login_user_form=LoginForm())
+    return render_template('orders.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/messages")
 @login_required
 def messages():
-    return render_template('messages.html', login_user_form=LoginForm())
+    return render_template('messages.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 
 @app.route("/settings")
 @login_required
 def settings():
-    return render_template('settings.html', login_user_form=LoginForm())
+    return render_template('settings.html',
+                           login_user_form=LoginForm(),
+                           register_user_form=RegisterForm())
 
 if __name__ == "__main__":
     # app.run(host='0.0.0.0', port=80, debug=True)

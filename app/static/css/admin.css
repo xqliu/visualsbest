@@ -1,36 +1,34 @@
 @media (min-width: 768px) {
     .container {
         min-width: 750px;
-        width:100%
+        width: 100%
     }
 }
 
 @media (min-width: 992px) {
     .container {
-        min-width: 970px
-        width:100%
+        min-width: 970px width : 100 %
     }
 }
 
 @media (min-width: 1200px) {
     .container {
-        min-width: 1170px
-        width:100%
+        min-width: 1170px width : 100 %
     }
 }
 
 .glyphicon-pencil {
-    margin-right:10px;
+    margin-right: 10px;
 }
 
 input[name='_continue_editing'],
 input[name='_add_another'] {
-    margin-left:20px;
-    margin-right:20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-#admin-navbar-collapse>.glyphicon {
-    padding-right:10px;
+#admin-navbar-collapse > .glyphicon {
+    padding-right: 10px;
 }
 
 .help-block {
@@ -39,11 +37,82 @@ input[name='_add_another'] {
     font-style: italic;
     font-size: small;
     background: url("/static/images/cueTip.gif") no-repeat left;
-    background-position-y:2px;
+    background-position-y: 2px;
     text-decoration: none;
     padding-left: 15px;
 }
 
 .input-errors ul {
     list-style: none;
+}
+
+.login {
+    float: left;
+    color: #fff;
+    height: 53px;
+    line-height: 53px;
+    margin:auto;
+    width:100%;
+}
+
+.login a {
+    color: #fff;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.fixed_login {
+    width: 280px;
+    height: 320px;
+    border-radius: 5px;
+    left: 0;
+    z-index: 5000;
+    color: #333;
+    background: #F7F7F7;
+    opacity: 0.99;
+    margin:auto;
+}
+
+.fixed_login h3 {
+    padding-top:15px;
+}
+
+.fixed_login ul {
+    list-style: none;
+    max-width: 85%;
+}
+
+.fixed_login ul li {
+    height: 28px;
+    line-height: 28px;
+    color: #BDBDBD;
+}
+
+.fixed_login ul li input.txt {
+    width: 100%;
+    height: 25px;
+    background: #EAEAEA;
+    border: none;
+    border-radius: 3px;
+}
+
+.fixed_login ul li input.checkbox {
+    margin-top: 8px;
+    margin-right: 5px;
+    display: block;
+    float: left;
+}
+
+.fixed_login ul li button {
+    width: 80px;
+    height: 35px;
+    border: none;
+    background: #4ABDCC;
+    border-radius: 3px;
+    color: #fff;
+    font-family: "Microsoft Yahei", serif;
+}
+
+.fixed_login ul li .wangji {
+    color: #4ABDCC;
 }
