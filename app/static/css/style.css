@@ -55,25 +55,26 @@ table{border-collapse:collapse;border-spacing:0;}
 .header_right .curr a{ color:#42BACC;}
 
 /*登录弹出框*/
-.login_fixed{width:240px; height:320px;position:absolute; left:0px; display:none;}
-.fixed_login_op{width:240px; height:320px; background:#F7F7F7; border-radius:5px; position:absolute; left:0px; z-index:5000; color:#333; opacity:0.99;}
-.fixed_login{ width:240px; height:320px; border-radius:5px; position:absolute; left:0px; z-index:5000; color:#333;}
+.login_fixed{width:240px; height:360px;position:absolute; left:0; display:none;}
+.fixed_login_op{width:240px; height:360px; background:#F7F7F7; border-radius:5px; position:absolute; left:0; z-index:5000; color:#333; opacity:0.99;}
+.fixed_login{ width:240px; height:360px; border-radius:5px; position:absolute; left:0; z-index:5000; color:#333;}
 .fixed_login .fixed_login_head{ height:30px; line-height:30px; width:85%; margin:5px auto; border-bottom:1px solid #F0F0F0;}
-.fixed_login .fixed_login_head a, .fixed_zhuce .fixed_zhuce_head a{ float:right; color:#5BD0E0;}
-.fixed_login ul{width:85%; margin:0px auto;}
+#register_link_in_login, .fixed_zhuce .fixed_zhuce_head a{ float:right; color:#5BD0E0;}
+.fixed_login ul{width:85%; margin:0 auto;}
 .fixed_login ul li{ height:28px; line-height:28px; color:#BDBDBD;}
 .fixed_login ul li input.txt{ width:100%; height:25px; background:#EAEAEA; border:none; border-radius:3px;}
 .fixed_login ul li input.checkbox{ margin-top:8px; margin-right:5px; display:block; float:left;}
-.fixed_login ul li button{ width:80px; height:25px; border:none; background:#4ABDCC;border-radius:3px; color:#fff; font-family:"Microsoft Yahei";}
+.fixed_login ul li button{ width:80px; border:none; background:#4ABDCC;border-radius:3px; color:#fff;
+    font-family: "Microsoft Yahei", serif;}
 .fixed_login ul li .wangji{ color:#4ABDCC;}
 .fixed_login ul li.line{ border-bottom:1px solid #F0F0F0; text-align:center; margin-bottom:10px;}
 .fixed_login ul li.line span{ width:40px; height:50px; background:#F5F6F6; line-height:55px; display:block; margin:0 auto;}
 .fixed_login ul li.hezuo{ color:#EAEAEA; margin-top:5px;}
 .fixed_login ul li.hezuo a{color:#4ABDCC; padding:0px 8px;}
 
-.zhuce_fixed{ width:240px; height:250px; position:absolute; left:50px; display:none;}
-.fixed_zhuce_op{ width:240px; height:250px; position:absolute; left:0px; background:#F7F7F7;border-radius:5px; opacity:0.99;}
-.fixed_zhuce{ width:240px; height:250px; position:absolute; left:0; padding-top:10px}
+.zhuce_fixed{ width:240px; height:270px; position:absolute; left:50px; display:none;}
+.fixed_zhuce_op{ width:240px; height:270px; position:absolute; left:0px; background:#F7F7F7;border-radius:5px; opacity:0.99;}
+.fixed_zhuce{ width:240px; height:270px; position:absolute; left:0; padding-top:10px}
 .fixed_zhuce ul{ width:85%; height:auto; margin:0 auto; margin-top:20px; border-bottom:2px solid #F0F0F0; padding-bottom:20px;}
 .fixed_zhuce ul li{ width:100%; height:30px;border-radius:5px; margin-top:10px; line-height:30px;  text-align:center; }
 .fixed_zhuce ul li.register_normal_user { background:#41BACC;}

@@ -81,9 +81,9 @@ $(function(){
     function show_register_layer() {
         $("#fixed_zhuce_link").css('display', 'none');
         $("#fixed_zhuce_form").show();
-        $(".fixed_zhuce").css('height', '400px');
-        $(".zhuce_fixed").css('height', '400px');
-        $(".fixed_zhuce_op").css('height', '400px');
+        $(".fixed_zhuce").css('height', '450px');
+        $(".zhuce_fixed").css('height', '450px');
+        $(".fixed_zhuce_op").css('height', '450px');
     }
 
     var type_id_elem = $("#type_id");
@@ -97,6 +97,12 @@ $(function(){
         show_register_layer();
         type_id_elem.val($("#photographer_user_type_id").val());
         $("#register_button").html('注册摄影师');
-	})
+	});
+    $("#login-popup-closer").click(function(){
+        $(".login_fixed").css("display","none");
+    });
+    $("#register-popup-closer").click(function(){
+         $(".zhuce_fixed").css("display","none");
+     })
 
 });

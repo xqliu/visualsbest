@@ -1,4 +1,5 @@
 {% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% import 'admin/static.html' as admin_static with context %}
 <!-- Header start -->
 {% block header %}
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -6,6 +7,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>作品</title>
+    <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}"
+          rel="stylesheet">
+    <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}"
+          rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" />
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/addon.css')}}" />
     <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.7.2.js')}}"></script>
@@ -51,7 +56,12 @@
                 <div class="login_fixed">
                     <div class="fixed_login_op"></div>
                     <div class="fixed_login">
-                      <div class="fixed_login_head">登录<a href="#" id="register_link_in_login">注册</a></div>
+                      <div style="text-align: center;float:none;margin-top:4px">
+                        <a href="#" class="glyphicon glyphicon-remove popup-close-button" id="login-popup-closer"></a>
+                      </div>
+                      <div class="fixed_login_head">登录
+                        <a href="#" id="register_link_in_login">注册</a>
+                      </div>
                       <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
                         <ul>
                             {{ login_user_form.hidden_tag() }}
@@ -78,6 +88,9 @@
                 <div class="zhuce_fixed">
                 	<div class="fixed_zhuce_op"></div>
                     <div class="fixed_zhuce">
+                      <div style="margin-bottom: 15px;text-align: center;">
+                        <a href="#" class="glyphicon glyphicon-remove popup-register-close-button" id="register-popup-closer"></a>
+                      </div>
                       <div id="fixed_zhuce_link">
                         <ul>
                             <li class="register_normal_user">

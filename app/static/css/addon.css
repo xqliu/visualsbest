@@ -28,11 +28,21 @@
 
 #fixed_zhuce_form ul li button {
     width: 100px;
-    height: 25px;
     border: none;
     background: #4ABDCC;
     border-radius: 3px;
     color: #fff;
     font-family: "Microsoft Yahei", sans-serif;
     margin-top:10px;
+}
+
+.popup-close-button {
+    color:#5BD0E0 !important;
+    margin-top:6px;
+}
+
+.popup-register-close-button {
+    margin-top:0;
+    color:#5BD0E0 !important;
+    float:none;
 }
