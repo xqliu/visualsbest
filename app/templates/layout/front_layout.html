@@ -67,7 +67,7 @@
                               <input id="remember" name="remember" type="checkbox" value="y" class="checkbox">
                               <label for="remember">记住我</label>
                             </li>
-                            <li><button>登录</button><a href="#" class="wangji">忘记密码？</a></li>
+                            <li><button>登录</button><a href="{{ url_for_security('forgot_password') }}" class="wangji">忘记密码？</a></li>
                             <li class="line"><span>或者</span></li>
                             <li>使用你的社交账户登录:</li>
                             <li class="hezuo"><a href="#">微博登录</a>|<a href="#">QQ登录</a>|<a href="#">人人网</a></li>
@@ -112,8 +112,7 @@
                             <li><input id="password" name="password" type="password" class="txt"></li>
                             <li><label for="password_confirm">确认密码:</label></li>
                             <li><input id="password_confirm" name="password_confirm" type="password" class="txt"></li>
-                            <!--<input id="submit" name="submit" type="submit" value="注册">-->
-                            <li><div style="text-align: center;"><button type="submit">注册</button></div></li>
+                            <li><div style="text-align: center;"><button type="submit" id="register_button">注册</button></div></li>
                           </ul>
                         </form>
                       </div>

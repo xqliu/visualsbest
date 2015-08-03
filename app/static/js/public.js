@@ -90,11 +90,13 @@ $(function(){
 
 	$("#normal_user_register_link").click(function(){
         show_register_layer();
-        type_id_elem.value($("#normal_user_type_id").value())
+        type_id_elem.val($("#normal_user_type_id").val());
+        $("#register_button").html('注册普通用户');
     });
 	$("#photographer_register_link").click(function(){
         show_register_layer();
-        type_id_elem.value($("#photographer_user_type_id").value())
+        type_id_elem.val($("#photographer_user_type_id").val());
+        $("#register_button").html('注册摄影师');
 	})
 
 });

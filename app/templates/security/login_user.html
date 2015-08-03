@@ -1,30 +1,5 @@
-{% from "security/_macros.html" import render_field_with_errors, render_field %}
-{% import 'admin/static.html' as admin_static with context %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>登录系统</title>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}"
-        rel="stylesheet">
-  <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}"
-        rel="stylesheet">
-  <link href="{{ admin_static.url(filename='admin/css/bootstrap3/admin.css', v='1.1.0') }}" rel="stylesheet">
-  <style>
-    body {
-      padding-top: 4px;
-    }
-  </style>
-  <link href="{{ url_for('static', filename='css/admin.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='favicon.ico') }}" rel="icon" type="image/x-icon">
-</head>
-<body>
-<div class="container">
-  <form method="POST" action="" class="form-horizontal">
+{% extends 'layout/security_layout.html' %}
+{% block main %}
     <div class="login">
         <div class="fixed_login">
           <h3 style="text-align: center">欢迎登录系统</h3>
@@ -55,13 +30,11 @@
                 <label for="remember">记住我</label>
               </li>
               <li class="last-item">
-                <button>登录</button><a href="#" class="wangji">忘记密码？</a>
+                <button>登录</button>
+                {{ security_menu(security, url_for_security, "login") }}
               </li>
             </ul>
           </form>
         </div>
     </div>
-  </form>
-</div>
-</body>
-</html>
+{% endblock %}

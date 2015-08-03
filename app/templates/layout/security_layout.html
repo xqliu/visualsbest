@@ -1,0 +1,32 @@
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+{% from "macro/security_macro.html" import security_menu %}
+{% import 'admin/static.html' as admin_static with context %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visual's Best 网站</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}"
+        rel="stylesheet">
+  <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}"
+        rel="stylesheet">
+  <link href="{{ admin_static.url(filename='admin/css/bootstrap3/admin.css', v='1.1.0') }}" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 4px;
+    }
+  </style>
+  <link href="{{ url_for('static', filename='css/admin.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='favicon.ico') }}" rel="icon" type="image/x-icon">
+</head>
+<body>
+<div class="container">
+  {% block main %}
+  {% endblock %}
+</div>
+</body>
+</html>

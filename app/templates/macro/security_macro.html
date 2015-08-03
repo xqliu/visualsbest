@@ -1,0 +1,18 @@
+{% macro security_menu(security, url_for_security, page) %}
+  {% if security.registerable or security.recoverable or security.confirmable %}
+    <br/><br/>
+    <a href="{{ url_for('index') }}" class="wangji">首页</a>
+    {% if page != "login" %}
+      <a href="{{ url_for_security('login') }}" class="wangji">登录</a>
+    {% endif %}
+    {% if security.registerable and page != "register" %}
+      <a href="{{ url_for_security('register') }}" class="wangji">注册</a>
+    {% endif %}
+    {% if security.recoverable and page != "forgot_password" %}
+      <a href="{{ url_for_security('forgot_password') }}" class="wangji">忘记密码</a>
+    {% endif %}
+    {% if security.confirmable and page != "send_confirmation" %}
+      <a href="{{ url_for_security('send_confirmation') }}" class="wangji">确认账号</a>
+    {% endif %}
+  {% endif %}
+{% endmacro %}
