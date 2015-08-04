@@ -23,8 +23,6 @@ from app.models.user import User, Role
 for key, value in config.security_messages.items():
     app.config['SECURITY_MSG_' + key] = value
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-from app.forms.register_form import UserRegisterForm
-security = Security(app, user_datastore, confirm_register_form=UserRegisterForm)
 
 
 if __name__ == "__main__":
