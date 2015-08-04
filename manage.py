@@ -36,6 +36,15 @@ from app.routers import *
 from app.models import *
 db.init_app(app)
 
+try:
+    base_path = os.path.join(os.path.dirname(__file__), 'migrations')
+    migrate = Migrate(app, db, directory=base_path)
+    from flask.ext.migrate import upgrade
+    # migrate database to latest revision
+    upgrade()
+except:
+    print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
+
 # Setup Flask-Security
 from app.models.user import User, Role
 # Set up flask security messages.
@@ -51,19 +60,6 @@ AppInfo.set_admin(admin)
 
 # 初始化 Flask-Mail 用于发送邮件
 mail = Mail(app)
-
-
-@app.before_first_request
-def upgrade_db_schema():
-    try:
-        base_path = os.path.join(os.path.dirname(__file__), 'migrations')
-        migrate = Migrate(app, db, directory=base_path)
-        from flask.ext.migrate import upgrade
-        # migrate database to latest revision
-        upgrade()
-    except:
-        print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
-
 
 @app.before_first_request
 def init_rollbar():
