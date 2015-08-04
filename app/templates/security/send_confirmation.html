@@ -18,7 +18,8 @@
           {% endif %}
           <li class="last-item">
             <button type="submit" style="width:140px">重新发送确认邮件</button>
-            {{ security_menu(security, url_for_security, "send_confirmation") }}
+            {{ security_menu(security, url_for_security, current_user,
+            "send_confirmation") }}
           </li>
         </ul>
       </form>

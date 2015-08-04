@@ -31,7 +31,8 @@
               </li>
               <li class="last-item">
                 <button>登录</button>
-                {{ security_menu(security, url_for_security, "login") }}
+                {{ security_menu(security, url_for_security,
+                    current_user, "login") }}
               </li>
             </ul>
           </form>

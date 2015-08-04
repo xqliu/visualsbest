@@ -75,7 +75,8 @@
           </li>
           <li class="last-item">
             <button>注册</button>
-            {{ security_menu(security, url_for_security, "register") }}
+            {{ security_menu(security, url_for_security, current_user,
+            "register") }}
           </li>
         </ul>
       </form>

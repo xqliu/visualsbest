@@ -1,18 +1,26 @@
-{% macro security_menu(security, url_for_security, page) %}
+{% macro security_menu(security, url_for_security, current_user, page) %}
   {% if security.registerable or security.recoverable or security.confirmable %}
     <br/><br/>
     <a href="{{ url_for('index') }}" class="wangji">首页</a>
-    {% if page != "login" %}
-      <a href="{{ url_for_security('login') }}" class="wangji">登录</a>
+    {% if page != "login" and current_user.is_authenticated() == False%}
+      <a href="{{ url_for_security('login') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="wangji">登录</a>
     {% endif %}
-    {% if security.registerable and page != "register" %}
-      <a href="{{ url_for_security('register') }}" class="wangji">注册</a>
+    {% if security.registerable and page != "register" and current_user.is_authenticated() == False%}
+      <a href="{{ url_for_security('register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}" class="wangji">注册</a>
     {% endif %}
-    {% if security.recoverable and page != "forgot_password" %}
+    {% if page != "change_password" and current_user.is_authenticated()%}
+      <a href="{{ url_for_security('change_password') }}"
+         class="wangji">修改密码</a>
+    {% endif %}
+    {% if security.recoverable and page != "forgot_password" and current_user.is_authenticated() == False%}
       <a href="{{ url_for_security('forgot_password') }}" class="wangji">忘记密码</a>
     {% endif %}
-    {% if security.confirmable and page != "send_confirmation" %}
+    {% if security.confirmable and page != "send_confirmation" and current_user.is_authenticated() == False%}
       <a href="{{ url_for_security('send_confirmation') }}" class="wangji">确认账号</a>
+    {% endif %}
+    {% if current_user.is_authenticated() %}
+      <a href="{{ url_for('settings') }}" class="wangji">账户设置</a>
+      <a href="{{ url_for_security('logout') }}" class="wangji">退出</a>
     {% endif %}
   {% endif %}
 {% endmacro %}

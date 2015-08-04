@@ -1,4 +1,5 @@
 # encoding: utf-8
+from flask import url_for
 
 import os
 
@@ -11,6 +12,7 @@ SECURITY_PASSWORD_SALT = '123QWEasDzXcqazw'
 SECURITY_REGISTERABLE = True
 SECURITY_CONFIRMABLE = True
 SECURITY_RECOVERABLE = True
+SECURITY_CHANGEABLE = True
 MAIL_SERVER = 'smtp.163.com'
 MAIL_PORT = 25
 MAIL_USE_TLS = False
@@ -19,6 +21,9 @@ SECURITY_EMAIL_SENDER = os.environ['MAIL_DEFAULT_SENDER']
 MAIL_USERNAME = os.environ['SMTP_USERNAME']
 MAIL_PASSWORD = os.environ['SMTP_PASSWORD']
 MAIL_DEFAULT_SENDER = os.environ['MAIL_DEFAULT_SENDER']
+SECURITY_POST_CHANGE_VIEW = '/settings'
+# 默认不发送邮件
+MAIL_SUPPRESS_SEND = False
 
 # if os.environ['VISUALS_BEST_DATABASE_URL'] is not None:
 try:

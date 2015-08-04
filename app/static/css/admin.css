@@ -63,7 +63,7 @@ input[name='_add_another'] {
 
 .fixed_login, .fixed_register, .fixed_confirm_email {
     width: 360px;
-    height: 360px;
+    height: 430px;
     border-radius: 5px;
     left: 0;
     z-index: 5000;
