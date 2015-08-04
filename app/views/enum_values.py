@@ -1,7 +1,5 @@
 # coding=utf-8
 from app.views.base_view import ModelViewWithAccess
-from flask.ext.admin.contrib.sqla import ModelView
-from flask.ext.babelex import lazy_gettext
 
 
 class EnumValuesAdmin(ModelViewWithAccess):
@@ -18,4 +16,5 @@ class EnumValuesAdmin(ModelViewWithAccess):
         'type_values': u'子列表',
     }
 
-    form_excluded_columns = ('users_of_type', 'users_of_status', 'orders_of_status')
+    form_excluded_columns = (
+        'users_of_type', 'users_of_status', 'orders_of_status')

@@ -21,7 +21,8 @@ class Image(db.Model):
     path = db.Column(db.String(128), nullable=False)
 
 
-# Register after_delete handler which will delete image file after model gets deleted
+# Register after_delete handler which will delete image file after model
+# gets deleted
 @event.listens_for(Image, 'after_delete')
 def _handle_image_delete(mapper, conn, target):
     """
@@ -35,4 +36,4 @@ def _handle_image_delete(mapper, conn, target):
         if target.path:
             os.remove(op.join(base_path, target.path))
     except:
-        pass    
+        pass

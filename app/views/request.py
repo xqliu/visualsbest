@@ -3,8 +3,8 @@ from app.views.base_view import ModelViewWithAccess
 
 
 class RequestAdmin(ModelViewWithAccess):
-    form_columns = ('requester', 'photographer', 'start_date', 'end_date', 'status',
-                    'style', 'location', 'lens_needed',)
+    form_columns = ('requester', 'photographer', 'start_date', 'end_date',
+                    'status', 'style', 'location', 'lens_needed',)
 
     column_labels = {
         'requester': u'请求用户',

@@ -2,7 +2,7 @@
 from app.models import EnumValues
 from flask.ext.security import RegisterForm
 from flask.ext.security.forms import Required
-from wtforms import TextField, StringField
+from wtforms import StringField
 
 
 class UserRegisterForm(RegisterForm):
@@ -15,5 +15,3 @@ class UserRegisterForm(RegisterForm):
     normal_user_type = EnumValues.find_one_by_code('NORMAL_USER')
     photographer_user_type = EnumValues.find_one_by_code('PHOTOGRAPHER_USER')
     status = EnumValues.find_one_by_code('UN_VERIFIED')
-
-

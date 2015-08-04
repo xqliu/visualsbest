@@ -13,13 +13,17 @@ class Message(db.Model):
     id = Column(Integer, primary_key=True)
     # 发送消息的人
     from_user_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    from_user = db.relation(User, backref=backref('sent_messages',
-                                                  uselist=True, cascade='all, delete-orphan'),
+    from_user = db.relation(User,
+                            backref=backref('sent_messages',
+                                            uselist=True,
+                                            cascade='all, delete-orphan'),
                             foreign_keys=[from_user_id])
     # 接收消息的人
     receive_user_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    receive_user = db.relation(User, backref=backref('received_messages',
-                                                     uselist=True, cascade='all, delete-orphan'),
+    receive_user = db.relation(User,
+                               backref=backref('received_messages',
+                                               uselist=True,
+                                               cascade='all, delete-orphan'),
                                foreign_keys=[receive_user_id])
 
     # 消息内容
@@ -31,4 +35,3 @@ class Message(db.Model):
     # 消息状态
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     status = relationship('EnumValues', foreign_keys=[status_id])
-

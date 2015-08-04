@@ -1,17 +1,21 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
+from app.models.enum_values import EnumValues
 from flask.ext.security import RoleMixin, UserMixin
 from image import Image
 from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
 
 roles_users = db.Table('roles_users',
                        db.Column('id', db.Integer(), primary_key=True),
-                       db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+                       db.Column('user_id', db.Integer(),
+                                 db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer(),
+                                 db.ForeignKey('role.id')))
 
 
 class Role(db.Model, RoleMixin):
@@ -47,9 +51,16 @@ class User(db.Model, UserMixin):
         'users_of_type', uselist=True), foreign_keys=[type_id])
 
     # 用户状态
-    status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
-    status = relationship('EnumValues', backref=backref(
-        'users_of_status', uselist=True), foreign_keys=[status_id])
+
+    @hybrid_property
+    def status(self):
+        if self.confirmed_at is not None:
+            return EnumValues.find_one_by_code('UN_VERIFIED')
+        return EnumValues.find_one_by_code('VERIFIED')
+
+    @status.setter
+    def status(self, value):
+        pass
 
     # 该用户是由哪个用户推荐的
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -57,7 +68,6 @@ class User(db.Model, UserMixin):
         'recommended_users', uselist=True))
 
     confirmed_at = Column(DateTime, nullable=True)
-
 
     def __repr__(self):
         return self.display

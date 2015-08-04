@@ -15,5 +15,7 @@ class PhotoOmnibus(db.Model):
     id = Column(Integer, primary_key=True)
 
     # 模板
-    template_id = Column(Integer, ForeignKey('omnibus_template.id'), nullable=False)
-    template = relationship('OmnibusTemplate', backref=backref('omnibuses', uselist=True))
+    template_id = Column(Integer, ForeignKey('omnibus_template.id'),
+                         nullable=False)
+    template = relationship('OmnibusTemplate', backref=backref('omnibuses',
+                                                               uselist=True))

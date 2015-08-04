@@ -9,6 +9,7 @@ from wtforms import ValidationError
 
 
 class ModelViewWithAccess(ModelView):
+
     def is_accessible(self):
         return self.can()
 
@@ -38,7 +39,8 @@ class ModelViewWithAccess(ModelView):
 
     def _handle_view(self, name, **kwargs):
         """
-        Override builtin _handle_view in order to redirect users when a view is not accessible.
+        Override builtin _handle_view in order to redirect users when a
+        view is not accessible.
         """
         if not self.is_accessible():
             if current_user.is_authenticated():

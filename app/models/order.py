@@ -26,7 +26,8 @@ class Order(db.Model):
                           backref=backref('orders_of_status', uselist=True))
 
     # 订单的总金额
-    amount = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=False)
+    amount = Column(Numeric(precision=8, scale=2,
+                            decimal_return_scale=2), nullable=False)
 
 
 class OrderComment(db.Model):
@@ -48,6 +49,3 @@ class OrderComment(db.Model):
 
     # 评分星级，1到5, 对于用户发起的订单评论，可能有 Rating
     rating = Column(Integer, nullable=True)
-
-
-

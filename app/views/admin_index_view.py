@@ -1,12 +1,14 @@
 # coding=utf-8
 from flask import url_for, request
 import flask_admin as admin
-from flask.ext.security import current_user, logout_user, login_user, LoginForm, url_for_security
+from flask.ext.security import current_user, logout_user, login_user, \
+    LoginForm, url_for_security
 from werkzeug.utils import redirect
 from flask_admin import helpers, expose
 
 
 class AdminMainView(admin.AdminIndexView):
+
     @expose('/')
     def index(self):
         if not current_user.is_authenticated():

@@ -18,7 +18,8 @@ class DateStatus(db.Model):
     # 该时间状态的所属摄影师
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relation(User, backref=backref('data_statuses',
-                                             uselist=True, cascade='all, delete-orphan'))
+                                             uselist=True,
+                                             cascade='all, delete-orphan'))
 
     # 开始时间
     start_date = Column(DateTime, nullable=False)

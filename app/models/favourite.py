@@ -1,9 +1,8 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
-from photo_work import PhotoWork
 from user import User
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer
 from sqlalchemy.orm import backref
 
 db = AppInfo.get_db()
