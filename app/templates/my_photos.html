@@ -1,7 +1,9 @@
-{% extends 'layout/dashboard_layout.html' %}
+{% extends 'layout/front_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
 
 {% block main %}
 	{{ super() }}
+  {{ dashboard_nav("my_photos") }}
 	<div class="layer">
     	<!--other_left strat-->
     	<div class="others_left">

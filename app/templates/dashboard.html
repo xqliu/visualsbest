@@ -1,4 +1,5 @@
-{% extends 'layout/dashboard_layout.html' %}
+{% extends 'layout/front_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
 {% block header_tail %}
 <script type="text/javascript" >
 $(function(){
@@ -10,7 +11,8 @@ $(function(){
 {% endblock %}
 
 {% block main %}
- {{ super() }}
+  {{ super() }}
+  {{ dashboard_nav("dashboard") }}
 	<div class="layer">
     	<!--other_left strat-->
     	<div class="others_left">
