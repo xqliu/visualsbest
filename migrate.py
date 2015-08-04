@@ -23,6 +23,7 @@ from app.models.user import User, Role
 for key, value in config.security_messages.items():
     app.config['SECURITY_MSG_' + key] = value
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
 
 
 if __name__ == "__main__":
