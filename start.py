@@ -81,8 +81,4 @@ def init_rollbar():
     got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
 if __name__ == "__main__":
-    # app.run(host='0.0.0.0', port=80, debug=True)
-    migrate = Migrate(app, db)
-    manager = Manager(app)
-    manager.add_command('db', MigrateCommand)
-    manager.run()
+    app.run(host='0.0.0.0', port=5000, debug=True)

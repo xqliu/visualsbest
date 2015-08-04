@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
 
-from manage import app
+from start import app
 
 
 class AppTestCase(unittest.TestCase):
