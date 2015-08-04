@@ -27,24 +27,13 @@ from app.app_provider import AppInfo
 AppInfo.set_app(app)
 AppInfo.set_db(db)
 
+# 本行需要在 app定义后， 调用了AppInfo.set_app(app)后才能包含
+from app.routers import *
+
 # 本行必须在 db初始化之后调用，不然会报
 # AttributeError: 'NoneType' object has no attribute 'Model'
 # 的错误
 from app.models import *
-db.init_app(app)
-
-try:
-    base_path = os.path.join(os.path.dirname(__file__), 'migrations')
-    migrate = Migrate(app, db, directory=base_path)
-    from flask.ext.migrate import upgrade
-    # migrate database to latest revision
-    upgrade()
-except:
-    print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
-
-# 本行需要在 app定义后和数据库Migration执行完成后，
-# 调用了AppInfo.set_app(app)和upgrade()后才能包含
-from app.routers import *
 
 # Setup Flask-Security
 from app.models.user import User, Role
@@ -61,6 +50,18 @@ AppInfo.set_admin(admin)
 
 # 初始化 Flask-Mail 用于发送邮件
 mail = Mail(app)
+
+
+@app.before_first_request
+def upgrade_db_schema():
+    try:
+        base_path = os.path.join(os.path.dirname(__file__), 'migrations')
+        migrate = Migrate(app, db, directory=base_path)
+        from flask.ext.migrate import upgrade
+        # migrate database to latest revision
+        upgrade()
+    except:
+        print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
 
 
 @app.before_first_request
