@@ -62,6 +62,7 @@ def upgrade():
     sa.Column('active', sa.Boolean(), nullable=True),
     sa.Column('image_id', sa.Integer(), nullable=True),
     sa.Column('type_id', sa.Integer(), nullable=False),
+    sa.Column('confirmed_at', sa.DateTime(), nullable=True),
     sa.Column('recommend_by_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['image_id'], [u'image.id'], ),
     sa.ForeignKeyConstraint(['recommend_by_id'], ['users.id'], ),

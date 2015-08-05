@@ -9,14 +9,13 @@ Create Date: 2015-07-31 10:26:37.979994
 
 # revision identifiers, used by Alembic.
 from flask.ext.security.utils import encrypt_password
-from werkzeug.security import generate_password_hash
 
 revision = '38ef93735a7d'
 down_revision = '4fc66ef91a3a'
 
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.sql import table, column
+from sqlalchemy.sql import table
 
 
 def upgrade():
@@ -30,7 +29,6 @@ def upgrade():
                               sa.Column('display', sa.String(length=64),
                                         nullable=False),
                               )
-    from sqlalchemy.sql import text
     op.bulk_insert(enum_values_table, [
         {'id': 1, 'type_id': None, 'code': 'BASIC_ENUM_TYPES',
          'display': u'基本枚举类型'},
@@ -57,12 +55,14 @@ def upgrade():
                                   nullable=True),
                         sa.Column('active', sa.Boolean(), nullable=True),
                         sa.Column('type_id', sa.Integer(), nullable=True),
+                        sa.Column('confirmed_at', sa.DateTime, nullable=True),
                         )
 
     op.bulk_insert(users_table, [{
         'id': 1, 'login': 'admin', 'display': 'Administrator',
         'email': 'lawrence@betterlife.io', 'type_id': 2,
-        'password': encrypt_password('password'), 'active': True
+        'password': encrypt_password('password'), 'active': True,
+        'confirmed_at': sa.func.current_timestamp(),
     }], multiinsert=False)
 
     role_table = table('role',
