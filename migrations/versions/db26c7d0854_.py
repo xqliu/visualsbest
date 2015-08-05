@@ -53,7 +53,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['template_id'], ['omnibus_template.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('user',
+    op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('login', sa.String(length=64), nullable=False),
     sa.Column('display', sa.String(length=255), nullable=False),
@@ -62,11 +62,9 @@ def upgrade():
     sa.Column('active', sa.Boolean(), nullable=True),
     sa.Column('image_id', sa.Integer(), nullable=True),
     sa.Column('type_id', sa.Integer(), nullable=False),
-    sa.Column('status_id', sa.Integer(), nullable=False),
     sa.Column('recommend_by_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['image_id'], [u'image.id'], ),
-    sa.ForeignKeyConstraint(['recommend_by_id'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['status_id'], ['enum_values.id'], ),
+    sa.ForeignKeyConstraint(['recommend_by_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['type_id'], ['enum_values.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -77,7 +75,7 @@ def upgrade():
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], [u'users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('date_status',
@@ -87,7 +85,7 @@ def upgrade():
     sa.Column('end_date', sa.DateTime(), nullable=False),
     sa.Column('status_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['status_id'], ['enum_values.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], [u'users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('message',
@@ -97,23 +95,23 @@ def upgrade():
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('date', sa.DateTime(), nullable=False),
     sa.Column('status_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['from_user_id'], [u'user.id'], ),
-    sa.ForeignKeyConstraint(['receive_user_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['from_user_id'], [u'users.id'], ),
+    sa.ForeignKeyConstraint(['receive_user_id'], [u'users.id'], ),
     sa.ForeignKeyConstraint(['status_id'], ['enum_values.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('photo_category',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('photographer_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['photographer_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['photographer_id'], [u'users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('photo_collection',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('photographer_id', sa.Integer(), nullable=True),
     sa.Column('uploader_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['photographer_id'], [u'user.id'], ),
-    sa.ForeignKeyConstraint(['uploader_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['photographer_id'], [u'users.id'], ),
+    sa.ForeignKeyConstraint(['uploader_id'], [u'users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('request',
@@ -126,8 +124,8 @@ def upgrade():
     sa.Column('location', sa.String(length=128), nullable=False),
     sa.Column('lens_needed', sa.String(length=128), nullable=True),
     sa.Column('status_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['photographer_id'], [u'user.id'], ),
-    sa.ForeignKeyConstraint(['requester_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['photographer_id'], [u'users.id'], ),
+    sa.ForeignKeyConstraint(['requester_id'], [u'users.id'], ),
     sa.ForeignKeyConstraint(['status_id'], ['enum_values.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -136,14 +134,14 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('role_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['role_id'], ['role.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_experience',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('order',
@@ -166,9 +164,9 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('photo_work_id', sa.Integer(), nullable=True),
     sa.Column('photo_collection_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['photo_collection_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['photo_collection_id'], [u'users.id'], ),
     sa.ForeignKeyConstraint(['photo_work_id'], [u'photo_work.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], [u'user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], [u'users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('order_comment',
@@ -235,7 +233,7 @@ def downgrade():
     op.drop_table('message')
     op.drop_table('date_status')
     op.drop_table('comment')
-    op.drop_table('user')
+    op.drop_table('users')
     op.drop_table('photo_omnibus')
     op.drop_table('role')
     op.drop_table('payment')
