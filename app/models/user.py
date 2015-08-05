@@ -13,7 +13,7 @@ db = AppInfo.get_db()
 roles_users = db.Table('roles_users',
                        db.Column('id', db.Integer(), primary_key=True),
                        db.Column('user_id', db.Integer(),
-                                 db.ForeignKey('user.id')),
+                                 db.ForeignKey('users.id')),
                        db.Column('role_id', db.Integer(),
                                  db.ForeignKey('role.id')))
 
@@ -29,7 +29,8 @@ class Role(db.Model, RoleMixin):
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'user'
+    # To name the table users is to avoid conflict with postgresql OOTB user
+    __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
 
     login = db.Column(db.String(64), unique=True, nullable=False)
@@ -63,7 +64,7 @@ class User(db.Model, UserMixin):
         pass
 
     # 该用户是由哪个用户推荐的
-    recommend_by_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    recommend_by_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     recommend_by = db.relation("User", remote_side=id, backref=backref(
         'recommended_users', uselist=True))
 
@@ -88,6 +89,6 @@ class UserExperience(db.Model):
     content = Column(Text, nullable=False)
 
     # 该经历所属的用户
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     user = db.relation("User", backref=backref(
         'experience', uselist=False, cascade='all, delete-orphan'))
