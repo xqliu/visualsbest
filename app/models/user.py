@@ -29,7 +29,7 @@ class Role(db.Model, RoleMixin):
 
 
 class User(db.Model, UserMixin):
-    # To name the table users is to avoid conflict with postgresql OOTB user
+    # To name the table users is to avoid conflict with postgresSQL OOTB user
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
 
@@ -40,9 +40,22 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean())
     mobile_phone = db.Column(db.String(16), nullable=False)
     qq_number = db.Column(db.String(16), nullable=True)
+    wechat_account = db.Column(db.String(32), nullable=True)
+    weibo_account = db.Column(db.String(32), nullable=True)
+    introduce = db.Column(Text, nullable=True)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    gender = db.Column(db.String(8), nullable=True)
+    birthday = db.Column(DateTime, nullable=True)
+    confirmed_at = Column(DateTime, nullable=True)
 
+
+    # 该用户是由哪个用户推荐的
+    recommend_by_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    recommend_by = db.relation("User", remote_side=id, backref=backref(
+        'recommended_users', uselist=True))
+
+    # 头像
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
     image = db.relation(Image, backref='image_user')
 
@@ -51,8 +64,7 @@ class User(db.Model, UserMixin):
     type = relationship('EnumValues', backref=backref(
         'users_of_type', uselist=True), foreign_keys=[type_id])
 
-    # 用户状态
-
+    # 用户状态, 根据 confirmed_at 字段来动态的获取
     @hybrid_property
     def status(self):
         if self.confirmed_at is not None:
@@ -62,13 +74,6 @@ class User(db.Model, UserMixin):
     @status.setter
     def status(self, value):
         pass
-
-    # 该用户是由哪个用户推荐的
-    recommend_by_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    recommend_by = db.relation("User", remote_side=id, backref=backref(
-        'recommended_users', uselist=True))
-
-    confirmed_at = Column(DateTime, nullable=True)
 
     def __repr__(self):
         return self.display
