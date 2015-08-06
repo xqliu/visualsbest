@@ -6,7 +6,7 @@
 {% block dashboard_main %}
   {{ super() }}
   <div class="others_right_top">
-    <form action="{{ url_for('update_profile') }}" method="POST">
+    <form action="{{ url_for('settings') }}" method="POST">
       {{ user_profile_form.hidden_tag() }}
       <div class="others_right_head">
         <h4>基本资料</h4>
@@ -62,8 +62,7 @@
           </div>
           <div class="basic_xinxi_02">
             <input id="birthday" name="birthday" type="date"
-                   value="
-                       {% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
+                   value="{% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
           </div>
           <div class="basic_xinxi_03"></div>
         </li>

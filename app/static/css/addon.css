@@ -50,3 +50,17 @@
 .others_right_head h4 {
     padding-top: 15px;
 }
+
+.experience li {
+    height:auto;
+}
+
+.experience {
+    padding-top:20px;
+    width:95%;
+    margin:auto;
+    text-align:center;
+}
+
+.cke_contents { height: 100% !important; }
+

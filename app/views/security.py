@@ -10,8 +10,8 @@ class UserAdmin(ModelViewWithAccess):
     # Don't display the password on the list of Users
     column_exclude_list = list = ('password',)
 
-    column_list = ('id', 'login', 'display', 'email', 'type',
-                   'status', 'active', 'confirmed_at',)
+    column_list = ('id', 'login', 'display', 'email', 'type', 'active',
+                   'confirmed_at', 'status')
 
     column_editable_list = ('display', 'email', 'active')
 
@@ -41,8 +41,8 @@ class UserAdmin(ModelViewWithAccess):
                              'uploaded_photo_collections', 'sent_messages',
                              'received_messages')
 
-    form_edit_rules = ('login', 'display', 'email', 'type',
-                       'status', 'password2', 'active')
+    form_edit_rules = ('login', 'display', 'email', 'type', 'password2',
+                       'active', 'confirmed_at')
 
     form_create_rules = form_edit_rules
 

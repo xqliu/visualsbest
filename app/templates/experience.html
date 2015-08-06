@@ -1,0 +1,33 @@
+{% extends 'layout/dashboard_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
+
+{% block dashboard_nav %}
+  {{ super() }}
+  {{ dashboard_nav("settings") }}
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+  <div class="others_right_top">
+    <form action="{{ url_for('experience') }}" method="POST">
+      <div class="others_right_head">
+        <h4><label for="content">编辑我的摄影经历</label></h4>
+      </div>
+      <ul class="experience">
+        <li>
+          <div>
+          <textarea class="ckeditor form-control" name="content" id="content"
+                    rows="20">
+            {{ experience.content or '' | safe }}
+          </textarea>
+          </div>
+        </li>
+      </ul>
+      <button class="button">保存</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block tail_js %}
+  <script
+      src="{{ url_for('static', filename='ckeditor/ckeditor.js', version='4.5.1') }}"></script>
+{% endblock %}

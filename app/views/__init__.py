@@ -10,7 +10,6 @@ from app.views.omnibus_template import OmnibusTemplateAdmin
 from flask.ext.admin import Admin
 from flask.ext.admin.consts import ICON_TYPE_GLYPH
 from flask.ext.babelex import lazy_gettext
-from app.views.app_util import *
 
 
 def init_admin_views(app, db):

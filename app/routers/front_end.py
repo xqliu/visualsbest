@@ -1,9 +1,10 @@
 # encoding=utf-8
-from app import app_provider, AppInfo
+from app import app_provider
 from app.forms.user_profile_form import UserProfileForm
-from app.models import User
-from app.views.app_util import render_template_front_layout
-from flask import request, url_for, redirect
+from app.models import User, UserExperience
+from app.util.db_util import save_obj_commit
+from app.util.view_util import render_template_front_layout
+from flask import request
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 
@@ -75,32 +76,42 @@ def messages():
     return render_template_front_layout('messages.html')
 
 
-@app.route("/settings")
+@app.route("/settings", methods=['GET', 'POST'])
 @login_required
 def settings():
     user = User.query.filter_by(id=current_user.id).first()
+    if request.method == 'POST':
+        form = UserProfileForm()
+        if request.form['gender'] == '':
+            form.gender.data = u'保密'
+        if form.validate_on_submit():
+            user.login = form.login.data
+            user.display = form.display.data
+            user.gender = form.gender.data
+            user.birthday = form.birthday.data
+            user.mobile_phone = form.mobile_phone.data
+            user.email = form.email.data
+            user.weibo_account = form.weibo_account.data
+            user.wechat_account = form.wechat_account.data
+            user.qq_number = form.qq_number.data
+            user.introduce = form.introduce.data
+            save_obj_commit(user)
     return render_template_front_layout('settings.html',
                                         user_profile_form=UserProfileForm(),
                                         user=user)
 
 
-@app.route("/update_profile", methods=['POST'])
+@app.route('/experience', methods=['GET', 'POST'])
 @login_required
-def update_profile():
-    form = UserProfileForm()
+def experience():
     user = User.query.filter_by(id=current_user.id).first()
-    if form.validate_on_submit():
-        user.login = form.login.data
-        user.display = form.display.data
-        user.gender = form.gender.data
-        user.birthday = form.birthday.data
-        user.mobile_phone = form.mobile_phone.data
-        user.email = form.email.data
-        user.weibo_account = form.weibo_account.data
-        user.wechat_account = form.wechat_account.data
-        user.qq_number = form.qq_number.data
-        user.introduce = form.introduce.data
-        AppInfo.get_db().session.add(user)
-        AppInfo.get_db().session.commit()
-    return redirect(url_for('settings'))
-
+    exp = user.experience
+    if request.method == 'POST':
+        if exp is None:
+            exp = UserExperience()
+        exp.user_id = user.id
+        exp.content = request.form['content']
+        save_obj_commit(exp)
+    return render_template_front_layout('experience.html',
+                                        user_profile_form=UserProfileForm(),
+                                        experience=exp)
