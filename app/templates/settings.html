@@ -51,7 +51,7 @@
             </label>
             <label>
               <input id="gender" name="gender" type="radio" value="保密"
-                     {% if user.gender == "保密" or user.gender is None %}checked{% endif %}/>保密
+                     {% if user.gender == "保密" or user.gender is defined %}checked{% endif %}/>保密
             </label>
           </div>
           <div class="basic_xinxi_03"></div>
