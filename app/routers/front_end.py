@@ -82,7 +82,8 @@ def settings():
     user = User.query.filter_by(id=current_user.id).first()
     if request.method == 'POST':
         form = UserProfileForm()
-        if request.form['gender'] == '':
+        if request.form.get('gender') is None \
+                or request.form.get('gender') == '':
             form.gender.data = u'保密'
         if form.validate_on_submit():
             user.login = form.login.data
