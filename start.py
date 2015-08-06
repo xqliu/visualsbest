@@ -54,14 +54,15 @@ mail = Mail(app)
 
 @app.before_first_request
 def upgrade_db_schema():
-    try:
-        base_path = os.path.join(os.path.dirname(__file__), 'migrations')
-        migrate = Migrate(app, db, directory=base_path)
-        from flask.ext.migrate import upgrade
-        # migrate database to latest revision
-        upgrade()
-    except:
-        print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
+    if config.DEBUG is not True:
+        try:
+            base_path = os.path.join(os.path.dirname(__file__), 'migrations')
+            migrate = Migrate(app, db, directory=base_path)
+            from flask.ext.migrate import upgrade
+            # migrate database to latest revision
+            upgrade()
+        except:
+            print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
 
 
 @app.before_first_request

@@ -3,7 +3,6 @@ from flask import url_for
 
 import os
 
-DEBUG = True
 BABEL_DEFAULT_LOCALE = 'zh_CN'
 BABEL_DEFAULT_TIMEZONE = 'CST'
 SQLALCHEMY_ECHO = False
@@ -30,6 +29,11 @@ try:
     SQLALCHEMY_DATABASE_URI = os.environ['VISUALS_BEST_DATABASE_URL']
 except KeyError:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+try:
+    DEBUG = (os.environ['DEBUG'] == "True")
+except KeyError:
+    DEBUG = False
 
 SECRET_KEY = '123QWEasDzXcqazw'
 

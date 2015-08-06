@@ -4,7 +4,7 @@ from app.app_provider import AppInfo
 from app.models.enum_values import EnumValues
 from flask.ext.security import RoleMixin, UserMixin
 from image import Image
-from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime, Date
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import backref, relationship
 
@@ -46,9 +46,8 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
     gender = db.Column(db.String(8), nullable=True)
-    birthday = db.Column(DateTime, nullable=True)
+    birthday = db.Column(Date, nullable=True)
     confirmed_at = Column(DateTime, nullable=True)
-
 
     # 该用户是由哪个用户推荐的
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("users.id"))

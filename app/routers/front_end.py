@@ -1,6 +1,10 @@
 # encoding=utf-8
-from app import app_provider
-from app.views.app_util import render_template_with_frontend_layout
+from app import app_provider, AppInfo
+from app.forms.user_profile_form import UserProfileForm
+from app.models import User
+from app.views.app_util import render_template_front_layout
+from flask import request, url_for, redirect
+from flask.ext.login import current_user
 from flask.ext.security import login_required
 
 app = app_provider.AppInfo.get_app()
@@ -8,70 +12,95 @@ app = app_provider.AppInfo.get_app()
 
 @app.route("/")
 def index():
-    return render_template_with_frontend_layout('index.html')
+    return render_template_front_layout('index.html')
 
 
 @app.route("/works")
 def works():
-    return render_template_with_frontend_layout('works.html')
+    return render_template_front_layout('works.html')
 
 
 @app.route("/work_details")
 def work_details():
-    return render_template_with_frontend_layout('work_details.html')
+    return render_template_front_layout('work_details.html')
 
 
 @app.route("/photograph")
 def photograph():
-    return render_template_with_frontend_layout('photograph.html')
+    return render_template_front_layout('photograph.html')
 
 
 @app.route("/search")
 def search():
-    return render_template_with_frontend_layout('search.html')
+    return render_template_front_layout('search.html')
 
 
 @app.route("/comments")
 def comments():
-    return render_template_with_frontend_layout('comments.html')
+    return render_template_front_layout('comments.html')
 
 
 @app.route("/create_collection")
 @login_required
 def create_collection():
-    return render_template_with_frontend_layout('create_collection.html')
+    return render_template_front_layout('create_collection.html')
 
 
 @app.route("/blog")
 def blog():
-    return render_template_with_frontend_layout('blog.html')
+    return render_template_front_layout('blog.html')
 
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template_with_frontend_layout('dashboard.html')
+    return render_template_front_layout('dashboard.html')
 
 
 @app.route("/my_photos")
 @login_required
 def my_photos():
-    return render_template_with_frontend_layout('my_photos.html')
+    return render_template_front_layout('my_photos.html')
 
 
 @app.route("/orders")
 @login_required
 def orders():
-    return render_template_with_frontend_layout('orders.html')
+    return render_template_front_layout('orders.html')
 
 
 @app.route("/messages")
 @login_required
 def messages():
-    return render_template_with_frontend_layout('messages.html')
+    return render_template_front_layout('messages.html')
 
 
 @app.route("/settings")
 @login_required
 def settings():
-    return render_template_with_frontend_layout('settings.html')
+    user = User.query.filter_by(id=current_user.id).first()
+    return render_template_front_layout('settings.html',
+                                        user_profile_form=UserProfileForm(),
+                                        user=user)
+
+
+@app.route("/update_profile", methods=['POST'])
+@login_required
+def update_profile():
+    form = UserProfileForm()
+    user = User.query.filter_by(id=current_user.id).first()
+    if form.validate_on_submit():
+        user.login = form.login.data
+        user.display = form.display.data
+        user.gender = form.gender.data
+        user.birthday = form.birthday.data
+        user.mobile_phone = form.mobile_phone.data
+        user.email = form.email.data
+        user.weibo_account = form.weibo_account.data
+        user.wechat_account = form.wechat_account.data
+        user.qq_number = form.qq_number.data
+        user.introduce = form.introduce.data
+        AppInfo.get_db().session.add(user)
+        AppInfo.get_db().session.commit()
+    return redirect(url_for('settings'))
+
