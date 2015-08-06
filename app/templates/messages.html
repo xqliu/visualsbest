@@ -1,58 +1,34 @@
-{% extends 'layout/front_layout.html' %}
+{% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 
-{% block main %}
-  {{ super() }}
+{% block dashboard_nav %}
   {{ dashboard_nav("messages") }}
-	<div class="layer">
-    	<!--other_left strat-->
-    	<div class="others_left">
-        	 <!--个人简介 strat-->
-        	<div class="others_jj">
-            	<div class="others_tx"><img src="../static/pic/big_tx.png" /></div>
-                <div class="zuozhe_name">Name</div>
-                <div class="others_xq page_xq">
-                    <h5><a href="#">查看个人资料</a></h5>
-                    <h5><a href="#">编辑个人资料</a></h5>
-                </div>
-            </div>
-            <!--快速链接 strat-->
-            <div class="others_jj">
-            	<h3>快速链接</h3>
-                <div class="others_links">
-                	<a href="#">即将开始的旅程</a>
-                    <a href="#">在携程出租</a>
-                    <a href="#">在携程旅行</a>
-                    <a href="#">帮助中心</a>
-                </div>
-            </div>
-        </div>
-        <!--other_left end-->
-        <!--other_right strat-->
-        <div class="others_right">
-        	<div class="others_right_top">
-                <div class="others_right_head">
-                    <h4>消息中心</h4>
-                </div>
-                <ul class="personal_gl personal_message">
-                    <li><a href="#">新消息</a></li>
-                    <li><a href="#">已读信息</a></li>
-                    <li><a href="#">批量管理</a></li>
-                </ul>
-                <ul class="personal_message_deatils">
-                    <li>
-                        <div>1.</div>
-                        <div><img src="../static/pic/gl.jpg" /></div>
-                        <div class="personal_message_wz"><p>您的订单已经生成、请尽快付款</p><span>2015-04-02</span></div>
-                    </li>
-                    <li>
-                        <div>2.</div>
-                        <div><img src="../static/pic/gl.jpg" /></div>
-                        <div class="personal_message_wz"><p>您的订单已经生成、请尽快付款</p><span>2015-04-02</span></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!--other_right end-->
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+
+  <div class="others_right_top">
+    <div class="others_right_head">
+      <h4>消息中心</h4>
     </div>
+    <ul class="personal_gl personal_message">
+      <li><a href="#">新消息</a></li>
+      <li><a href="#">已读信息</a></li>
+      <li><a href="#">批量管理</a></li>
+    </ul>
+    <ul class="personal_message_deatils">
+      <li>
+        <div>1.</div>
+        <div><img src="../static/pic/gl.jpg"/></div>
+        <div class="personal_message_wz"><p>您的订单已经生成、请尽快付款</p>
+          <span>2015-04-02</span></div>
+      </li>
+      <li>
+        <div>2.</div>
+        <div><img src="../static/pic/gl.jpg"/></div>
+        <div class="personal_message_wz"><p>您的订单已经生成、请尽快付款</p>
+          <span>2015-04-02</span></div>
+      </li>
+    </ul>
+  </div>
 {% endblock %}

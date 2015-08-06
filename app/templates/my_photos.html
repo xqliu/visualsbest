@@ -1,96 +1,71 @@
-{% extends 'layout/front_layout.html' %}
+{% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 
-{% block main %}
-	{{ super() }}
+{% block dashboard_nav %}
+  {{ super() }}
   {{ dashboard_nav("my_photos") }}
-	<div class="layer">
-    	<!--other_left strat-->
-    	<div class="others_left">
-        	 <!--个人简介 strat-->
-        	<div class="others_jj">
-            	<div class="others_tx"><img src="../static/pic/big_tx.png" /></div>
-                <div class="zuozhe_name">Name</div>
-                <div class="others_xq page_xq">
-                    <h5><a href="#">查看个人资料</a></h5>
-                    <h5><a href="#">编辑个人资料</a></h5>
-                </div>
-            </div>
-            <!--人脉管理 strat-->
-            <div class="others_jj">
-            	<h3>人脉管理</h3>
-                <div class="personal_contacts">
-                	<a href="#">好友</a>|<a href="#">关注</a>|<a href="#">粉丝</a>
-                </div>
-            </div>
-            <!--我的心愿单 strat-->
-            <div class="others_jj">
-            	<h3>我的心愿单</h3>
-                <div class="personal_contacts personal_wish">
-                	<a href="#">点赞</a>|<a href="#">收藏</a>
-                </div>
-            </div>
-            <!--快速链接 strat-->
-            <div class="others_jj">
-            	<h3>快速链接</h3>
-                <div class="others_links">
-                	<a href="#">即将开始的旅程</a>
-                    <a href="#">在携程出租</a>
-                    <a href="#">在携程旅行</a>
-                    <a href="#">帮助中心</a>
-                </div>
-            </div>
-        </div>
-        <!--other_left end-->
-        <!--other_right strat-->
-        <div class="others_right">
-        	<div class="others_right_top">
-                <div class="others_right_head">
-                    <h4>我的照片</h4>
-                    <div><a href="#">更多</a></div>
-                </div>
-                <ul class="personal_gl">
-                    <li><a href="#">上传照片</a></li>
-                    <li><a href="#">新建编辑</a></li>
-                    <li><a href="#">批量管理</a></li>
-                </ul>
-                <ul class="others_works">
-                    <li>
-                        <a href="#"><img src="../static/pic/works_01.png" /></a>
-                        <h2>海</h2>
-                        <h6>2015-02-14</h6>
-                        <div>
-                            <a href="#" class="zan">（0）</a>
-                            <a href="#" class="wx">（0）</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#"><img src="../static/pic/works_02.png" /></a>
-                        <h2>海</h2>
-                        <h6>2015-02-14</h6>
-                        <div>
-                            <a href="#" class="zan">（0）</a>
-                            <a href="#" class="wx">（0）</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#"><img src="../static/pic/works_03.png" /></a>
-                        <h2>海</h2>
-                        <h6>2015-02-14</h6>
-                        <div>
-                            <a href="#" class="zan">（0）</a>
-                            <a href="#" class="wx">（0）</a>
-                        </div>
-                    </li>
-                </ul>
-                <div class="clear"></div>
-                <ul class="other_qie">
-                    <li class="curr"></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
-        </div>
-        <!--other_right end-->
+{% endblock %}
+
+{% block dashboard_left_widget %}
+  {{ super() }}
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+  <!--other_right strat-->
+  <div class="others_right">
+    <div class="others_right_top">
+      <div class="others_right_head">
+        <h4>我的照片</h4>
+
+        <div><a href="#">更多</a></div>
+      </div>
+      <ul class="personal_gl">
+        <li><a href="#">上传照片</a></li>
+        <li><a href="#">新建编辑</a></li>
+        <li><a href="#">批量管理</a></li>
+      </ul>
+      <ul class="others_works">
+        <li>
+          <a href="#"><img src="../static/pic/works_01.png"/></a>
+
+          <h2>海</h2>
+          <h6>2015-02-14</h6>
+
+          <div>
+            <a href="#" class="zan">（0）</a>
+            <a href="#" class="wx">（0）</a>
+          </div>
+        </li>
+        <li>
+          <a href="#"><img src="../static/pic/works_02.png"/></a>
+
+          <h2>海</h2>
+          <h6>2015-02-14</h6>
+
+          <div>
+            <a href="#" class="zan">（0）</a>
+            <a href="#" class="wx">（0）</a>
+          </div>
+        </li>
+        <li>
+          <a href="#"><img src="../static/pic/works_03.png"/></a>
+
+          <h2>海</h2>
+          <h6>2015-02-14</h6>
+
+          <div>
+            <a href="#" class="zan">（0）</a>
+            <a href="#" class="wx">（0）</a>
+          </div>
+        </li>
+      </ul>
+      <div class="clear"></div>
+      <ul class="other_qie">
+        <li class="curr"></li>
+        <li></li>
+        <li></li>
+      </ul>
     </div>
+  </div>
+  <!--other_right end-->
 {% endblock %}

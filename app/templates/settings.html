@@ -1,202 +1,177 @@
-{% extends 'layout/front_layout.html' %}
-{% from "macro/dashboard_nav.html" import dashboard_nav %}
-
-{% block main %}
+{% extends 'layout/dashboard_layout.html' %}
+{% block dashboard_nav %}
   {{ super() }}
   {{ dashboard_nav("settings") }}
-  <div class="layer">
-    <!--other_left strat-->
-    <div class="others_left">
-      <!--个人简介 strat-->
-      <div class="others_jj">
-        <div class="others_tx"><img src="../static/pic/big_tx.png"/></div>
-        <div class="zuozhe_name">{{ current_user.display }}</div>
-        <div class="others_xq page_xq">
-          <h5><a href="{{ url_for('settings') }}">编辑查看个人资料</a></h5>
-        </div>
-      </div>
-      <!--快速链接 strat-->
-      <div class="others_jj">
-        <h3>快速链接</h3>
-
-        <div class="others_links">
-          <a href="#">帮助中心</a>
-        </div>
-      </div>
-    </div>
-    <!--other_left end-->
-    <!--other_right strat-->
-    <div class="others_right">
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+  <div class="others_right_top">
     <form action="{{ url_for('update_profile') }}" method="POST">
       {{ user_profile_form.hidden_tag() }}
-      <div class="others_right_top">
-        <div class="others_right_head">
-          <h4>基本资料</h4>
-        </div>
-        <h3>个人信息</h3>
-        <ul class="basic_xinxi">
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="login">登录名</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input id="login" name="login" type="text"
-                     value="{{user.login or ''}}"/>
-            </div>
-            <div class="basic_xinxi_03">
-              <a href="{{ url_for_security('change_password') }}">修改密码</a>
-            </div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="display">昵称</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input id="display" name="display" type="text"
-                     value="{{ user.display or ''}}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="gender">性别</label>
-            </div>
-            <div class="basic_xinxi_02 basic_xinxi_022"
-                 style="padding-left: 60px;">
-              <label>
-                <input id="gender" name="gender" type="radio" value="男"
-                 {%  if user.gender == "男" %}checked{% endif %}/>男
-              </label>
-              <label>
-                <input id="gender" name="gender" type="radio" value="女"
-                 {%  if user.gender == "女" %}checked{% endif %}/>女
-              </label>
-              <label>
-                <input id="gender" name="gender" type="radio" value="保密"
-                {%  if user.gender == "保密" %}checked{% endif %}/>保密
-              </label>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="birthday">出生年月</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input id="birthday" name="birthday" type="date"
-                     value="{{ user.birthday.strftime('%Y-%m-%d') or '' }}">
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="mobile_phone">手机号</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input type="text" id="mobile_phone" name="mobile_phone"
-                     value="{{ user.mobile_phone }}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="email">电子邮箱</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input type="text" name="email" id="email"
-                     value="{{ user.email }}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="weibo_account">微博</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input type="text" id="weibo_account" name="weibo_account"
-                     value="{{ user.weibo_account or ''}}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="wechat_account">微信</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input type="text" name="wechat_account" id="wechat_account"
-                     value="{{ user.wechat_account or ''}}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="qq_number">QQ</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input type="text" id="qq_number" name="qq_number"
-                     value="{{ user.qq_number or ''}}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01">
-              <label for="introduce">个人简介</label>
-            </div>
-            <div class="basic_xinxi_02">
-              <input type="text" id="introduce" name="introduce"
-                     value="{{ user.introduce or ''}}"/>
-            </div>
-            <div class="basic_xinxi_03"></div>
-          </li>
-        </ul>
-        <button class="button">保存</button>
+      <div class="others_right_head">
+        <h4>基本资料</h4>
       </div>
+      <h3>个人信息</h3>
+      <ul class="basic_xinxi">
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="login">登录名</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input id="login" name="login" type="text"
+                   value="{{ user.login or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03">
+            <a href="{{ url_for_security('change_password') }}">修改密码</a>
+          </div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="display">昵称</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input id="display" name="display" type="text"
+                   value="{{ user.display or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="gender">性别</label>
+          </div>
+          <div class="basic_xinxi_02 basic_xinxi_022"
+               style="padding-left: 60px;">
+            <label>
+              <input id="gender" name="gender" type="radio" value="男"
+                     {% if user.gender == "男" %}checked{% endif %}/>男
+            </label>
+            <label>
+              <input id="gender" name="gender" type="radio" value="女"
+                     {% if user.gender == "女" %}checked{% endif %}/>女
+            </label>
+            <label>
+              <input id="gender" name="gender" type="radio" value="保密"
+                     {% if user.gender == "保密" %}checked{% endif %}/>保密
+            </label>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="birthday">出生年月</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input id="birthday" name="birthday" type="date"
+                   value="
+                       {% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="mobile_phone">手机号</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="text" id="mobile_phone" name="mobile_phone"
+                   value="{{ user.mobile_phone }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="email">电子邮箱</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="text" name="email" id="email"
+                   value="{{ user.email }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="weibo_account">微博</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="text" id="weibo_account" name="weibo_account"
+                   value="{{ user.weibo_account or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="wechat_account">微信</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="text" name="wechat_account" id="wechat_account"
+                   value="{{ user.wechat_account or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="qq_number">QQ</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="text" id="qq_number" name="qq_number"
+                   value="{{ user.qq_number or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="introduce">个人简介</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="text" id="introduce" name="introduce"
+                   value="{{ user.introduce or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+      </ul>
+      <button class="button">保存</button>
     </form>
-      <div class="others_right_bottom">
-        <div class="others_right_head">
-          <h4>账户绑定</h4>
-        </div>
-        <ul class="binding">
-          <li>
-            <h6>绑定微博</h6>
-
-            <div class="sina"></div>
-            <p>nishenwang333@163.com</p>
-            <button>绑定</button>
-          </li>
-          <li>
-            <h6>绑定QQ</h6>
-
-            <div class="register_photographer"></div>
-            <p>nishenwang333@163.com</p>
-            <button>绑定</button>
-          </li>
-          <li>
-            <h6>绑定微信</h6>
-
-            <div class="wx"></div>
-            <p>nishenwang333@163.com</p>
-            <button>绑定</button>
-          </li>
-          <li>
-            <h6>绑定手机</h6>
-
-            <div class="ipone"></div>
-            <p>nishenwang333@163.com</p>
-            <button>绑定</button>
-          </li>
-          <li>
-            <h6>绑定邮箱</h6>
-
-            <div class="xinxi"></div>
-            <p class="block">nishenwang333@163.com</p>
-            <button>绑定</button>
-            <button>解绑</button>
-          </li>
-        </ul>
-      </div>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4>账户绑定</h4>
     </div>
+    <ul class="binding">
+      <li>
+        <h6>绑定微博</h6>
 
-    <!--other_right end-->
+        <div class="sina"></div>
+        <p>nishenwang333@163.com</p>
+        <button>绑定</button>
+      </li>
+      <li>
+        <h6>绑定QQ</h6>
+
+        <div class="register_photographer"></div>
+        <p>nishenwang333@163.com</p>
+        <button>绑定</button>
+      </li>
+      <li>
+        <h6>绑定微信</h6>
+
+        <div class="wx"></div>
+        <p>nishenwang333@163.com</p>
+        <button>绑定</button>
+      </li>
+      <li>
+        <h6>绑定手机</h6>
+
+        <div class="ipone"></div>
+        <p>nishenwang333@163.com</p>
+        <button>绑定</button>
+      </li>
+      <li>
+        <h6>绑定邮箱</h6>
+
+        <div class="xinxi"></div>
+        <p class="block">nishenwang333@163.com</p>
+        <button>绑定</button>
+        <button>解绑</button>
+      </li>
+    </ul>
   </div>
 {% endblock %}

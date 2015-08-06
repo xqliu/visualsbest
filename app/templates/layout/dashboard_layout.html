@@ -1,4 +1,24 @@
 {% extends 'layout/front_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
+{% from "macro/profile_left_widget.html" import profile_left_widget %}
 {% block main %}
   {{ super() }}
-{% endblock %}
+  {% block dashboard_nav %}
+  {% endblock %}
+  <div class="layer">
+    <!--other_left strat-->
+    <div class="others_left">
+      {% block dashboard_left_widget %}
+        {{ profile_left_widget(current_user) }}
+      {% endblock %}
+    </div>
+    <!--other_left end-->
+    <!--other_right strat-->
+    <div class="others_right">
+      {% block dashboard_main %}
+      {% endblock %}
+    </div>
+
+    <!--other_right end-->
+  </div>
+{% endblock %}}

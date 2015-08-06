@@ -1,90 +1,70 @@
-{% extends 'layout/front_layout.html' %}
+{% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 
 {% block header_tail %}
-<script type="text/javascript">
-$(function(){
-	$(".shangchuang_cuo").click(function(){
-		$(this).parent("li").css("display","none");	
-	});
-});
-</script>
+  <script type="text/javascript">
+    $(function () {
+      $(".shangchuang_cuo").click(function () {
+        $(this).parent("li").css("display", "none");
+      });
+    });
+  </script>
 {% endblock %}
 
-{% block main %}
+{% block dashboard_nav %}
   {{ super() }}
   {{ dashboard_nav("create_collection") }}
-	<div class="layer">
-    	<!--other_left strat-->
-    	<div class="others_left">
-        	 <!--个人简介 strat-->
-        	<div class="others_jj">
-            	<div class="others_tx"><img src="../static/pic/big_tx.png" /></div>
-                <div class="zuozhe_name">Name</div>
-                <div class="others_xq page_xq">
-                    <h5><a href="#">查看个人资料</a></h5>
-                    <h5><a href="#">编辑个人资料</a></h5>
-                </div>
-            </div>
-            <!--快速链接 strat-->
-            <div class="others_jj">
-            	<h3>快速链接</h3>
-                <div class="others_links">
-                	<a href="#">即将开始的旅程</a>
-                    <a href="#">在携程出租</a>
-                    <a href="#">在携程旅行</a>
-                    <a href="#">帮助中心</a>
-                </div>
-            </div>
-        </div>
-        <!--other_left end-->
-        <!--other_right strat-->
-        <div class="others_right">
-        	<div class="others_right_top">
-                <div class="others_right_head">
-                    <h4>创建我的作品集</h4>
-                </div>
-                <h3>作品集信息</h3>
-                <ul class="basic_xinxi">
-                    <li>
-                        <div class="basic_xinxi_01">作品集名称</div>
-                        <div class="basic_xinxi_02"><input type="text" placeholder="" value="海的女儿"/></div>
-                    </li>
-                    <li>
-                        <div class="basic_xinxi_01">拍摄类别</div>
-                        <div class="basic_xinxi_02 basic_xinxi_0222">
-                        <select>
-                        	<option>类别A</option>
-                        </select></div>
-                        <div class="basic_xinxi_03"></div>
-                    </li>
-                    <li>
-                        <div class="basic_xinxi_01">拍摄风格</div>
-                        <div class="basic_xinxi_02 basic_xinxi_022 basic_xinxi_0222">
-                        <select>
-                        	<option>风格A</option>
-                        </select></div>
-                        <div class="basic_xinxi_03"></div>
-                    </li>
-                    <li>
-                        <div class="basic_xinxi_01">作品集简介</div>
-                        <div class="basic_xinxi_02"><input type="text"/></div>
-                    </li>
-                </ul>
-                <button class="button">保存</button>
-            </div>
-            <div class="others_right_bottom shangchuang">
-            	<ul>
-                	<li><img src="../static/pic/fabu_pic1.png" /><img src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
-                    <li><img src="../static/pic/fabu_pic1.png" /><img src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
-                    <li><img src="../static/pic/fabu_pic1.png" /><img src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
-                </ul>
-                <div class="shangchuang_more"><a href="#"><img src="../static/images/fabu_more.png" /></a></div>
-                <h1>点击此处上传图片</h1>
-            </div>
-            <div class="baocun"><button>保存</button></div>
-        </div>
-        
-        <!--other_right end-->
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+  <div class="others_right_top">
+    <div class="others_right_head">
+      <h4>创建我的作品集</h4>
     </div>
+    <h3>作品集信息</h3>
+    <ul class="basic_xinxi">
+      <li>
+        <div class="basic_xinxi_01">作品集名称</div>
+        <div class="basic_xinxi_02"><input type="text" placeholder=""
+                                           value="海的女儿"/></div>
+      </li>
+      <li>
+        <div class="basic_xinxi_01">拍摄类别</div>
+        <div class="basic_xinxi_02 basic_xinxi_0222">
+          <select>
+            <option>类别A</option>
+          </select></div>
+        <div class="basic_xinxi_03"></div>
+      </li>
+      <li>
+        <div class="basic_xinxi_01">拍摄风格</div>
+        <div class="basic_xinxi_02 basic_xinxi_022 basic_xinxi_0222">
+          <select>
+            <option>风格A</option>
+          </select></div>
+        <div class="basic_xinxi_03"></div>
+      </li>
+      <li>
+        <div class="basic_xinxi_01">作品集简介</div>
+        <div class="basic_xinxi_02"><input type="text"/></div>
+      </li>
+    </ul>
+    <button class="button">保存</button>
+  </div>
+  <div class="others_right_bottom shangchuang">
+    <ul>
+      <li><img src="../static/pic/fabu_pic1.png"/><img
+          src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
+      <li><img src="../static/pic/fabu_pic1.png"/><img
+          src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
+      <li><img src="../static/pic/fabu_pic1.png"/><img
+          src="../static/images/fabu_cuo.png" class="shangchuang_cuo"/></li>
+    </ul>
+    <div class="shangchuang_more"><a href="#"><img
+        src="../static/images/fabu_more.png"/></a></div>
+    <h1>点击此处上传图片</h1>
+  </div>
+  <div class="baocun">
+    <button>保存</button>
+  </div>
 {% endblock %}

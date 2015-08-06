@@ -1,0 +1,21 @@
+{% macro profile_left_widget(current_user) %}
+  <!--个人简介 strat-->
+  <div class="others_jj">
+    <div class="others_tx"><img src="../static/pic/big_tx.png"/></div>
+    <div class="zuozhe_name">{{ current_user.display }}</div>
+    <div class="others_xq page_xq">
+      <h5><a href="{{ url_for('settings') }}">编辑个人资料</a></h5>
+      {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+        <h5><a href="{{ url_for('experience') }}">编辑摄影经历</a></h5>
+      {% endif %}
+    </div>
+  </div>
+  <!--快速链接 strat-->
+  <div class="others_jj">
+    <h3>快速链接</h3>
+
+    <div class="others_links">
+      <a href="#">帮助中心</a>
+    </div>
+  </div>
+{% endmacro %}
