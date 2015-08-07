@@ -137,3 +137,7 @@ input[name='_add_another'] {
     text-decoration: none;
     padding-left: 15px;
 }
+
+.fixed_login .flashes, .fixed_register .flashes {
+    padding-bottom: 45px;
+}

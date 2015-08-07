@@ -105,7 +105,8 @@
                           <p>已经是会员?<a id='login_link_in_register' href="#">登录</a></p>
                       </div>
                       <div id="fixed_zhuce_form">
-                        <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+                        <form action="{{ url_for_security('register', next=url_for_security('login')) }}"
+                              method="POST" name="register_user_form">
                           {{ register_user_form.hidden_tag() }}
                           <input type="hidden" id="normal_user_type_id"
                                  name="normal_user_type_id"

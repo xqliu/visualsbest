@@ -25,8 +25,8 @@ MAIL_USERNAME = os.environ['SMTP_USERNAME']
 MAIL_PASSWORD = os.environ['SMTP_PASSWORD']
 MAIL_DEFAULT_SENDER = os.environ['MAIL_DEFAULT_SENDER']
 SECURITY_POST_CHANGE_VIEW = '/settings'
-# 默认不发送邮件
-MAIL_SUPPRESS_SEND = False
+# 默认不发送邮件, 除非设定了环境变量MAIL_SUPPRESS_SEND为False
+MAIL_SUPPRESS_SEND = os.environ.get('MAIL_SUPPRESS_SEND') or True
 
 # if os.environ['VISUALS_BEST_DATABASE_URL'] is not None:
 try:
@@ -43,7 +43,8 @@ SECRET_KEY = '123QWEasDzXcqazw'
 
 security_messages = {
     'UNAUTHORIZED': (u'您没有权限查看本信息', 'error'),
-    'CONFIRM_REGISTRATION': (u'感谢您的注册，确认信息已经发送到了邮箱 %(email)s',
+    'CONFIRM_REGISTRATION': (u'感谢您的注册，确认信息已经发送到了邮箱 %(email)s, '
+                             u'您需要点击确认邮件中的确认链接才可以登录系统',
                              'success'),
     'EMAIL_CONFIRMED': (u'感谢您的注册，您的邮箱已经确认', 'success'),
     'ALREADY_CONFIRMED': (u'邮箱已经被确认', 'info'),
