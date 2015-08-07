@@ -63,8 +63,7 @@
           </div>
           <div class="basic_xinxi_02">
             <input id="birthday" name="birthday" type="date"
-                   value="
-                       {% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
+                   value="{% if user.birthday is defined and user.birthday != None%}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
           </div>
           <div class="basic_xinxi_03"></div>
         </li>

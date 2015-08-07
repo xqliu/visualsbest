@@ -1,7 +1,14 @@
 {% macro profile_left_widget(current_user) %}
   <!--个人简介 strat-->
   <div class="others_jj">
-    <div class="others_tx"><img src="../static/pic/big_tx.png"/></div>
+    <div class="others_tx">
+      {% if current_user.image is defined %}
+      <img src="{{ url_for('static', filename='uploads/gallery/' + current_user.image.path) }}"
+           alt="{{ current_user.image.alt }}"/>
+      {% else %}
+        <img src="{{ url_for('static', filename="pic/big_tx.png")}}"/>
+      {% endif %}
+    </div>
     <div class="zuozhe_name">{{ current_user.display }}</div>
     <div class="others_xq page_xq">
       <h5><a href="{{ url_for('settings') }}">编辑个人资料</a></h5>
