@@ -2,18 +2,17 @@
 
 from app.app_provider import AppInfo
 from user import User
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import backref
 
 db = AppInfo.get_db()
 
 
 class PhotoCategory(db.Model):
-    """
-    照片分类(风景、运动、人像等)，由摄影师创建
-    """
+    """作品分类，由摄影师创建"""
     __tablename__ = 'photo_category'
     id = Column(Integer, primary_key=True)
+    name = Column(String(32), nullable=False)
 
     # 该分类所属于的用户
     photographer_id = db.Column(db.Integer, db.ForeignKey(User.id))

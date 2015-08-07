@@ -1,11 +1,11 @@
 # encoding=utf-8
-from app import app_provider
+from app import app_provider, AppInfo
 from app.forms.user_profile_form import UserProfileForm
-from app.models import User, UserExperience, Image
+from app.models import User, UserExperience, PhotoCategory
 from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.view_util import render_template_front_layout
-from flask import request
+from flask import request, redirect, url_for
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 
@@ -42,10 +42,37 @@ def comments():
     return render_template_front_layout('comments.html')
 
 
-@app.route("/create_collection")
+@app.route("/create_collection", methods=['GET', 'POST'])
 @login_required
 def create_collection():
+    if request.method == 'POST':
+        redirect(url_for('works'))
     return render_template_front_layout('create_collection.html')
+
+
+@app.route("/photo_categories", methods=['GET', 'POST'])
+@login_required
+def photo_categories():
+    if request.method == 'POST':
+        category = None
+        if request.form.get('operation') == u'create':
+            category = PhotoCategory()
+            category.name = request.form.get('name')
+            category.photographer_id = current_user.id
+        elif request.form.get('operation') == u'edit':
+            category_id = request.form.get('id')
+            category = PhotoCategory.query.get(int(category_id))
+            category.name = request.form.get('name')
+        elif request.form.get('operation') == u'delete':
+            category_id = int(request.form.get('id'))
+            PhotoCategory.query.filter_by(id=category_id).delete()
+            AppInfo.get_db().session.commit()
+        if category is not None:
+            save_obj_commit(category)
+    categories = PhotoCategory.query.filter_by(
+        photographer_id=current_user.id).all()
+    return render_template_front_layout('photo_categories.html',
+                                        categories=categories)
 
 
 @app.route("/blog")

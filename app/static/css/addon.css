@@ -99,17 +99,35 @@
 }
 
 .header_gallery_setting {
-    width:100px;
-    display:inline-block;
+    width: 100px;
+    display: inline-block;
 }
 
 .header_setting_link {
-    display:inline-block;
+    display: inline-block;
     line-height: 53px;
-    height:53px;
+    height: 53px;
 }
 
 .header_right {
-    width:580px;
+    width: 580px;
 }
+
+.photo_categories_list {
+    width: 95%;
+    margin-top: 15px;
+}
+
+.photo_categories_list thead th, .photo_categories_list tbody tr td {
+    text-align: center;
+}
+
+.baocun {
+    margin: 22px auto;
+}
+
+#photo_category_edit_panel {
+    display:none;
+}
+
 
