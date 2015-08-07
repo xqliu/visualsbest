@@ -66,7 +66,7 @@ class User(db.Model, UserMixin):
     # 用户状态, 根据 confirmed_at 字段来动态的获取
     @hybrid_property
     def status(self):
-        if self.confirmed_at is not None:
+        if self.confirmed_at is None:
             return EnumValues.find_one_by_code('UN_VERIFIED')
         return EnumValues.find_one_by_code('VERIFIED')
 
