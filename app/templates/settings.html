@@ -6,7 +6,8 @@
 {% block dashboard_main %}
   {{ super() }}
   <div class="others_right_top">
-    <form action="{{ url_for('settings') }}" method="POST">
+    <form action="{{ url_for('settings') }}" method="POST"
+          enctype="multipart/form-data">
       {{ user_profile_form.hidden_tag() }}
       <div class="others_right_head">
         <h4>基本资料</h4>
@@ -62,7 +63,8 @@
           </div>
           <div class="basic_xinxi_02">
             <input id="birthday" name="birthday" type="date"
-                   value="{% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
+                   value="
+                       {% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
@@ -115,6 +117,14 @@
                    value="{{ user.qq_number or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01">
+            <label for="photo">修改头像</label>
+          </div>
+          <div class="basic_xinxi_02">
+            <input type="file" name="photo" id="photo">
+          </div>
         </li>
         <li>
           <div class="basic_xinxi_01">

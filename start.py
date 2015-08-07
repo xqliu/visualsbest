@@ -1,8 +1,7 @@
 # coding=utf-8
 from flask import Flask
 from flask.ext.mail import Mail
-from flask.ext.migrate import Migrate, MigrateCommand
-from flask.ext.script import Manager
+from flask.ext.migrate import Migrate
 from flask.ext.security import SQLAlchemyUserDatastore, Security
 import os
 import rollbar
@@ -23,17 +22,25 @@ babel.init_app(app)
 from flask.ext.sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
 from app.app_provider import AppInfo
-
 AppInfo.set_app(app)
 AppInfo.set_db(db)
 
-# 本行需要在 app定义后， 调用了AppInfo.set_app(app)后才能包含
+# 初始化Gallery存储的服务，用于存储所有的用户上传的头像
+from flask.ext.uploads import UploadSet, configure_uploads
+from flask.ext.uploads import IMAGES
+galleries_upload_set = UploadSet('gallery', IMAGES)
+configure_uploads(app, galleries_upload_set)
+AppInfo.set_galleries_store_service(galleries_upload_set)
+
+# 初始化所有的routers定义
 from app.routers import *
 
+# 本行需要在 app定义后， 调用了AppInfo.set_app(app)后才能包含
 # 本行必须在 db初始化之后调用，不然会报
 # AttributeError: 'NoneType' object has no attribute 'Model'
 # 的错误
 from app.models import *
+
 
 # Setup Flask-Security
 from app.models.user import User, Role

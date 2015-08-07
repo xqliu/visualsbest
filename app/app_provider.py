@@ -1,7 +1,13 @@
-class AppInfo():
+# coding=utf-8
+class AppInfo(object):
 
+    # 头像上传存储的服务
+    _galleries_store_service = None
+    # Flask App的引用
     _app = None
+    # SQLAlchemy 的 DB实例
     _db = None
+    # Flask-Admin的Admin实例
     _admin = None
 
     def __init__(self):
@@ -30,3 +36,11 @@ class AppInfo():
     @staticmethod
     def get_admin():
         return AppInfo._admin
+
+    @staticmethod
+    def set_galleries_store_service(galleries_upload_set):
+        AppInfo._galleries_store_service = galleries_upload_set
+
+    @staticmethod
+    def get_galleries_store_service():
+        return AppInfo._galleries_store_service

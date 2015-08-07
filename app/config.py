@@ -3,6 +3,10 @@ from flask import url_for
 
 import os
 
+# 最大的上传文件大小(4M)
+MAX_CONTENT_LENGTH = 4 * 1024 * 1024
+UPLOADS_DEFAULT_DEST = os.path.join(os.path.dirname(__file__),
+                                    'static/uploads')
 BABEL_DEFAULT_LOCALE = 'zh_CN'
 BABEL_DEFAULT_TIMEZONE = 'CST'
 SQLALCHEMY_ECHO = False

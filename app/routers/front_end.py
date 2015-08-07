@@ -1,7 +1,7 @@
 # encoding=utf-8
 from app import app_provider
 from app.forms.user_profile_form import UserProfileForm
-from app.models import User, UserExperience
+from app.models import User, UserExperience, Image
 from app.util.db_util import save_obj_commit
 from app.util.view_util import render_template_front_layout
 from flask import request
@@ -96,6 +96,14 @@ def settings():
             user.wechat_account = form.wechat_account.data
             user.qq_number = form.qq_number.data
             user.introduce = form.introduce.data
+            if 'photo' in request.files:
+                if user.image is None:
+                    image = Image()
+                    user.image = image
+                filename = app_provider.AppInfo.get_galleries_store_service()\
+                    .save(request.files['photo'])
+                user.image.path = filename
+                user.image.alt = u'头像'
             save_obj_commit(user)
     return render_template_front_layout('settings.html',
                                         user_profile_form=UserProfileForm(),
