@@ -1,10 +1,11 @@
 /*.fixed_zhuce, .zhuce_fixed, .fixed_zhuce_op {*/
-    /*height:400px;*/
+/*height:400px;*/
 /*}*/
 
 #fixed_zhuce_form {
     display: none;
 }
+
 #fixed_zhuce_form ul {
     width: 85%;
     margin: 0 auto;
@@ -15,7 +16,7 @@
     line-height: 28px;
     color: #BDBDBD;
     text-align: left;
-    margin-top:0;
+    margin-top: 0;
 }
 
 #fixed_zhuce_form ul li input.txt {
@@ -33,18 +34,18 @@
     border-radius: 3px;
     color: #fff;
     font-family: "Microsoft Yahei", sans-serif;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .popup-close-button {
-    color:#5BD0E0 !important;
-    margin-top:6px;
+    color: #5BD0E0 !important;
+    margin-top: 6px;
 }
 
 .popup-register-close-button {
-    margin-top:0;
-    color:#5BD0E0 !important;
-    float:none;
+    margin-top: 0;
+    color: #5BD0E0 !important;
+    float: none;
 }
 
 .others_right_head h4 {
@@ -52,15 +53,63 @@
 }
 
 .experience li {
-    height:auto;
+    height: auto;
 }
 
 .experience {
-    padding-top:20px;
-    width:95%;
-    margin:auto;
-    text-align:center;
+    padding-top: 20px;
+    width: 95%;
+    margin: auto;
+    text-align: center;
 }
 
-.cke_contents { height: 100% !important; }
+.cke_contents {
+    height: 100% !important;
+}
+
+.circular {
+    width: 42px;
+    height: 39px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    margin-top: 7px;
+    display: inline-block;
+}
+
+.header_create_collection_link {
+    width: 90px;
+    height: 53px;
+    background: url(../images/pen.png) no-repeat 10px;
+    float: left;
+    line-height: 53px;
+    text-indent: 2em;
+}
+
+.header_create_collection_link a {
+    color: #fff;
+}
+
+.header_create_collection_link:hover {
+    background: #fff url(../images/pen1.png) no-repeat 10px;
+}
+
+.header_create_collection_link:hover a {
+    color: #42BACC;
+}
+
+.header_gallery_setting {
+    width:100px;
+    display:inline-block;
+}
+
+.header_setting_link {
+    display:inline-block;
+    line-height: 53px;
+    height:53px;
+}
+
+.header_right {
+    width:580px;
+}
 

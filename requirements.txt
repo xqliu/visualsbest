@@ -16,4 +16,5 @@ Flask-Security==1.7.4
 blinker==1.3
 rollbar==0.9.12
 flask-uploads==0.1.3
+Flask-Images==2.1.2
 -e git+https://github.com/betterlife/flask-admin.git@7896f66eb272d04a20a3f5f843187656eb3bbde4#egg=Flask_Admin

@@ -2,25 +2,38 @@
 {% import 'admin/static.html' as admin_static with context %}
 <!-- Header start -->
 {% block header %}
-  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>作品</title>
-    <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}"
-          rel="stylesheet">
-    <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}"
-          rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" />
-    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/addon.css')}}" />
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.7.2.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.sochange.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/n_public.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/public.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/preview.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.masonry.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.infinitescroll.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/works.js')}}"></script>
+    <link
+        href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}"
+        rel="stylesheet">
+    <link
+        href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}"
+        rel="stylesheet">
+    <link type="text/css" rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link type="text/css" rel="stylesheet"
+          href="{{ url_for('static', filename='css/addon.css') }}"/>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/jquery-1.7.2.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/jquery.sochange.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/n_public.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/public.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/preview.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/jquery.masonry.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/jquery.infinitescroll.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static',  filename='js/works.js') }}"></script>
     {% block header_tail %}
     {% endblock %}
   </head>
@@ -33,114 +46,158 @@
 
 <!--导航 start -->
 {% block navigator %}
-<div class="{% block header_bg_css %} header_bg others_header_bg {% endblock %}"></div>
-<div class="header">
-	<div class="layer">
-    	<div class="logo"><a href="{{ url_for('index') }}"><img src="../../static/images/logo.png"  alt="Logo"/></a></div>
-        <ul class="nav">
-        	<li><a href="{{ url_for('works') }}">摄影作品</a></li>
-          <li><a href="{{ url_for('photograph') }}">摄影师</a></li>
-        </ul>
-        <div class="header_right">
-            <div class="search">
-                <label><input type="text" /></label>
-                <label><button onclick="location='{{ url_for('search') }}'"><img src="../../static/images/serach_small.png"  alt="search"/></button></label>
-            </div>
-          {% if current_user.is_authenticated() %}
-            <div class="logout">
-                <a href="{{ url_for('security.logout') }}">退出</a>
-            </div>
-          {% else %}
-            <div class="login">
-                <a href="#" class="denglu">登录</a>|<a href="#" class="zhuce">注册</a>
-                <div class="login_fixed">
-                    <div class="fixed_login_op"></div>
-                    <div class="fixed_login">
-                      <div style="text-align: center;float:none;margin-top:4px">
-                        <a href="#" class="glyphicon glyphicon-remove popup-close-button" id="login-popup-closer"></a>
-                      </div>
-                      <div class="fixed_login_head">登录
-                        <a href="#" id="register_link_in_login">注册</a>
-                      </div>
-                      <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
-                        <ul>
-                            {{ login_user_form.hidden_tag() }}
-                            <li><label for="email">Email:</label></li>
-                            <li>
-                              <input id="email" name="email" type="text" value="" class="txt">
-                            </li>
-                            <li><label for="password">密码:</label></li>
-                            <li>
-                              <input id="password" name="password" type="password" value="" class="txt">
-                            </li>
-                            <li>
-                              <input id="remember" name="remember" type="checkbox" value="y" class="checkbox">
-                              <label for="remember">记住我</label>
-                            </li>
-                            <li><button>登录</button><a href="{{ url_for_security('forgot_password') }}" class="wangji">忘记密码？</a></li>
-                            <li class="line"><span>或者</span></li>
-                            <li>使用你的社交账户登录:</li>
-                            <li class="hezuo"><a href="#">微博登录</a>|<a href="#">QQ登录</a>|<a href="#">人人网</a></li>
-                        </ul>
-                      </form>
-                    </div>
-                </div>
-                <div class="zhuce_fixed">
-                	<div class="fixed_zhuce_op"></div>
-                    <div class="fixed_zhuce">
-                      <div style="margin-bottom: 15px;text-align: center;">
-                        <a href="#" class="glyphicon glyphicon-remove popup-register-close-button" id="register-popup-closer"></a>
-                      </div>
-                      <div id="fixed_zhuce_link">
-                        <ul>
-                            <li class="register_normal_user">
-                              <a id='normal_user_register_link' href="#">注册成为普通用户</a>
-                            </li>
-                              <li class="register_photographer">
-                                <a id='photographer_register_link' href="#">注册成为摄影师</a>
-                              </li>
-                              <li class="line"></li>
-                              <li class="green">注册即代表您同意<br/><a href="#">服务条款</a>、<a href="#">隐私政策</a></li>
-                          </ul>
-                          <p>已经是会员?<a id='login_link_in_register' href="#">登录</a></p>
-                      </div>
-                      <div id="fixed_zhuce_form">
-                        <form action="{{ url_for_security('register', next=url_for_security('login')) }}"
-                              method="POST" name="register_user_form">
-                          {{ register_user_form.hidden_tag() }}
-                          <input type="hidden" id="normal_user_type_id"
-                                 name="normal_user_type_id"
-                                 value="{{ register_user_form.normal_user_type.id }}"/>
-                          <input type="hidden" id="photographer_user_type_id"
-                                 name="photographer_user_type_id"
-                                 value="{{ register_user_form.photographer_user_type.id }}"/>
-                          <input type="hidden" id="type_id" name="type_id" value=""/>
-                          <ul>
-                            <li><label for="login">登陆用户名:</label></li>
-                            <li><input id="login" name="login" type="text" class="txt"></li>
-                            <li><label for="display">昵称:</label></li>
-                            <li><input id="display" name="display" type="text" class="txt"></li>
-                            <li><label for="mobile_phone">手机号码:</label></li>
-                            <li><input id="mobile_phone" name="mobile_phone" type="text" class="txt"></li>
-                            <li><label for="email">邮箱:</label></li>
-                            <li><input id="email" name="email" type="text" class="txt"></li>
-                            <li><label for="password">密码:</label></li>
-                            <li><input id="password" name="password" type="password" class="txt"></li>
-                            <li><label for="password_confirm">确认密码:</label></li>
-                            <li><input id="password_confirm" name="password_confirm" type="password" class="txt"></li>
-                            <li><div style="text-align: center;"><button type="submit" id="register_button">注册</button></div></li>
-                          </ul>
-                        </form>
-                      </div>
-                    </div>
-                </div>
-            </div>
-          {% endif %}
-            <div class="help"><a href="#">帮助</a></div>
-            <div class="header_last"><a href="{{ url_for('create_collection') }}">发布您的作品</a></div>
+  <div
+      class="{% block header_bg_css %} header_bg others_header_bg {% endblock %}"></div>
+  <div class="header">
+    <div class="layer">
+      <div class="logo"><a href="{{ url_for('index') }}"><img
+          src="../../static/images/logo.png" alt="Logo"/></a></div>
+      <ul class="nav">
+        <li><a href="{{ url_for('works') }}">摄影作品</a></li>
+        <li><a href="{{ url_for('photograph') }}">摄影师</a></li>
+      </ul>
+      <div class="header_right">
+        <div class="search">
+          <label><input type="text"/></label>
+          <label>
+            <button onclick="location='{{ url_for('search') }}'"><img
+                src="../../static/images/serach_small.png" alt="search"/>
+            </button>
+          </label>
         </div>
+        {% if current_user.is_authenticated() %}
+          <div class="header_gallery_setting">
+            <a href="{{ url_for('settings') }}">
+              {% if current_user.image is defined and current_user.image != None%}
+                <img alt="个人设定"
+                     src="{{ url_for('static', filename='uploads/gallery/' + current_user.image.path, width=42, height=39, mode='fit') }}"
+                     class="circular">
+              {% else %}
+                <img alt="个人设定" src="{{ url_for('static', filename="pic/big_tx.png", width=42, height=39, mode='fit') }}"
+                    class="circular"/>
+              {% endif %}
+            </a>
+          </div>
+        {% else %}
+          <div class="login">
+            <a href="#" class="denglu">登录</a>|<a href="#" class="zhuce">注册</a>
+
+            <div class="login_fixed">
+              <div class="fixed_login_op"></div>
+              <div class="fixed_login">
+                <div style="text-align: center;float:none;margin-top:4px">
+                  <a href="#"
+                     class="glyphicon glyphicon-remove popup-close-button"
+                     id="login-popup-closer"></a>
+                </div>
+                <div class="fixed_login_head">登录
+                  <a href="#" id="register_link_in_login">注册</a>
+                </div>
+                <form action="{{ url_for_security('login') }}" method="POST"
+                      name="login_user_form">
+                  <ul>
+                    {{ login_user_form.hidden_tag() }}
+                    <li><label for="email">Email:</label></li>
+                    <li>
+                      <input id="email" name="email" type="text" value=""
+                             class="txt">
+                    </li>
+                    <li><label for="password">密码:</label></li>
+                    <li>
+                      <input id="password" name="password" type="password"
+                             value="" class="txt">
+                    </li>
+                    <li>
+                      <input id="remember" name="remember" type="checkbox"
+                             value="y" class="checkbox">
+                      <label for="remember">记住我</label>
+                    </li>
+                    <li>
+                      <button>登录</button>
+                      <a href="{{ url_for_security('forgot_password') }}"
+                         class="wangji">忘记密码？</a></li>
+                    <li class="line"><span>或者</span></li>
+                    <li>使用你的社交账户登录:</li>
+                    <li class="hezuo"><a href="#">微博登录</a>|<a href="#">QQ登录</a>|<a
+                        href="#">人人网</a></li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+            <div class="zhuce_fixed">
+              <div class="fixed_zhuce_op"></div>
+              <div class="fixed_zhuce">
+                <div style="margin-bottom: 15px;text-align: center;">
+                  <a href="#"
+                     class="glyphicon glyphicon-remove popup-register-close-button"
+                     id="register-popup-closer"></a>
+                </div>
+                <div id="fixed_zhuce_link">
+                  <ul>
+                    <li class="register_normal_user">
+                      <a id='normal_user_register_link' href="#">注册成为普通用户</a>
+                    </li>
+                    <li class="register_photographer">
+                      <a id='photographer_register_link' href="#">注册成为摄影师</a>
+                    </li>
+                    <li class="line"></li>
+                    <li class="green">注册即代表您同意<br/><a href="#">服务条款</a>、<a
+                        href="#">隐私政策</a></li>
+                  </ul>
+                  <p>已经是会员?<a id='login_link_in_register' href="#">登录</a></p>
+                </div>
+                <div id="fixed_zhuce_form">
+                  <form
+                      action="{{ url_for_security('register', next=url_for_security('login')) }}"
+                      method="POST" name="register_user_form">
+                    {{ register_user_form.hidden_tag() }}
+                    <input type="hidden" id="normal_user_type_id"
+                           name="normal_user_type_id"
+                           value="{{ register_user_form.normal_user_type.id }}"/>
+                    <input type="hidden" id="photographer_user_type_id"
+                           name="photographer_user_type_id"
+                           value="{{ register_user_form.photographer_user_type.id }}"/>
+                    <input type="hidden" id="type_id" name="type_id" value=""/>
+                    <ul>
+                      <li><label for="login">登陆用户名:</label></li>
+                      <li><input id="login" name="login" type="text"
+                                 class="txt"></li>
+                      <li><label for="display">昵称:</label></li>
+                      <li><input id="display" name="display" type="text"
+                                 class="txt"></li>
+                      <li><label for="mobile_phone">手机号码:</label></li>
+                      <li><input id="mobile_phone" name="mobile_phone"
+                                 type="text" class="txt"></li>
+                      <li><label for="email">邮箱:</label></li>
+                      <li><input id="email" name="email" type="text"
+                                 class="txt"></li>
+                      <li><label for="password">密码:</label></li>
+                      <li><input id="password" name="password" type="password"
+                                 class="txt"></li>
+                      <li><label for="password_confirm">确认密码:</label></li>
+                      <li><input id="password_confirm" name="password_confirm"
+                                 type="password" class="txt"></li>
+                      <li>
+                        <div style="text-align: center;">
+                          <button type="submit" id="register_button">注册</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        <div class="help"><a href="#">帮助</a></div>
+        <div class="help header_create_collection_link">
+          <a href="{{ url_for('create_collection') }}">发布作品</a>
+        </div>
+        <div class="help"><a href="{{ url_for('security.logout') }}">退出</a>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}
 <!--导航 end-->
 
@@ -158,7 +215,8 @@
 
 <!--版权 start-->
 {% block copyright %}
-<div class="copyright">Copyright© 2007-2014 摄影有限公司. All Rights Reserved. <a href="{{ url_for('user.index_view') }}">管理后台</a></div>
+  <div class="copyright">Copyright© 2007-2014 摄影有限公司. All Rights Reserved. <a
+      href="{{ url_for('user.index_view') }}">管理后台</a></div>
 {% endblock %}
 <!--版权 end-->
 

@@ -2,11 +2,11 @@
   <!--个人简介 strat-->
   <div class="others_jj">
     <div class="others_tx">
-      {% if current_user.image is defined %}
-      <img src="{{ url_for('static', filename='uploads/gallery/' + current_user.image.path) }}"
+      {% if current_user.image is defined and current_user.image != None %}
+      <img src="{{ url_for('static', filename='uploads/gallery/' + current_user.image.path, width=208, height=181, mode='fit') }}"
            alt="{{ current_user.image.alt }}"/>
       {% else %}
-        <img src="{{ url_for('static', filename="pic/big_tx.png")}}"/>
+        <img src="{{ url_for('static', filename="pic/big_tx.png", width=208, height=181, mode='fit')}}"/>
       {% endif %}
     </div>
     <div class="zuozhe_name">{{ current_user.display }}</div>

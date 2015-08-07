@@ -1,5 +1,6 @@
 # coding=utf-8
 from flask import Flask
+from flask.ext.images import Images
 from flask.ext.mail import Mail
 from flask.ext.migrate import Migrate
 from flask.ext.security import SQLAlchemyUserDatastore, Security
@@ -57,6 +58,9 @@ AppInfo.set_admin(admin)
 
 # 初始化 Flask-Mail 用于发送邮件
 mail = Mail(app)
+
+# 初始化Flask-Image
+images = Images(app)
 
 
 @app.before_first_request
