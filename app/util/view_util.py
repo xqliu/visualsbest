@@ -8,3 +8,10 @@ from flask.ext.security import LoginForm
 def render_template_front_layout(template_html, **args):
     return render_template(template_html, login_user_form=LoginForm(),
                            register_user_form=UserRegisterForm(), **args)
+
+
+def default_date_formatter(view, context, model, name):
+    value = getattr(model, name)
+    if value is not None:
+        return value.strftime("%Y/%m/%d")
+    return ''

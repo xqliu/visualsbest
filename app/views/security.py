@@ -1,4 +1,5 @@
 # coding=utf-8
+from app.util.view_util import default_date_formatter
 from flask.ext.babelex import lazy_gettext
 from base_view import ModelViewWithAccess
 from flask.ext.security.utils import encrypt_password
@@ -11,7 +12,8 @@ class UserAdmin(ModelViewWithAccess):
     column_exclude_list = list = ('password',)
 
     column_list = ('id', 'login', 'display', 'email', 'type', 'active',
-                   'confirmed_at', 'status')
+                   'confirmed_at', 'status', "gender", 'mobile_phone',
+                   "qq_number", "birthday", "wechat_account", "weibo_account")
 
     column_editable_list = ('display', 'email', 'active')
 
@@ -28,6 +30,13 @@ class UserAdmin(ModelViewWithAccess):
         type=u'用户类型',
         status=u'用户状态',
         confirmed_at=u'确认时间',
+        gender=u'性别',
+        qq_number=u'QQ',
+        birthday=u'生日',
+        wechat_account=u'微信',
+        weibo_account=u'微博',
+        mobile_phone=u'手机',
+        introduce=u'简单介绍'
     )
 
     # Don't include the standard password field when creating or editing a
@@ -42,13 +51,20 @@ class UserAdmin(ModelViewWithAccess):
                              'received_messages')
 
     form_edit_rules = ('login', 'display', 'email', 'type', 'password2',
-                       'active', 'confirmed_at')
+                       'active', 'confirmed_at', "gender",
+                       'mobile_phone', "qq_number", "birthday",
+                       "wechat_account", "weibo_account", 'introduce')
 
     form_create_rules = form_edit_rules
 
     form_args = dict(
         active=dict(description=u'如果取消选中状态则禁止该用户登陆'),
     )
+
+    column_formatters = {
+        'confirmed_at': default_date_formatter,
+        'birthday': default_date_formatter
+    }
 
     # Automatically display human-readable names for the current and available
     # Roles when creating or editing a User
