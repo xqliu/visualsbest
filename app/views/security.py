@@ -4,6 +4,7 @@ from flask.ext.babelex import lazy_gettext
 from base_view import ModelViewWithAccess
 from flask.ext.security.utils import encrypt_password
 from wtforms import PasswordField
+from app.models.user import User
 
 
 # Customized User model for SQL-Admin
@@ -59,6 +60,7 @@ class UserAdmin(ModelViewWithAccess):
 
     form_args = dict(
         active=dict(description=u'如果取消选中状态则禁止该用户登陆'),
+        type=dict(query_factory=User.type_filter)
     )
 
     column_formatters = {

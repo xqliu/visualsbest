@@ -1,2 +1,2 @@
 ./test.sh
-python manage.py runserver
+python start.py runserver

@@ -1,4 +1,5 @@
 # coding=utf-8
+from app import const
 
 from app.app_provider import AppInfo
 from app.models.enum_values import EnumValues
@@ -62,6 +63,10 @@ class User(db.Model, UserMixin):
     type_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     type = relationship('EnumValues', backref=backref(
         'users_of_type', uselist=True), foreign_keys=[type_id])
+
+    @staticmethod
+    def type_filter():
+        return EnumValues.type_filter(const.USER_TYPE_KEY)
 
     # 用户状态, 根据 confirmed_at 字段来动态的获取
     @hybrid_property
