@@ -1,0 +1,52 @@
+{% extends 'layout/dashboard_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
+{% from "macro/photo_collection_form.html" import photo_collection_form %}
+{% block header_tail %}
+  <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+    $(function () {
+      $(".shangchuang_cuo").click(function () {
+        $(this).parent("li").css("display", "none");
+      });
+    });
+  </script>
+{% endblock %} {% block dashboard_nav %} {{ super() }}
+  {{ dashboard_nav("create_collection") }} {% endblock %}
+{% block dashboard_main %} {{ super() }}
+  <div class="others_right_top">
+    <div class="others_right_head">
+      <h4>编辑作品集</h4>
+    </div>
+    <h3>作品集信息</h3>
+
+    <form method="post"
+          action="{{ url_for('edit_collection', id=photo_collection.id) }}"
+          name="edit_collection_form">
+      {{ photo_collection_form(form, photo_collection, categories, styles, True) }}
+    </form>
+  </div>
+  <div class="others_right_bottom shangchuang">
+    <form method="POST"
+          action="{{ url_for('edit_collection', id=photo_collection.id) }}"
+          enctype="multipart/form-data" name="edit_collection_form">
+      <ul id="images-preview-panel"></ul>
+      <div class="shangchuang_more">
+        <a href="#">
+          <input type="file" id="photo_collection_files" multiple name="photos[]"/>
+          <img src="{{ url_for('static', filename='images/fabu_more.png') }}"
+               id="upload_files_trigger_image"/>
+        </a>
+      </div>
+      <h1 id="upload_files_trigger_text" style="cursor:pointer">
+        点击此处上传图片
+      </h1>
+      <div class="baocun">
+        <button class="button">保存</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block tail_js %}
+  <script type="text/javascript"
+          src="{{ url_for('static',  filename='js/upload_files_preview.js') }}"></script>
+{% endblock %}

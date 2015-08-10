@@ -1,6 +1,8 @@
 # coding=utf-8
 class AppInfo(object):
 
+    # 作品上传存储的服务
+    _images_store_service = None
     # 头像上传存储的服务
     _galleries_store_service = None
     # Flask App的引用
@@ -44,3 +46,11 @@ class AppInfo(object):
     @staticmethod
     def get_galleries_store_service():
         return AppInfo._galleries_store_service
+
+    @staticmethod
+    def set_image_store_service(images_store_service):
+        AppInfo._images_store_service = images_store_service
+
+    @staticmethod
+    def get_image_store_service():
+        return AppInfo._images_store_service

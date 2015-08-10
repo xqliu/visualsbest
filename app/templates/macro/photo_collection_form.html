@@ -1,0 +1,58 @@
+{% macro photo_collection_form(form, photo_collection, categories, styles, is_edit) %}
+  {{ form.hidden_tag() }}
+  {% if is_edit == True %}
+    <input type="hidden" name="id" value="{{ photo_collection.id or '' }}"/>
+  {% endif %}
+  <ul class="basic_xinxi">
+    <li>
+      <div class="basic_xinxi_01"><label for="name">作品集名称</label></div>
+      <div class="basic_xinxi_02">
+        <input type="text" value="{{ photo_collection.name or '' }}"
+               name="name" id="name"/>
+      </div>
+    </li>
+    <li>
+      <div class="basic_xinxi_01"><label for="category">拍摄类别</label></div>
+      <div class="basic_xinxi_02 basic_xinxi_0222">
+        {% if categories|length > 0 %}
+          <select name="category" id="category">
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        {% endif %}
+      </div>
+      <div class="basic_xinxi_03"></div>
+    </li>
+    <li>
+      <div class="basic_xinxi_01"><label for="style">拍摄风格</label></div>
+      <div class="basic_xinxi_02 basic_xinxi_022 basic_xinxi_0222">
+        {% if styles|length > 0 %}
+          <select name="style" id="style">
+            {% for style in styles %}
+              <option value="{{ style.id }}">{{ style.display }}</option>
+            {% endfor %}
+          </select>
+        {% endif %}
+      </div>
+      <div class="basic_xinxi_03"></div>
+    </li>
+    <li>
+      <div class="basic_xinxi_01"><label for="introduce">作品集简介</label></div>
+      <div class="basic_xinxi_02">
+        <input type="text" name="introduce" id="introduce"
+               value="{{ photo_collection.introduce or '' }}"/>
+      </div>
+    </li>
+    {% if is_edit == False %}
+      <li>
+        <div class="basic_xinxi_01"><label for="remark">备注</label></div>
+        <div class="basic_xinxi_02">
+          <input type="text" name="remark" id="remark" readonly disabled
+                 value="保存了作品集之后，您就可以上传作品集中的照片了"/>
+        </div>
+      </li>
+    {% endif %}
+  </ul>
+  <button class="button">保存</button>
+{% endmacro %}

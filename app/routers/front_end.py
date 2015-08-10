@@ -1,7 +1,9 @@
 # encoding=utf-8
-from app import app_provider, AppInfo
+from app import app_provider, AppInfo, const
+from app.forms.photo_collection_form import PhotoCollectionForm
 from app.forms.user_profile_form import UserProfileForm
-from app.models import User, UserExperience, PhotoCategory
+from app.models import User, UserExperience, PhotoCategory, EnumValues, \
+    PhotoCollection, PhotoWork
 from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.view_util import render_template_front_layout
@@ -42,12 +44,49 @@ def comments():
     return render_template_front_layout('comments.html')
 
 
+@app.route("/edit_collection/<int:id>", methods=['GET', 'POST'])
+def edit_collection(id):
+    categories = PhotoCategory.query.filter_by(
+        photographer_id=current_user.id).all()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    photo_collection = PhotoCollection.query.get(id)
+    form = PhotoCollectionForm(categories, styles)
+    if request.method == 'POST':
+        files = request.files.getlist('photos[]')
+        for img in files:
+            work = PhotoWork()
+            work.photo_collection_id = photo_collection.id
+            view_util.save_photo_work_image(work, img)
+            AppInfo.get_db().session.add(work)
+        AppInfo.get_db().session.commit()
+    return render_template_front_layout('edit_collection.html',
+                                        photo_collection=photo_collection,
+                                        categories=categories,
+                                        form=form, styles=styles)
+
+
 @app.route("/create_collection", methods=['GET', 'POST'])
 @login_required
 def create_collection():
+    categories = PhotoCategory.query.filter_by(
+        photographer_id=current_user.id).all()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    photo_collection = PhotoCollection()
+    form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
-        redirect(url_for('works'))
-    return render_template_front_layout('create_collection.html')
+        if form.validate_on_submit():
+            photo_collection.photographer_id = current_user.id
+            photo_collection.uploader_id = current_user.id
+            photo_collection.category_id = int(form.category.data)
+            photo_collection.style_id = int(form.style.data)
+            photo_collection.name = form.name.data
+            photo_collection.introduce = form.introduce.data
+            save_obj_commit(photo_collection)
+            return redirect(url_for('edit_collection', id=photo_collection.id))
+    return render_template_front_layout('create_collection.html',
+                                        photo_collection=photo_collection,
+                                        categories=categories,
+                                        form=form, styles=styles)
 
 
 @app.route("/photo_categories", methods=['GET', 'POST'])
@@ -89,7 +128,10 @@ def dashboard():
 @app.route("/my_photos")
 @login_required
 def my_photos():
-    return render_template_front_layout('my_photos.html')
+    photo_collections = PhotoCollection.query.filter_by(
+        photographer_id=current_user.id).all()
+    return render_template_front_layout('my_photos.html',
+                                        photo_collections=photo_collections)
 
 
 @app.route("/orders")

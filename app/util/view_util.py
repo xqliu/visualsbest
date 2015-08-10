@@ -8,6 +8,7 @@ from flask.ext.security import LoginForm
 import os
 
 gallery_service = app_provider.AppInfo.get_galleries_store_service()
+image_service = app_provider.AppInfo.get_image_store_service()
 
 
 def render_template_front_layout(template_html, **args):
@@ -30,19 +31,39 @@ def default_date_formatter(view, context, model, name):
     return ''
 
 
-def save_user_gallery(user, image):
+def save_image(service, owner, image_file):
+    """
+    保存图片
+    :param service: 用于保存图片的Flask-upload 服务
+    :param owner: 该图片所属的对象，要求使用 owner.image来引用到要保存的图片
+    :param image_file: 图片数据文件
+    :return:
+    """
+    if owner.image is not None:
+        existing_img = image_service.path(owner.image.path)
+        file_util.silent_remove(existing_img)
+    else:
+        image = Image()
+        owner.image = image
+    filename = service.save(image_file)
+    owner.image.path = filename
+
+
+def save_user_gallery(user, image_file):
     """
     保存用户的头像
     :param user: 用户对象
     :param image: 图像对象
     :return: None
     """
-    if user.image is not None:
-        existing_img = gallery_service.path(user.image.path)
-        file_util.silent_remove(existing_img)
-    else:
-        image = Image()
-        user.image = image
-    filename = gallery_service.save(image)
-    user.image.path = filename
-    user.image.alt = u'头像'
+    save_image(gallery_service, user, image_file)
+
+
+def save_photo_work_image(photo_work, image_file):
+    """
+    保存摄影师的摄影作品图片
+    :param photo_work: 摄影作品对象
+    :param image_file: 图片对象
+    :return:
+    """
+    save_image(image_service, photo_work, image_file)

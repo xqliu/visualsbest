@@ -33,6 +33,12 @@ galleries_upload_set = UploadSet('gallery', IMAGES)
 configure_uploads(app, galleries_upload_set)
 AppInfo.set_galleries_store_service(galleries_upload_set)
 
+# 初始化Image存储的服务，用于存储所有摄影师上传的作品图像
+images_upload_set = UploadSet('images', IMAGES)
+configure_uploads(app, images_upload_set)
+AppInfo.set_image_store_service(images_upload_set)
+
+
 # 初始化所有的routers定义
 from app.routers import *
 

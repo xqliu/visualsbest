@@ -14,10 +14,7 @@
         <li {% if page == "settings" %}class="curr"{% endif %}>
           <a href="{{ url_for('settings') }}">账户设置</a>
         </li>
-        <li {% if page == "create_collection" %}class="curr"{% endif %}>
-          <a href="{{ url_for('create_collection') }}">发布作品</a>
-        </li>
-        <li {% if page == "my_photos" %}class="curr"{% endif %}>
+        <li {% if page == "my_photos" or page == "create_collection" or page == "edit_collection" %}class="curr"{% endif %}>
           <a href="{{ url_for('my_photos') }}">我的照片</a>
         </li>
       </ul>

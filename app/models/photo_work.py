@@ -23,20 +23,12 @@ class PhotoWork(db.Model):
     photo_collection = db.relation(PhotoCollection,
                                    backref=backref('photos', uselist=True))
 
-    # 可选的，对作品的描述
-    remark = Column(Text, nullable=True)
-
-
-class PhotoWorkImage(db.Model):
-    """
-    与具体图片作品的关联
-    """
-    __tablename__ = 'photo_work_image'
-    id = db.Column(db.Integer, primary_key=True)
+    # 该作品的图片对象
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
     image = db.relation(Image, backref='image_photo_work')
-    photo_work_id = db.Column(db.Integer, db.ForeignKey(PhotoWork.id))
-    photo_work = db.relation(PhotoWork, backref='photo_work_image')
+
+    # 可选的，对作品的描述
+    remark = Column(Text, nullable=True)
 
 
 class PhotoWorkComment(db.Model):

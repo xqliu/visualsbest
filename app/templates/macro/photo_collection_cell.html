@@ -1,0 +1,16 @@
+{% macro display_photo_collection(photo_collection) %}
+  <li>
+    <a href="{{ url_for('edit_collection', id=photo_collection.id) }}">
+      <img src="../static/pic/works_01.png"/>
+    </a>
+
+    <h2>{{ photo_collection.name }}</h2>
+    <h6>{{ photo_collection.introduce or '' }}</h6>
+    <h6>{{ photo_collection.date or '' }}</h6>
+
+    <div>
+      <a href="#" class="zan">（0）</a>
+      <a href="#" class="wx">（0）</a>
+    </div>
+  </li>
+{% endmacro %}

@@ -16,7 +16,7 @@ from payment import Payment
 from photo_category import PhotoCategory
 from photo_collection import PhotoCollection
 from photo_omnibus import PhotoOmnibus
-from photo_work import PhotoWorkImage, PhotoWorkComment, \
+from photo_work import PhotoWorkComment, \
     PhotoWorkFavourite, PhotoWork, PhotoWorkOmnibus
 from favourite import Favourite
 from request import Request

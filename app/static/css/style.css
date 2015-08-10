@@ -498,8 +498,6 @@ _background: none;opacity:1;}
 .shangchuang{ width:100%; height:auto; background:#FAFAFA; text-align:center; padding-bottom:30px;}
 .shangchuang ul{ width:98%; margin:0 auto; padding-top:30px; overflow:hidden;}
 .shangchuang ul li{ float:left; margin-left:13px; position:relative;}
-.shangchuang ul li:first-child .shangchuang_cuo{ display:block;}
-.shangchuang_cuo{ position:absolute; right:-10px; top:-10px; cursor:pointer; display:none;}
 .shangchuang_more{ margin-top:70px;}
 .shangchuang h1{ font-size:24px; color:#cccccc; font-weight:normal;}
 .baocun{ width:100%; margin:0 auto}
