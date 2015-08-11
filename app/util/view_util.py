@@ -1,4 +1,5 @@
 # encoding=utf-8
+import uuid
 from app import app_provider
 from app.forms import UserRegisterForm
 from app.models import Image
@@ -45,7 +46,9 @@ def save_image(service, owner, image_file):
     else:
         image = Image()
         owner.image = image
-    filename = service.save(image_file)
+    name, ext = os.path.splitext(image_file.filename)
+    safe_name = str(uuid.uuid4()) + ext
+    filename = service.save(image_file, name=safe_name)
     owner.image.path = filename
 
 
