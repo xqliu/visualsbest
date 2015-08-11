@@ -42,6 +42,8 @@ except KeyError:
     DEBUG = False
 
 SECRET_KEY = '123QWEasDzXcqazw'
+IMAGES_PATH = ['app/static/uploads/gallery', 'app/static/uploads/images',
+               'app/static/images', 'app/static/pic',]
 
 security_messages = {
     'UNAUTHORIZED': (u'您没有权限查看本信息', 'error'),

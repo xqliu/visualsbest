@@ -1,7 +1,12 @@
 {% macro display_photo_collection(photo_collection) %}
   <li>
     <a href="{{ url_for('edit_collection', id=photo_collection.id) }}">
-      <img src="../static/pic/works_01.png"/>
+      {% if photo_collection.photos|length > 0 %}
+        {% set filename = photo_collection.photos[0].image.path %}
+      {% else %}
+        {% set filename = 'works_01.png' %}
+      {% endif %}
+      <img src="{{ url_for('images', filename=filename, width=223, height=155, mode='crop') }}"/>
     </a>
 
     <h2>{{ photo_collection.name }}</h2>

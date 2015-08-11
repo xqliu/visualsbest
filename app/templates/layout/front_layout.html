@@ -70,10 +70,10 @@
             <a href="{{ url_for('settings') }}">
               {% if current_user.image is defined and current_user.image != None%}
                 <img alt="个人设定"
-                     src="{{ url_for('static', filename='uploads/gallery/' + current_user.image.path, width=42, height=39, mode='fit') }}"
+                     src="{{ url_for('images', filename=current_user.image.path, width=42, height=39, mode='fit') }}"
                      class="circular">
               {% else %}
-                <img alt="个人设定" src="{{ url_for('static', filename="pic/big_tx.png", width=42, height=39, mode='fit') }}"
+                <img alt="个人设定" src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
                     class="circular"/>
               {% endif %}
             </a>
