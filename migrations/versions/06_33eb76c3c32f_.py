@@ -21,7 +21,7 @@ def upgrade():
         'name', sa.String(length=32), nullable=False))
     op.add_column('photo_collection', sa.Column(
         'category_id', sa.Integer(), nullable=True))
-    op.create_foreign_key(u'photo_collection_category_id_fkey',
+    op.create_foreign_key('photo_collection_category_id_fkey',
                           'photo_collection', 'photo_category',
                           ['category_id'], ['id'])
     op.add_column('photo_collection', sa.Column(
@@ -32,8 +32,8 @@ def upgrade():
 
 def downgrade():
     op.drop_column('photo_collection', 'date')
-    op.drop_constraint(None, 'photo_collection', type_='foreignkey')
-    op.drop_constraint(None, 'photo_collection', type_='foreignkey')
+    op.drop_constraint('photo_collection_category_id_fkey', 'photo_collection',
+                       type_='foreignkey')
     op.drop_column('photo_collection', 'style_id')
     op.drop_column('photo_collection', 'introduce')
     op.drop_column('photo_collection', 'category_id')
