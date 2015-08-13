@@ -7,3 +7,4 @@ reports
 nosetests.xml
 nosetests.json
 app/static/uploads
+.rope*

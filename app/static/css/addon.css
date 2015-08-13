@@ -127,21 +127,21 @@
 }
 
 #photo_category_edit_panel {
-    display:none;
+    display: none;
 }
 
-#images-preview-panel img {
+#images-preview-panel img, #existing-images img {
     height: 88px;
 }
 
-#images-preview-panel div {
+#images-preview-panel div, #existing-images div {
     padding-right: 10px;
-    padding-top:10px;
+    padding-top: 10px;
 }
 
-#images-preview-panel div span{
+#images-preview-panel div span, #existing-images div span {
     height: 22px;
-    width:22px;
+    width: 22px;
     display: block;
     position: absolute;
     top: 0;

@@ -25,13 +25,41 @@
     </form>
   </div>
   <div class="others_right_bottom shangchuang">
+    <div class="others_right_head">
+      <h4>作品集中现有图片</h4>
+    </div>
+    <form method="POST"
+          action="{{ url_for('edit_collection', id=photo_collection.id) }}"
+          name="edit_collection_form">
+      <ul id="existing-images">
+        {% if photo_collection.photos|length > 0 %}
+          {% for photo in photo_collection.photos %}
+            <li>
+              <div>
+                <img src="{{ url_for('images', filename=photo.image.path, width=223, height=155, mode='crop') }}"/>
+                <span></span>
+              </div>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+      <div class="baocun">
+        <button>保存</button>
+      </div>
+    </form>
+  </div>
+  <div class="others_right_bottom shangchuang">
+    <div class="others_right_head">
+         <h4>上传新图片到作品集</h4>
+       </div>
     <form method="POST"
           action="{{ url_for('edit_collection', id=photo_collection.id) }}"
           enctype="multipart/form-data" name="edit_collection_form">
       <ul id="images-preview-panel"></ul>
       <div class="shangchuang_more">
         <a href="#">
-          <input type="file" id="photo_collection_files" multiple name="photos[]"/>
+          <input type="file" id="photo_collection_files" multiple
+                 name="photos[]" style="display: none;"/>
           <img src="{{ url_for('static', filename='images/fabu_more.png') }}"
                id="upload_files_trigger_image"/>
         </a>
@@ -39,6 +67,7 @@
       <h1 id="upload_files_trigger_text" style="cursor:pointer">
         点击此处上传图片
       </h1>
+
       <div class="baocun">
         <button class="button">保存</button>
       </div>
