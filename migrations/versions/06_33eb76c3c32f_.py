@@ -15,20 +15,16 @@ down_revision = '4b28ce000424'
 
 
 def upgrade():
-    # op.add_column('photo_category', sa.Column(
-    #     'name', sa.String(length=32), nullable=False))
-    # op.add_column('photo_collection', sa.Column(
-    #     'name', sa.String(length=32), nullable=False))
+    op.add_column('photo_category', sa.Column(
+        'name', sa.String(length=32), nullable=False))
+    op.add_column('photo_collection', sa.Column(
+        'name', sa.String(length=32), nullable=False))
     op.add_column('photo_collection', sa.Column(
         'category_id', sa.Integer(), nullable=True))
+    op.create_foreign_key(None, 'photo_collection', 'photo_category',
+                          ['category_id'], ['id'])
     op.add_column('photo_collection', sa.Column(
         'introduce', sa.String(length=256), nullable=True))
-    op.add_column('photo_collection', sa.Column(
-        'style_id', sa.Integer(), nullable=True))
-    op.create_foreign_key(None, 'photo_collection',
-                          'photo_category', ['category_id'], ['id'])
-    op.create_foreign_key(None, 'photo_collection',
-                          'enum_values', ['style_id'], ['id'])
     op.add_column('photo_collection',
                   sa.Column('date', sa.Date(), nullable=True))
 
