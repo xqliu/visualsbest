@@ -15,10 +15,10 @@ down_revision = '4b28ce000424'
 
 
 def upgrade():
-    # op.add_column('photo_category', sa.Column(
-    #     'name', sa.String(length=32), nullable=False))
-    # op.add_column('photo_collection', sa.Column(
-    #     'name', sa.String(length=32), nullable=False))
+    op.add_column('photo_category', sa.Column(
+        'name', sa.String(length=32), nullable=False))
+    op.add_column('photo_collection', sa.Column(
+        'name', sa.String(length=32), nullable=False))
     op.add_column('photo_collection', sa.Column(
         'category_id', sa.Integer(), nullable=True))
     op.add_column('photo_collection', sa.Column(
