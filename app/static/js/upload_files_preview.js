@@ -1,3 +1,5 @@
+var valid_files = [];
+
 function handleFileSelect(evt) {
     var files = evt.target.files;
     // Loop through the FileList and render image files as thumbnails.
@@ -5,6 +7,8 @@ function handleFileSelect(evt) {
         // Only process image files.
         if (!f.type.match('image.*')) {
             continue;
+        } else {
+            valid_files.push(f.name);
         }
         var reader = new FileReader();
         // Closure to capture the file information.
@@ -31,5 +35,20 @@ $(function () {
     });
     $("#upload_files_trigger_text").click(function () {
         $("input[id='photo_collection_files']").click();
+    });
+
+    $("#existing-images li div span").click(function(event){
+        if(confirm('确定从当前作品集中删除本作品吗?')) {
+            var id = event.target.id.slice('delete-'.length);
+            if ($("#photo-works-to-delete").val() === '') {
+                 $("#photo-works-to-delete").val(id);
+            } else {
+                $("#photo-works-to-delete").val(
+                    $("#photo-works-to-delete").val() + ',' + id
+                );
+            }
+            alert($("#photo-works-to-delete").val());
+            $("#photo-work-" + id).hide(500);
+        }
     });
 });

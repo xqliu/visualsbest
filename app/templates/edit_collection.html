@@ -31,21 +31,23 @@
     <form method="POST"
           action="{{ url_for('edit_collection', id=photo_collection.id) }}"
           name="edit_collection_form">
-      <ul id="existing-images">
-        {% if photo_collection.photos|length > 0 %}
-          {% for photo in photo_collection.photos %}
-            <li>
-              <div>
-                <img src="{{ url_for('images', filename=photo.image.path, width=223, height=155, mode='crop') }}"/>
-                <span></span>
-              </div>
-            </li>
-          {% endfor %}
-        {% endif %}
-      </ul>
-      <div class="baocun">
-        <button>保存</button>
-      </div>
+        <input type='hidden' name='photo-works-to-delete' id='photo-works-to-delete' value=""/>
+        <input type='hidden' name='operation' value="edit-image"/>
+        <ul id="existing-images">
+            {% if photo_collection.photos|length > 0 %}
+            {% for photo in photo_collection.photos %}
+                <li>
+                <div id='photo-work-{{photo.id}}'>
+                    <img src="{{ url_for('images', filename=photo.image.path, width=223, height=155, mode='crop') }}"/>
+                    <span id='delete-{{photo.id}}'></span>
+                </div>
+                </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+        <div class="baocun">
+            <button>保存</button>
+        </div>
     </form>
   </div>
   <div class="others_right_bottom shangchuang">
@@ -55,6 +57,7 @@
     <form method="POST"
           action="{{ url_for('edit_collection', id=photo_collection.id) }}"
           enctype="multipart/form-data" name="edit_collection_form">
+          <input type='hidden' name='operation' value="add-image"/>
       <ul id="images-preview-panel"></ul>
       <div class="shangchuang_more">
         <a href="#">

@@ -103,7 +103,7 @@ $(function () {
     });
     $("#register-popup-closer").click(function () {
         $(".zhuce_fixed").css("display", "none");
-    })
+    });
 
 });
 

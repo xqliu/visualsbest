@@ -25,7 +25,8 @@ class PhotoWork(db.Model):
 
     # 该作品的图片对象
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
-    image = db.relation(Image, backref='image_photo_work')
+    image = db.relation(Image, backref=backref('image_photo_work',
+                                               uselist=False))
 
     # 可选的，对作品的描述
     remark = Column(Text, nullable=True)

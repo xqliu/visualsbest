@@ -3,7 +3,7 @@ from app import app_provider, AppInfo, const
 from app.forms.photo_collection_form import PhotoCollectionForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, UserExperience, PhotoCategory, EnumValues, \
-    PhotoCollection, PhotoWork
+    PhotoCollection, PhotoWork, Image
 from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.view_util import render_template_front_layout
@@ -52,12 +52,20 @@ def edit_collection(id):
     photo_collection = PhotoCollection.query.get(id)
     form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
-        files = request.files.getlist('photos[]')
-        for img in files:
-            work = PhotoWork()
-            work.photo_collection_id = photo_collection.id
-            view_util.save_photo_work_image(work, img)
-            AppInfo.get_db().session.add(work)
+        if request.form['operation'] == u'add-image':
+            files = request.files.getlist('photos[]')
+            for img in files:
+                work = PhotoWork()
+                work.photo_collection_id = photo_collection.id
+                view_util.save_photo_work_image(work, img)
+                AppInfo.get_db().session.add(work)
+        elif request.form['operation'] == u'edit-image':
+            works_to_delete = request.form['photo-works-to-delete'].split(',')
+            print works_to_delete
+            for work_id in works_to_delete:
+                work = PhotoWork.query.filter_by(id=int(work_id)).first()
+                PhotoWork.query.filter_by(id=work_id).delete()
+                Image.query.filter_by(id=work.image.id).delete()
         AppInfo.get_db().session.commit()
     return render_template_front_layout('edit_collection.html',
                                         photo_collection=photo_collection,
