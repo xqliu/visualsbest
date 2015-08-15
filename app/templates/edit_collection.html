@@ -14,7 +14,7 @@
 {% block dashboard_main %} {{ super() }}
   <div class="others_right_top">
     <div class="others_right_head">
-      <h4>编辑作品集</h4>
+      <h4>编辑作品集 | <a href="{{ url_for('collection_details', collection_id=photo_collection.id) }}" target="_blank">查看作品集显示效果</a></h4>
     </div>
     <h3>作品集信息</h3>
 

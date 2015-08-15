@@ -68,13 +68,14 @@
         {% if current_user.is_authenticated() %}
           <div class="header_gallery_setting">
             <a href="{{ url_for('settings') }}">
-              {% if current_user.image is defined and current_user.image != None%}
+              {% if current_user.image is defined and current_user.image != None %}
                 <img alt="个人设定"
                      src="{{ url_for('images', filename=current_user.image.path, width=42, height=39, mode='fit') }}"
                      class="circular">
               {% else %}
-                <img alt="个人设定" src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
-                    class="circular"/>
+                <img alt="个人设定"
+                     src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
+                     class="circular"/>
               {% endif %}
             </a>
           </div>
@@ -190,9 +191,11 @@
           </div>
         {% endif %}
         <div class="help"><a href="#">帮助</a></div>
-        <div class="help header_create_collection_link">
-          <a href="{{ url_for('create_collection') }}">发布作品</a>
-        </div>
+        {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+          <div class="help header_create_collection_link">
+            <a href="{{ url_for('my_photos') }}">作品管理</a>
+          </div>
+        {% endif %}
         <div class="help"><a href="{{ url_for('security.logout') }}">退出</a>
         </div>
       </div>
