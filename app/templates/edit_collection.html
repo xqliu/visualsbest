@@ -19,7 +19,7 @@
     <h3>作品集信息</h3>
 
     <form method="post"
-          action="{{ url_for('edit_collection', id=photo_collection.id) }}"
+          action="{{ url_for('edit_collection', collection_id=photo_collection.id) }}"
           name="edit_collection_form">
       {{ photo_collection_form(form, photo_collection, categories, styles, True) }}
     </form>
@@ -29,7 +29,7 @@
       <h4>管理作品集中的作品</h4>
     </div>
     <form method="POST"
-          action="{{ url_for('edit_collection', id=photo_collection.id) }}"
+          action="{{ url_for('edit_collection', collection_id=photo_collection.id) }}"
           enctype="multipart/form-data" name="edit_collection_form">
       <input type='hidden' name='photo-works-to-delete'
              id='photo-works-to-delete' value=""/>
