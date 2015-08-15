@@ -3,7 +3,7 @@
 
 {% block dashboard_nav %}
   {{ super() }}
-  {{ dashboard_nav("settings") }}
+  {{ dashboard_nav("settings", current_user) }}
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}

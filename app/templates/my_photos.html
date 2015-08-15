@@ -4,7 +4,7 @@
 
 {% block dashboard_nav %}
   {{ super() }}
-  {{ dashboard_nav("my_photos") }}
+  {{ dashboard_nav("my_photos", current_user) }}
 {% endblock %}
 
 {% block dashboard_left_widget %}

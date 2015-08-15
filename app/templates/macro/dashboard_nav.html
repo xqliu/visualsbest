@@ -1,4 +1,4 @@
-{% macro dashboard_nav(page) %}
+{% macro dashboard_nav(page, current_user) %}
   <div class="main_head">
     <div class="layer">
       <ul>
@@ -14,9 +14,11 @@
         <li {% if page == "settings" %}class="curr"{% endif %}>
           <a href="{{ url_for('settings') }}">账户设置</a>
         </li>
-        <li {% if page == "my_photos" or page == "create_collection" or page == "edit_collection" %}class="curr"{% endif %}>
-          <a href="{{ url_for('my_photos') }}">作品管理</a>
-        </li>
+        {% if current_user.is_authenticated() and current_user.type.code == 'PHOTOGRAPHER_USER' %}
+          <li {% if page == "my_photos" or page == "create_collection" or page == "edit_collection" %}class="curr"{% endif %}>
+            <a href="{{ url_for('my_photos') }}">作品管理</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>

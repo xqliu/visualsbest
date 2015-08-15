@@ -2,7 +2,7 @@
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 
 {% block dashboard_nav %}
-  {{ dashboard_nav("messages") }}
+  {{ dashboard_nav("messages", current_user) }}
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}

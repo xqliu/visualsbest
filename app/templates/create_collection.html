@@ -10,7 +10,7 @@
     });
   </script>
 {% endblock %} {% block dashboard_nav %} {{ super() }}
-  {{ dashboard_nav("create_collection") }} {% endblock %}
+  {{ dashboard_nav("create_collection", current_user) }} {% endblock %}
 {% block dashboard_main %} {{ super() }}
   <div class="others_right_top">
     <div class="others_right_head">

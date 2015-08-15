@@ -13,7 +13,7 @@
 
 {% block dashboard_nav %}
   {{ super() }}
-  {{ dashboard_nav("create_collection") }}
+  {{ dashboard_nav("create_collection", current_user) }}
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}

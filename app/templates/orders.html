@@ -3,7 +3,7 @@
 
 {% block dashboard_nav %}
   {{ super() }}
-  {{ dashboard_nav("orders") }}
+  {{ dashboard_nav("orders", current_user) }}
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}

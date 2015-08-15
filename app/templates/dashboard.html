@@ -12,7 +12,7 @@
 
 {% block dashboard_nav %}
   {{ super() }}
-  {{ dashboard_nav("dashboard") }}
+  {{ dashboard_nav("dashboard", current_user) }}
 {% endblock %}
 
 {% block dashboard_left_widget %}
