@@ -191,12 +191,14 @@
           </div>
         {% endif %}
         <div class="help"><a href="#">帮助</a></div>
-        {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
-          <div class="help header_create_collection_link">
-            <a href="{{ url_for('my_photos') }}">作品管理</a>
-          </div>
+        {% if current_user.is_authenticated() %}
+          {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+            <div class="help header_create_collection_link">
+              <a href="{{ url_for('my_photos') }}">作品管理</a>
+            </div>
+          {% endif %}
+          <div class="help"><a href="{{ url_for('security.logout') }}">退出</a>
         {% endif %}
-        <div class="help"><a href="{{ url_for('security.logout') }}">退出</a>
         </div>
       </div>
     </div>
