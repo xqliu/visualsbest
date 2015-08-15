@@ -422,7 +422,7 @@ table{border-collapse:collapse;border-spacing:0;}
 .work_wz h6{ font-size:18px; color:#868686;font-weight:normal; margin-top:25px;}
 .work_wz p{ font-size:14px; margin-top:18px;}
 .work_wz_left{ float:left; width:10%;}
-.work_wz_left img{ margin-top:20px; width:90px;}
+.work_wz_left img{ margin-top:20px;}
 .work_wz_right{ float:right; width:88%;}
 /*切换*/
 .cl:after {visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0}

@@ -1,0 +1,68 @@
+{% extends 'layout/front_layout.html' %}
+
+{% block header_tail %}
+  <script type="text/javascript"
+          src="{{ url_for('static',  filename='js/slides-1.1.1-min.js') }}"></script>
+  <script type="text/javascript">
+    $(function () {
+      $('.succesny').olvSlides({
+        thumb: true,
+        thumbPage: true,
+        thumbDirection: "X",
+        effect: 'fade'
+      });
+    })
+  </script>
+{% endblock %}
+
+{% block main %}
+  {{ super() }}
+  <div style=" width:1100px; margin:0 auto;">
+    <h5 class="work_h5">{{ collection.name or '' }}</h5>
+
+    <div class="successlunbo">
+      <div class="succesny">
+        <div class="control">
+          <ul class="change">
+          </ul>
+        </div>
+        <div class="thumbWrap">
+          <div class="thumbCont">
+            <ul>
+              <!-- img属性, url=url, text=描述, bigimg=大图, alt=标题  -->
+              {% for photo in collection.photos %}
+                <li>
+                  <div>
+                    <img
+                        src="{{ url_for('images', filename=photo.image.path, width=223, height=155, mode='crop') }}"
+                        bigImg="{{ url_for('images', filename=photo.image.path, width=1000, height=750, mode='crop') }}"/>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="work_wz">
+      <div class="work_wz_left">
+        <a href="{{ url_for('comments') }}">
+          {% if current_user.image is defined and current_user.image != None %}
+            <img
+                src="{{ url_for('images', filename=current_user.image.path, width=208, height=181, mode='fit') }}"
+                alt="{{ current_user.image.alt }}" class="big-circular"/>
+          {% else %}
+            <img
+                src="{{ url_for('images', filename="big_tx.png", width=208, height=181, mode='fit') }}"
+                class="big-circular"/>
+          {% endif %}
+        </a>
+      </div>
+      <div class="work_wz_right">
+        <h6>作品简介 :</h6>
+
+        <p>{{ collection.introduce or '' }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

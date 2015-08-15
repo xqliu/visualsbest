@@ -21,12 +21,15 @@ def index():
 
 @app.route("/works")
 def works():
+    collections = PhotoCollection.query.all()
     return render_template_front_layout('works.html')
 
 
-@app.route("/work_details")
-def work_details():
-    return render_template_front_layout('work_details.html')
+@app.route("/collection_details/<int:collection_id>")
+def collection_details(collection_id):
+    collection = PhotoCollection.query.get(collection_id)
+    return render_template_front_layout('collection_details.html',
+                                        collection=collection)
 
 
 @app.route("/photograph")
@@ -44,12 +47,12 @@ def comments():
     return render_template_front_layout('comments.html')
 
 
-@app.route("/edit_collection/<int:id>", methods=['GET', 'POST'])
-def edit_collection(id):
+@app.route("/edit_collection/<int:collection_id>", methods=['GET', 'POST'])
+def edit_collection(collection_id):
     categories = PhotoCategory.query.filter_by(
         photographer_id=current_user.id).all()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
-    photo_collection = PhotoCollection.query.get(id)
+    photo_collection = PhotoCollection.query.get(collection_id)
     form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
         works_to_delete = request.form['photo-works-to-delete'].split(',')

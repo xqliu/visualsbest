@@ -77,6 +77,16 @@
     display: inline-block;
 }
 
+.big-circular {
+    width: 90px;
+    height: 90px;
+    border-radius: 45px;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    margin-top: 7px;
+    display: inline-block;
+}
+
 .header_create_collection_link {
     width: 90px;
     height: 53px;
