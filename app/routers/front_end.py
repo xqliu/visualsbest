@@ -92,7 +92,8 @@ def create_collection():
             photo_collection.name = form.name.data
             photo_collection.introduce = form.introduce.data
             save_obj_commit(photo_collection)
-            return redirect(url_for('edit_collection', id=photo_collection.id))
+            return redirect(url_for('edit_collection',
+                                    collection_id=photo_collection.id))
     return render_template_front_layout('create_collection.html',
                                         photo_collection=photo_collection,
                                         categories=categories,
