@@ -77,6 +77,15 @@
     display: inline-block;
 }
 
+.md-circular {
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    display: inline-block;
+}
+
 .big-circular {
     width: 90px;
     height: 90px;

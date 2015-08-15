@@ -35,7 +35,10 @@ def collection_details(collection_id):
 
 @app.route("/photograph")
 def photograph():
-    return render_template_front_layout('photograph.html')
+    type = EnumValues.find_one_by_code('PHOTOGRAPHER_USER')
+    photographs = User.query.filter_by(type_id=type.id).all()
+    return render_template_front_layout('photograph.html',
+                                        photographs=photographs)
 
 
 @app.route("/search")
