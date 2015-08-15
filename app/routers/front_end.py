@@ -22,7 +22,8 @@ def index():
 @app.route("/works")
 def works():
     collections = PhotoCollection.query.all()
-    return render_template_front_layout('works.html')
+    return render_template_front_layout('works.html',
+                                        collections=collections)
 
 
 @app.route("/collection_details/<int:collection_id>")
