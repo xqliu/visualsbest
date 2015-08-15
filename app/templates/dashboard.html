@@ -88,11 +88,14 @@
         </p>-->
     </div>
   </div>
-  <div class="others_jj me_works">
-    <h5>我的作品与服务</h5>
-
-    <div><a href="{{ url_for('create_collection') }}">发布作品</a></div>
+  {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+  <div class="others_jj">
+    <h3>我的作品与服务</h3>
+    <div class="others_links">
+      <a href="{{ url_for('create_collection') }}">发布作品</a>
+    </div>
   </div>
+  {% endif %}
   <!--我的心愿单 strat-->
   <div class="others_jj">
     <h3>我的心愿单</h3>
