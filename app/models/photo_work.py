@@ -5,7 +5,7 @@ from image import Image
 from photo_omnibus import PhotoOmnibus
 from photo_collection import PhotoCollection
 from sqlalchemy import Column, Integer, ForeignKey, Text, Boolean
-from sqlalchemy.orm import backref, relationship, remote, foreign
+from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
 
@@ -30,7 +30,7 @@ class PhotoWork(db.Model):
     image = db.relation(Image, backref=backref('image_photo_work',
                                                uselist=False))
 
-    is_cover = db.Column(Boolean)
+    is_cover = db.Column(Boolean, nullable=True)
 
     # 可选的，对作品的描述
     remark = Column(Text, nullable=True)
