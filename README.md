@@ -5,8 +5,7 @@
 
 ## 环境 ##
 
-* [测试环境, 国内，手动部署](http://visualsbest.coding.io/)
-* [开发环境，国外，自动部署，略慢](http://visualsbest.herokuapp.com)
+* [测试环境，国外，自动部署，请使用本环境测试](http://visualsbest.herokuapp.com)
 
 ## 测试 ##
 
