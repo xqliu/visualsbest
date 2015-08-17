@@ -3,7 +3,7 @@
 from app.app_provider import AppInfo
 from user import User
 from sqlalchemy import Column, Integer, ForeignKey, String, Date, Numeric
-from sqlalchemy.orm import backref, relationship, remote, foreign
+from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
 
@@ -34,7 +34,13 @@ class PhotoCollection(db.Model):
     # 作品所属的风格
     style_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     style = relationship('EnumValues', backref=backref(
-        'photo_collections', uselist=True), foreign_keys=[style_id])
+        'photo_collections_of_style', uselist=True), foreign_keys=[style_id])
+
+    # 作品所属的分类
+    category_id = Column(Integer, ForeignKey('enum_values.id'), nullable=True)
+    category = relationship('EnumValues', backref=backref(
+        'photo_collections_of_category', uselist=True),
+                            foreign_keys=[category_id])
 
     # 作品的拍摄时间
     date = db.Column(Date, nullable=True)
