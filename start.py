@@ -1,5 +1,6 @@
 # coding=utf-8
 from flask import Flask
+from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.images import Images
 from flask.ext.mail import Mail
 from flask.ext.migrate import Migrate
@@ -37,6 +38,9 @@ AppInfo.set_galleries_store_service(galleries_upload_set)
 images_upload_set = UploadSet('images', IMAGES)
 configure_uploads(app, images_upload_set)
 AppInfo.set_image_store_service(images_upload_set)
+
+# 初始化调试工具栏(Flask-DebugToolbar)
+toolbar = DebugToolbarExtension(app)
 
 
 # 初始化所有的routers定义
