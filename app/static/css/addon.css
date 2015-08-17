@@ -169,5 +169,10 @@
     background: url('../images/fabu_cuo.png') center no-repeat;
 }
 
+.remark-text {
+    text-align: center;
+    background-color: #EFEFEF;
+    width:100%;
+}
 
 
