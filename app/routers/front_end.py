@@ -2,7 +2,7 @@
 from app import app_provider, AppInfo, const
 from app.forms.photo_collection_form import PhotoCollectionForm
 from app.forms.user_profile_form import UserProfileForm
-from app.models import User, UserExperience, PhotoCategory, EnumValues, \
+from app.models import User, UserExperience, EnumValues, \
     PhotoCollection, PhotoWork, Image
 from app.util import view_util
 from app.util.db_util import save_obj_commit
@@ -53,8 +53,7 @@ def comments():
 
 @app.route("/edit_collection/<int:collection_id>", methods=['GET', 'POST'])
 def edit_collection(collection_id):
-    categories = PhotoCategory.query.filter_by(
-        photographer_id=current_user.id).all()
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     photo_collection = PhotoCollection.query.get(collection_id)
     form = PhotoCollectionForm(categories, styles)
@@ -82,8 +81,7 @@ def edit_collection(collection_id):
 @app.route("/create_collection", methods=['GET', 'POST'])
 @login_required
 def create_collection():
-    categories = PhotoCategory.query.filter_by(
-        photographer_id=current_user.id).all()
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     photo_collection = PhotoCollection()
     form = PhotoCollectionForm(categories, styles)
@@ -102,31 +100,6 @@ def create_collection():
                                         photo_collection=photo_collection,
                                         categories=categories,
                                         form=form, styles=styles)
-
-
-@app.route("/photo_categories", methods=['GET', 'POST'])
-@login_required
-def photo_categories():
-    if request.method == 'POST':
-        category = None
-        if request.form.get('operation') == u'create':
-            category = PhotoCategory()
-            category.name = request.form.get('name')
-            category.photographer_id = current_user.id
-        elif request.form.get('operation') == u'edit':
-            category_id = request.form.get('id')
-            category = PhotoCategory.query.get(int(category_id))
-            category.name = request.form.get('name')
-        elif request.form.get('operation') == u'delete':
-            category_id = int(request.form.get('id'))
-            PhotoCategory.query.filter_by(id=category_id).delete()
-            AppInfo.get_db().session.commit()
-        if category is not None:
-            save_obj_commit(category)
-    categories = PhotoCategory.query.filter_by(
-        photographer_id=current_user.id).all()
-    return render_template_front_layout('photo_categories.html',
-                                        categories=categories)
 
 
 @app.route("/blog")

@@ -2,9 +2,8 @@
 
 from app.app_provider import AppInfo
 from user import User
-from photo_category import PhotoCategory
-from sqlalchemy import Column, Integer, ForeignKey, String, Date
-from sqlalchemy.orm import backref, relationship
+from sqlalchemy import Column, Integer, ForeignKey, String, Date, Numeric
+from sqlalchemy.orm import backref, relationship, remote, foreign
 
 db = AppInfo.get_db()
 
@@ -37,14 +36,12 @@ class PhotoCollection(db.Model):
     style = relationship('EnumValues', backref=backref(
         'photo_collections', uselist=True), foreign_keys=[style_id])
 
-    # 作品所属的分类
-    category_id = Column(Integer, ForeignKey('photo_category.id'),
-                         nullable=False)
-    category = relationship(PhotoCategory, backref=backref(
-        'photo_collections', uselist=True), foreign_keys=[category_id])
-
     # 作品的拍摄时间
     date = db.Column(Date, nullable=True)
+
+    # 价格
+    price = Column(Numeric(precision=8, scale=2, decimal_return_scale=2),
+                   nullable=True)
 
 
 class PhotoCollectionFavourite(db.Model):

@@ -13,7 +13,6 @@ from enum_values import EnumValues
 from message import Message
 from omnibus_template import OmnibusTemplate
 from payment import Payment
-from photo_category import PhotoCategory
 from photo_collection import PhotoCollection
 from photo_omnibus import PhotoOmnibus
 from photo_work import PhotoWorkComment, \

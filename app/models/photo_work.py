@@ -4,8 +4,8 @@ from app.app_provider import AppInfo
 from image import Image
 from photo_omnibus import PhotoOmnibus
 from photo_collection import PhotoCollection
-from sqlalchemy import Column, Integer, ForeignKey, Text
-from sqlalchemy.orm import backref, relationship
+from sqlalchemy import Column, Integer, ForeignKey, Text, Boolean
+from sqlalchemy.orm import backref, relationship, remote, foreign
 
 db = AppInfo.get_db()
 
@@ -20,13 +20,17 @@ class PhotoWork(db.Model):
     # 该照片作品所属的影集
     photo_collection_id = Column(Integer, ForeignKey(PhotoCollection.id),
                                  nullable=False)
-    photo_collection = db.relation(PhotoCollection,
-                                   backref=backref('photos', uselist=True))
+    photo_collection = relationship(PhotoCollection,
+                                    backref=backref('photos',
+                                                    uselist=True),
+                                    foreign_keys=[photo_collection_id])
 
     # 该作品的图片对象
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
     image = db.relation(Image, backref=backref('image_photo_work',
                                                uselist=False))
+
+    is_cover = db.Column(Boolean)
 
     # 可选的，对作品的描述
     remark = Column(Text, nullable=True)

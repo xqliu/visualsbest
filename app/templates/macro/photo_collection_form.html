@@ -17,7 +17,7 @@
         {% if categories|length > 0 %}
           <select name="category" id="category">
             {% for category in categories %}
-              <option value="{{ category.id }}">{{ category.name }}</option>
+              <option value="{{ category.id }}">{{ category.display }}</option>
             {% endfor %}
           </select>
         {% endif %}

@@ -14,7 +14,6 @@
       <h5><a href="{{ url_for('settings') }}">编辑个人资料</a></h5>
       {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
         <h5><a href="{{ url_for('experience') }}">编辑摄影经历</a></h5>
-        <h5><a href="{{ url_for('photo_categories') }}">维护作品分类</a></h5>
       {% endif %}
     </div>
   </div>
