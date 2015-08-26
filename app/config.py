@@ -32,17 +32,11 @@ MAIL_DEFAULT_SENDER = os.environ['MAIL_DEFAULT_SENDER']
 SECURITY_POST_CHANGE_VIEW = '/settings'
 # 默认不发送邮件, 除非设定了环境变量MAIL_SUPPRESS_SEND为False
 MAIL_SUPPRESS_SEND = os.environ.get('MAIL_SUPPRESS_SEND') or True
+# Cloudinary API URL(图像上传变换等)
+CLOUDINARY_URL=os.environ.get('CLOUDINARY_URL') or None
 
-# if os.environ['VISUALS_BEST_DATABASE_URL'] is not None:
-try:
-    SQLALCHEMY_DATABASE_URI = os.environ['VISUALS_BEST_DATABASE_URL']
-except KeyError:
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-
-try:
-    DEBUG = (os.environ['DEBUG'] == "True")
-except KeyError:
-    DEBUG = False
+SQLALCHEMY_DATABASE_URI = os.environ.get('VISUALS_BEST_DATABASE_URL') or os.environ['DATABASE_URL']
+DEBUG = (os.environ.get('DEBUG') == "True") or False
 
 SECRET_KEY = '123QWEasDzXcqazw'
 IMAGES_PATH = ['app/static/uploads/gallery', 'app/static/uploads/images',
@@ -88,5 +82,4 @@ security_messages = {
     'LOGIN': (u'请登录系统查看本页面', 'info'),
     'REFRESH': (u'请重新登录查看本页面', 'info'),
     'LOGIN_NOT_PROVIDED': (u'请输入用户名', 'error'),
-
 }

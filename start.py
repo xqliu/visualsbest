@@ -1,4 +1,5 @@
 # coding=utf-8
+from app.util.image_store import ImageStore
 from flask import Flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.images import Images
@@ -10,7 +11,6 @@ import rollbar
 import rollbar.contrib.flask
 from flask import got_request_exception
 
-
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
 
 import app.config as config
@@ -18,26 +18,24 @@ import app.config as config
 app.config.from_object(config)
 
 from flask_babelex import Babel
+
 babel = Babel(default_locale='zh_Hans_CN')
 babel.init_app(app)
 
 from flask.ext.sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy(app)
 from app.app_provider import AppInfo
+
 AppInfo.set_app(app)
 AppInfo.set_db(db)
 
+# 初始化云端的图片存储服务
+image_store = ImageStore(app)
 # 初始化Gallery存储的服务，用于存储所有的用户上传的头像
-from flask.ext.uploads import UploadSet, configure_uploads
-from flask.ext.uploads import IMAGES
-galleries_upload_set = UploadSet('gallery', IMAGES)
-configure_uploads(app, galleries_upload_set)
-AppInfo.set_galleries_store_service(galleries_upload_set)
-
+AppInfo.set_galleries_store_service(image_store)
 # 初始化Image存储的服务，用于存储所有摄影师上传的作品图像
-images_upload_set = UploadSet('images', IMAGES)
-configure_uploads(app, images_upload_set)
-AppInfo.set_image_store_service(images_upload_set)
+AppInfo.set_image_store_service(image_store)
 
 # 初始化调试工具栏(Flask-DebugToolbar)
 toolbar = DebugToolbarExtension(app)
@@ -61,11 +59,11 @@ for key, value in config.security_messages.items():
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 from app.forms.register_form import UserRegisterForm
 from app.forms.username_login_form import UsernameLoginForm
-security = Security(app, user_datastore,
-                    confirm_register_form=UserRegisterForm,
-                    login_form=UsernameLoginForm)
+
+security = Security(app, user_datastore, confirm_register_form=UserRegisterForm, login_form=UsernameLoginForm)
 
 from app.views import init_admin_views
+
 admin = init_admin_views(app, db)
 AppInfo.set_admin(admin)
 
@@ -75,17 +73,11 @@ mail = Mail(app)
 # 初始化Flask-Image
 images = Images(app)
 
+# Set Log level for werkzeug to ERROR to dismiss access log
+import logging
 
-@app.before_first_request
-def upgrade_db_schema():
-    try:
-        base_path = os.path.join(os.path.dirname(__file__), 'migrations')
-        migrate = Migrate(app, db, directory=base_path)
-        from flask.ext.migrate import upgrade
-        # migrate database to latest revision
-        upgrade()
-    except:
-        print "Error upgrade db:\n", sys.exc_info()[0], '\n', sys.exc_info()[1], '\n', sys.exc_info()[2]
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 
 @app.before_first_request
@@ -104,6 +96,7 @@ def init_rollbar():
 
         # send exceptions from `app` to rollbar, using flask's signal system.
         got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

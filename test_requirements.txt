@@ -22,6 +22,6 @@ rollbar==0.9.12
 nosetests-json-extended==0.1.0
 flake8==2.4.1
 flake8-docstrings==0.2.1
-flask-uploads==0.1.3
 Flask-Images==2.1.2
 Flask-DebugToolbar==0.10.0
+cloudinary==1.1.3

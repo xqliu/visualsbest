@@ -19,7 +19,7 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     alt = db.Column(db.Unicode(256))
     path = db.Column(db.String(128), nullable=False)
-
+    public_id = db.Column(db.String(128), nullable=True)
 
 # Register after_delete handler which will delete image file after model
 # gets deleted

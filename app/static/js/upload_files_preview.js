@@ -44,7 +44,6 @@ $(function () {
                         photo_works_to_del_var.val() + ',' + id
                 );
             }
-            alert(photo_works_to_del_var.val());
             $("#photo-work-" + id).hide(500);
         }
     });

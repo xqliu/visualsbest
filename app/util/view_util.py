@@ -35,21 +35,21 @@ def default_date_formatter(view, context, model, name):
 def save_image(service, owner, image_file):
     """
     保存图片
-    :param service: 用于保存图片的Flask-upload 服务
+    :param service: 用于保存图片的Image Store 服务
     :param owner: 该图片所属的对象，要求使用 owner.image来引用到要保存的图片
     :param image_file: 图片数据文件
     :return:
     """
     if owner.image is not None:
-        existing_img = image_service.path(owner.image.path)
-        file_util.silent_remove(existing_img)
+        existing_img_public_id = owner.image.path
+        service.remove(existing_img_public_id)
     else:
         image = Image()
         owner.image = image
-    name, ext = os.path.splitext(image_file.filename)
-    safe_name = str(uuid.uuid4()) + ext
-    filename = service.save(image_file, name=safe_name)
-    owner.image.path = filename
+    public_id = str(uuid.uuid4())
+    result = service.save(image_file, public_id=public_id)
+    owner.image.path = result['url']
+    owner.image.public_id = public_id
 
 
 def save_user_gallery(user, image_file):
