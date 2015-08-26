@@ -1,5 +1,5 @@
 # encoding=utf-8
-from app.models import EnumValues
+from app.models.enum_values import EnumValues
 from flask.ext.security import RegisterForm
 from flask.ext.security.forms import Required, email_validator
 from wtforms import StringField

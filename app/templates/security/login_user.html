@@ -7,12 +7,12 @@
           <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
             <ul>
               {{ login_user_form.hidden_tag() }}
-              <li><label for="email">Email:</label></li>
+              <li><label for="login">登录名:</label></li>
               <li>
-                <input id="email" name="email" type="text" value="" class="txt">
+                <input id="login" name="login" type="text" value="" class="txt">
               </li>
-              {% if login_user_form.email.errors %}
-                  {% for error in login_user_form.email.errors %}
+              {% if login_user_form.login.errors %}
+                  {% for error in login_user_form.login.errors %}
                   <li class="login_error">{{ error }}</li>
                   {% endfor %}
               {% endif %}

@@ -60,7 +60,10 @@ for key, value in config.security_messages.items():
     app.config['SECURITY_MSG_' + key] = value
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 from app.forms.register_form import UserRegisterForm
-security = Security(app, user_datastore, confirm_register_form=UserRegisterForm)
+from app.forms.username_login_form import UsernameLoginForm
+security = Security(app, user_datastore,
+                    confirm_register_form=UserRegisterForm,
+                    login_form=UsernameLoginForm)
 
 from app.views import init_admin_views
 admin = init_admin_views(app, db)

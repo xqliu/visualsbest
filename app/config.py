@@ -3,8 +3,9 @@ from flask import url_for
 
 import os
 
-# 不启用redirect停顿的debug功能
+# 在Debug时候，不在forward时停止
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+
 # 最大的上传文件大小(4M)
 MAX_CONTENT_LENGTH = 4 * 1024 * 1024
 UPLOADS_DEFAULT_DEST = os.path.join(os.path.dirname(__file__),
@@ -45,7 +46,7 @@ except KeyError:
 
 SECRET_KEY = '123QWEasDzXcqazw'
 IMAGES_PATH = ['app/static/uploads/gallery', 'app/static/uploads/images',
-               'app/static/images', 'app/static/pic', ]
+               'app/static/images', 'app/static/pic',]
 
 security_messages = {
     'UNAUTHORIZED': (u'您没有权限查看本信息', 'error'),
@@ -86,4 +87,6 @@ security_messages = {
     'PASSWORD_CHANGE': (u'密码修改成功', 'success'),
     'LOGIN': (u'请登录系统查看本页面', 'info'),
     'REFRESH': (u'请重新登录查看本页面', 'info'),
+    'LOGIN_NOT_PROVIDED': (u'请输入用户名', 'error'),
+
 }
