@@ -1,25 +1,4 @@
 {% extends 'layout/front_layout.html' %}
-{% block header_tail %}
-{{ super() }}
-  <script type="text/javascript">
-  $(function(){
-    $(".la").click(function(){
-      $(".la_block").slideToggle(100);
-      $(this).parent(".bowen").siblings(".bowen").children(".la_block").css("display","none");
-    });
-    $(".bowen_xiangqing p a.all").click(function(){
-      $(this).css("display","none");
-      $(this).siblings().css("display","block");
-      $(this).siblings("span").css("display","inline");
-    });
-    $(".bowen_xiangqing p a.shouqi").click(function(){
-      $(this).css("display","none");
-      $(this).siblings().css("display","block");
-      $(this).siblings("span").css("display","none");
-    });
-  });
-  </script>
-{% endblock %}
 <!--main start-->
 {% block main %}
   {{ super() }}

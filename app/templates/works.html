@@ -1,154 +1,161 @@
 {% extends 'layout/front_layout.html' %}
 
 {% block main %}
-  <div class="layer">
-    <div class="search_top">
-      <div class="search_top_head">
-        <h6>拍摄类别</h6>
-        <ul class="shooting_style shooting_style1">
-          <li>
-            <span>拍摄类别</span>
+  <form action="{{ url_for('works') }}" method="post">
+    <input type="hidden" name="category_id" id="category_id" value=""/>
+    <input type="hidden" name="style_id" id="style_id" value=""/>
 
-            <P><img src="../static/images/xiala.png"/></P>
-            <dl>
-              <dd><a href="#">类别1</a></dd>
-              <dd><a href="#">类别2</a></dd>
-              <dd><a href="#">类别3</a></dd>
-              <dd><a href="#">类别4</a></dd>
-              <dd><a href="#">类别5</a></dd>
-              <dd><a href="#">类别6</a></dd>
-              <dd><a href="#">类别7</a></dd>
-              <dd><a href="#">类别8</a></dd>
-              <dd><a href="#">类别9</a></dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-      <div class="search_top_head">
-        <h6>搜索区域</h6>
-        <ul class="shooting_style shooting_style1">
-          <li>
-            <span>拍摄类别</span>
+    <div class="layer">
+      <div class="search_top">
+        <div class="search_top_head">
+          <h6>拍摄类别</h6>
+          <ul class="shooting_style shooting_style1">
+            <li>
+              <span id="category">
+                {% if category != None %}
+                  category.display
+                {% else %}
+                  拍摄类别
+                {% endif %}
+              </span>
 
-            <P><img src="../static/images/xiala.png"/></P>
-            <dl>
-              <dd><a href="#">类别1</a></dd>
-              <dd><a href="#">类别2</a></dd>
-              <dd><a href="#">类别3</a></dd>
-              <dd><a href="#">类别4</a></dd>
-              <dd><a href="#">类别5</a></dd>
-              <dd><a href="#">类别6</a></dd>
-              <dd><a href="#">类别7</a></dd>
-              <dd><a href="#">类别8</a></dd>
-              <dd><a href="#">类别9</a></dd>
-            </dl>
-          </li>
-        </ul>
-      </div>
-      <div class="search_top_concet">
-        <h6>日期</h6>
-        <ul class="search_time">
-          <li><label><input type="text"/></label></li>
-          <li class="zhi">至</li>
-          <li><label><input type="text"/></label></li>
-        </ul>
-      </div>
-      <div class="search_top_concet">
-        <h6>拍摄风格</h6>
-        <ul class="shooting_style">
-          <li>
-            <span>选择国家</span>
+              <P><img src="../static/images/xiala.png"/></P>
+              <dl>
+                {% for category in categories %}
+                  <dd id="{{ category.id }}">
+                    <a href="#">{{ category.display }}</a>
+                  </dd>
+                {% endfor %}
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="search_top_head">
+          <h6>拍摄风格</h6>
+          <ul class="shooting_style shooting_style1">
+            <li>
+              <span id="style">
+                {% if style != None %}
+                  style.display
+                {% else %}
+                  拍摄风格
+                {% endif %}
+              </span>
 
-            <P><img src="../static/images/xiala.png"/></P>
-            <dl>
-              <dd><a href="#">法国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">美国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">美国</a></dd>
-              <dd><a href="#">法国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">美国</a></dd>
-            </dl>
-          </li>
-          <li>
-            <span>选择城市</span>
+              <P><img src="../static/images/xiala.png"/></P>
+              <dl>
+                {% for style in styles %}
+                  <dd id="{{ style.id }}"><a href="#">{{ style.display }}</a></dd>
+                {% endfor %}
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="search_top_concet">
+          <h6>日期</h6>
+          <ul class="search_time">
+            <li><label><input type="date" name="min_date"/></label></li>
+            <li class="zhi">至</li>
+            <li><label><input type="date" name="max_date"/></label></li>
+          </ul>
+        </div>
+        <div class="search_top_concet">
+          <h6>拍摄地区</h6>
+          <ul class="shooting_style">
+            <li>
+              <span>选择国家</span>
 
-            <P><img src="../static/images/xiala.png"/></P>
-            <dl class="one">
-              <dd><a href="#">法国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">美国</a></dd>
-              <dd><a href="#">法国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">美国</a></dd>
-            </dl>
-          </li>
-          <li>
-            <span>选择市区</span>
+              <P><img src="../static/images/xiala.png"/></P>
+              <dl>
+                <dd><a href="#">法国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">美国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">美国</a></dd>
+                <dd><a href="#">法国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">美国</a></dd>
+              </dl>
+            </li>
+            <li>
+              <span>选择城市</span>
 
-            <P><img src="../static/images/xiala.png"/></P>
-            <dl>
-              <dd><a href="#">法国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">韩国</a></dd>
-              <dd><a href="#">美国</a></dd>
-            </dl>
-          </li>
-        </ul>
+              <P><img src="../static/images/xiala.png"/></P>
+              <dl class="one">
+                <dd><a href="#">法国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">美国</a></dd>
+                <dd><a href="#">法国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">美国</a></dd>
+              </dl>
+            </li>
+            <li>
+              <span>选择市区</span>
+
+              <P><img src="../static/images/xiala.png"/></P>
+              <dl>
+                <dd><a href="#">法国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">韩国</a></dd>
+                <dd><a href="#">美国</a></dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="search_top_concet">
+          <h6>拍摄价位</h6>
+          <ul class="search_time">
+            <li><label><input type="text" class="serach_txt" value="0" name="min_price"/></label>
+            </li>
+            <li class="zhi">至</li>
+            <li><label><input type="text" class="serach_txt" name="max_price"></label>
+            </li>
+          </ul>
+        </div>
+        <button type="submit">搜索</button>
       </div>
-      <div class="search_top_concet">
-        <h6>拍摄价位</h6>
-        <ul class="search_time">
-          <li><label><input type="text" class="serach_txt" value="0"/></label>
-          </li>
-          <li class="zhi">至</li>
-          <li><label><input type="text" class="serach_txt"/ value="100"></label>
-          </li>
-        </ul>
-      </div>
-      <button>搜索</button>
-    </div>
-    <div class="demo clearfix">
-      <div class="item_list infinite_scroll">
-        {% for collection in collections %}
-          <div class="item masonry_brick">
-            <div class="item_t">
-              <div class="img">
-                <a href="{{ url_for('collection_details', collection_id=collection.id) }}">
-                  {% if collection.photos|length > 0 %}
-                    {% set filename = collection.photos[0].image.path %}
-                  {% else %}
-                    {% set filename = 'works_01.png' %}
-                  {% endif %}
-                  <img src="{{ url_for('images', width=246, filename=filename) }}"/>
-                </a>
-              </div>
-              <div class="title"><span>
+      <div class="demo clearfix">
+        <div class="item_list infinite_scroll">
+          {% for collection in collections %}
+            <div class="item masonry_brick">
+              <div class="item_t">
+                <div class="img">
+                  <a href="{{ url_for('collection_details', collection_id=collection.id) }}">
+                    {% if collection.photos|length > 0 %}
+                      {% set filename = collection.photos[0].image.path %}
+                    {% else %}
+                      {% set filename = 'works_01.png' %}
+                    {% endif %}
+                    <img src="{{ url_for('images', width=246, filename=filename) }}"/>
+                  </a>
+                </div>
+                <div class="title"><span>
                   {{ collection.name }} <br/>
                 <span class="small">
                   {% if collection.price != None %} 拍摄价格: ¥{{ collection.price }}{% endif %}
                 </span>
                 </span></div>
+              </div>
             </div>
+          {% endfor %}
+          <!--item end-->
+        </div>
+        <div id="more"><a href="{{ url_for('works') }}"></a></div>
+        <div id="page" class="page" style="display:none;">
+          <div class="page_num">
+            <span class="unprev"></span>
+            <span class="current">1</span>
+            <a href="#">&nbsp;2&nbsp;</a>
+            <a href="#">&nbsp;3&nbsp;</a>
+            <a href="#">&nbsp;4&nbsp;</a>
+            <a href="#">&nbsp;5&nbsp;</a>
+            <span class="etc"></span>
+            <a href="#">12</a>
+            <a href="#" class="next"></a>
           </div>
-        {% endfor %}
-        <!--item end-->
-      </div>
-      <div id="more"><a href="{{ url_for('works') }}"></a></div>
-      <div id="page" class="page" style="display:none;">
-        <div class="page_num">
-          <span class="unprev"></span>
-          <span class="current">1</span>
-          <a href="#">&nbsp;2&nbsp;</a>
-          <a href="#">&nbsp;3&nbsp;</a>
-          <a href="#">&nbsp;4&nbsp;</a>
-          <a href="#">&nbsp;5&nbsp;</a>
-          <span class="etc"></span>
-          <a href="#">12</a>
-          <a href="#" class="next"></a>
         </div>
       </div>
     </div>
-  </div>
+  </form>
 {% endblock %}

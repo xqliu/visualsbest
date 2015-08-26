@@ -20,26 +20,29 @@ def index():
     return render_template_front_layout('index.html')
 
 
-@app.route("/works")
+@app.route("/works", methods=['GET', 'POST'])
 def works():
     collections = PhotoCollection.query.all()
-    return render_template_front_layout('works.html',
-                                        collections=collections)
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    category, style = None, None
+    if request.method == 'POST':
+        pass
+    return render_template_front_layout('works.html', collections=collections,
+                                        categories=categories, styles=styles, category=category, style=style)
 
 
 @app.route("/collection_details/<int:collection_id>")
 def collection_details(collection_id):
     collection = PhotoCollection.query.get(collection_id)
-    return render_template_front_layout('collection_details.html',
-                                        collection=collection)
+    return render_template_front_layout('collection_details.html', collection=collection)
 
 
 @app.route("/photograph")
 def photograph():
     type = EnumValues.find_one_by_code('PHOTOGRAPHER_USER')
     photographs = User.query.filter_by(type_id=type.id).all()
-    return render_template_front_layout('photograph.html',
-                                        photographs=photographs)
+    return render_template_front_layout('photograph.html', photographs=photographs)
 
 
 @app.route("/search")

@@ -15,20 +15,6 @@ $(function(){
 		$(this).siblings("span").css("display","none");
 	});
 });
-$(function(){
-	$(".shooting_style li").toggle(function(){
-		$(this).children("em").children("img").css("display","block");	
-		$(this).siblings("li").children("em").children("img").css("display","none");	
-	},function(){
-		$(this).children("em").children("img").css("display","none");	
-	});
-	$("ul.shooting_style li").toggle(function(){
-		$(this).children("dl").stop().slideToggle(200)
-		$(this).siblings("li").children("dl.one").slideUp(300);
-	},function(){
-		$(this).children("dl").stop().slideUp();	
-	});
-});
 /*预定*/
 $(function(){
 	$(".yuding_btn").click(function(){

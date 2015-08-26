@@ -34,6 +34,11 @@ $(function () {
     }, function () {
         $(this).children("dl").stop().slideUp();
     });
+    $("ul.shooting_style li dl dd").click(function () {
+        var span = $(this).parent().parent().children("span");
+        span.text($(this).text());
+        $("#" + span.attr("id") + "_id").val($(this).attr("id"));
+    });
 });
 /*首页登录注册*/
 $(function () {
