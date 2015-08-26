@@ -2,6 +2,7 @@
 from flask.ext.security.forms import Required
 from flask_wtf import Form
 from wtforms import StringField, SelectField
+from wtforms.fields.html5 import DecimalField
 
 
 class PhotoCollectionForm(Form):
@@ -9,6 +10,7 @@ class PhotoCollectionForm(Form):
     introduce = StringField('introduce', [Required()])
     category = SelectField('category', [Required()])
     style = SelectField('style', [Required()])
+    price = DecimalField('price')
 
     def __init__(self, categories, styles):
         super(PhotoCollectionForm, self).__init__()

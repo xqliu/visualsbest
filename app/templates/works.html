@@ -124,7 +124,12 @@
                   <img src="{{ url_for('images', width=246, filename=filename) }}"/>
                 </a>
               </div>
-              <div class="title"><span>{{ collection.name }}</span></div>
+              <div class="title"><span>
+                  {{ collection.name }} <br/>
+                <span class="small">
+                  {% if collection.price != None %} 拍摄价格: ¥{{ collection.price }}{% endif %}
+                </span>
+                </span></div>
             </div>
           </div>
         {% endfor %}

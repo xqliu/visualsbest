@@ -59,9 +59,8 @@
         </a>
       </div>
       <div class="work_wz_right">
-        <h6>作品简介 :</h6>
-
-        <p>{{ collection.introduce or '' }}</p>
+        <h6>作品简介 :</h6> <div style="padding-top:10px">{{ collection.introduce or '' }}</div>
+        <h6>作品拍摄价格 :</h6> <div style="padding-top:10px">{{ collection.price or '未知' }}</div>
       </div>
     </div>
   </div>

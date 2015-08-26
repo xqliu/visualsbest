@@ -7,8 +7,7 @@
     <li>
       <div class="basic_xinxi_01"><label for="name">作品集名称</label></div>
       <div class="basic_xinxi_02">
-        <input type="text" value="{{ photo_collection.name or '' }}"
-               name="name" id="name"/>
+        <input type="text" value="{{ photo_collection.name or '' }}" name="name" id="name"/>
       </div>
     </li>
     <li>
@@ -17,7 +16,9 @@
         {% if categories|length > 0 %}
           <select name="category" id="category">
             {% for category in categories %}
-              <option value="{{ category.id }}">{{ category.display }}</option>
+              <option value="{{ category.id }}" {% if category.id == photo_collection.category_id %}selected{% endif %}>
+                {{ category.display }}
+              </option>
             {% endfor %}
           </select>
         {% endif %}
@@ -30,7 +31,9 @@
         {% if styles|length > 0 %}
           <select name="style" id="style">
             {% for style in styles %}
-              <option value="{{ style.id }}">{{ style.display }}</option>
+              <option value="{{ style.id }}" {% if style.id == photo_collection.style_id %}selected{% endif %}>
+                {{ style.display }}
+              </option>
             {% endfor %}
           </select>
         {% endif %}
@@ -40,8 +43,13 @@
     <li>
       <div class="basic_xinxi_01"><label for="introduce">作品集简介</label></div>
       <div class="basic_xinxi_02">
-        <input type="text" name="introduce" id="introduce"
-               value="{{ photo_collection.introduce or '' }}"/>
+        <input type="text" name="introduce" id="introduce" value="{{ photo_collection.introduce or '' }}"/>
+      </div>
+    </li>
+    <li>
+      <div class="basic_xinxi_01"><label for="price">拍摄价格</label></div>
+      <div class="basic_xinxi_02">
+        <input type="number" name="price" id="price" value="{{ photo_collection.price or '' }}"/>
       </div>
     </li>
     {% if is_edit == False %}

@@ -3,9 +3,10 @@ from app import app_provider, AppInfo, const
 from app.forms.photo_collection_form import PhotoCollectionForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, UserExperience, EnumValues, \
-    PhotoCollection, PhotoWork, Image
+    PhotoCollection
 from app.util import view_util
 from app.util.db_util import save_obj_commit
+from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection
 from app.util.view_util import render_template_front_layout
 from flask import request, redirect, url_for
 from flask.ext.login import current_user
@@ -58,23 +59,14 @@ def edit_collection(collection_id):
     photo_collection = PhotoCollection.query.get(collection_id)
     form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
-        works_to_delete = request.form['photo-works-to-delete'].split(',')
-        if not (len(works_to_delete) == 1 and works_to_delete[0] == u''):
-            for work_id in works_to_delete:
-                work = PhotoWork.query.filter_by(id=int(work_id)).first()
-                # 如果public_id不为空，说明是云端存储的，使用public_id删除
-                # 如果public_id为空，说明是本地存储的，则使用image.py中定义的after_delete的监听器删除
-                if work.image.public_id is not None:
-                    AppInfo.get_image_store_service().remove(work.image.public_id)
-                PhotoWork.query.filter_by(id=work_id).delete()
-                Image.query.filter_by(id=work.image.id).delete()
+        works_to_delete = []
+        if request.form.get('photo-works-to-delete') is not None:
+            works_to_delete = request.form.get('photo-works-to-delete').split(',')
+        delete_photo_works(works_to_delete)
         files = request.files.getlist('photos[]')
         if not (len(files) == 1 and files[0].filename == u''):
-            for img in files:
-                work = PhotoWork()
-                work.photo_collection_id = photo_collection.id
-                view_util.save_photo_work_image(work, img)
-                AppInfo.get_db().session.add(work)
+            add_photo_works(files, photo_collection)
+        save_photo_collection(form, photo_collection)
         AppInfo.get_db().session.commit()
     return render_template_front_layout('edit_collection.html',
                                         photo_collection=photo_collection,
@@ -93,10 +85,7 @@ def create_collection():
         if form.validate_on_submit():
             photo_collection.photographer_id = current_user.id
             photo_collection.uploader_id = current_user.id
-            photo_collection.category_id = int(form.category.data)
-            photo_collection.style_id = int(form.style.data)
-            photo_collection.name = form.name.data
-            photo_collection.introduce = form.introduce.data
+            save_photo_collection(form, photo_collection)
             save_obj_commit(photo_collection)
             return redirect(url_for('edit_collection',
                                     collection_id=photo_collection.id))
