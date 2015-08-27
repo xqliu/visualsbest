@@ -5,6 +5,7 @@ import os
 
 # 在Debug时候，不在forward时停止
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
 
 # 最大的上传文件大小(4M)
 MAX_CONTENT_LENGTH = 4 * 1024 * 1024
@@ -33,14 +34,14 @@ SECURITY_POST_CHANGE_VIEW = '/settings'
 # 默认不发送邮件, 除非设定了环境变量MAIL_SUPPRESS_SEND为False
 MAIL_SUPPRESS_SEND = os.environ.get('MAIL_SUPPRESS_SEND') or True
 # Cloudinary API URL(图像上传变换等)
-CLOUDINARY_URL=os.environ.get('CLOUDINARY_URL') or None
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL') or None
 
 SQLALCHEMY_DATABASE_URI = os.environ.get('VISUALS_BEST_DATABASE_URL') or os.environ['DATABASE_URL']
 DEBUG = (os.environ.get('DEBUG') == "True") or False
 
 SECRET_KEY = '123QWEasDzXcqazw'
 IMAGES_PATH = ['app/static/uploads/gallery', 'app/static/uploads/images',
-               'app/static/images', 'app/static/pic',]
+               'app/static/images', 'app/static/pic', ]
 
 security_messages = {
     'UNAUTHORIZED': (u'您没有权限查看本信息', 'error'),
