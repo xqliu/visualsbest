@@ -81,14 +81,14 @@ def edit_collection(collection_id):
     photo_collection = PhotoCollection.query.get(collection_id)
     form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
-        works_to_delete = []
         if request.form.get('photo-works-to-delete') is not None:
             works_to_delete = request.form.get('photo-works-to-delete').split(',')
-        delete_photo_works(works_to_delete)
-        files = request.files.getlist('photos[]')
-        if not (len(files) == 1 and files[0].filename == u''):
-            add_photo_works(files, photo_collection)
-        save_photo_collection(form, photo_collection)
+            delete_photo_works(works_to_delete)
+            files = request.files.getlist('photos[]')
+            if not (len(files) == 1 and files[0].filename == u''):
+                add_photo_works(files, photo_collection)
+        else:
+            save_photo_collection(form, photo_collection)
         AppInfo.get_db().session.commit()
     return render_template_front_layout('edit_collection.html',
                                         photo_collection=photo_collection,
