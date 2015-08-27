@@ -11,13 +11,13 @@ from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
 
-roles_users = db.Table('roles_users',
-                       db.Column('id', db.Integer(), primary_key=True),
-                       db.Column('user_id', db.Integer(),
-                                 db.ForeignKey('users.id')),
-                       db.Column('role_id', db.Integer(),
-                                 db.ForeignKey('role.id')))
+roles_users = db.Table('roles_users', db.Column('id', db.Integer(), primary_key=True),
+                       db.Column('user_id', db.Integer(), db.ForeignKey('users.id')),
+                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
+users_styles = db.Table('users_styles', db.Column('id', db.Integer(), primary_key=True),
+                        db.Column('user_id', db.Integer(), db.ForeignKey('users.id'), nullable=False),
+                        db.Column('style_id', db.Integer(), db.ForeignKey('enum_values.id'), nullable=False))
 
 class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
@@ -46,6 +46,8 @@ class User(db.Model, UserMixin):
     introduce = db.Column(Text, nullable=True)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    styles = db.relationship(EnumValues, secondary=users_styles,
+                             backref=db.backref('users', lazy='dynamic'))
     gender = db.Column(db.String(8), nullable=True)
     birthday = db.Column(Date, nullable=True)
     confirmed_at = Column(DateTime, nullable=True)

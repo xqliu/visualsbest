@@ -143,11 +143,13 @@
                   <span>{{ p.display or '无名大侠' }}</span></a></h5>
                 <dl>
                   <dt>擅长风格:</dt>
-                  <dd>自然风景</dd>
-                  <dd>日系风</dd>
-                  <dd>商业拍拍</dd>
-                  <dd>建筑摄影</dd>
-                  <dd>创意摄影</dd>
+                  {% if p.styles|length > 0 %}
+                    {% for s in p.styles %}
+                      <dt>{{ s.display }}</dt>
+                    {% endfor %}
+                  {% else %}
+                    <dt>不详</dt>
+                  {% endif %}
                 </dl>
               </div>
             </div>

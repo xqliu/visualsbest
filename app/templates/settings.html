@@ -6,49 +6,31 @@
 {% block dashboard_main %}
   {{ super() }}
   <div class="others_right_top">
-    <form action="{{ url_for('settings') }}" method="POST"
-          enctype="multipart/form-data">
+    <form action="{{ url_for('settings') }}" method="POST" enctype="multipart/form-data">
       {{ user_profile_form.hidden_tag() }}
-      <div class="others_right_head">
-        <h4>基本资料</h4>
-      </div>
+      <div class="others_right_head"><h4>基本资料</h4></div>
       <h3>个人信息</h3>
       <ul class="basic_xinxi">
         <li>
-          <div class="basic_xinxi_01">
-            <label for="login">登录名</label>
-          </div>
-          <div class="basic_xinxi_02">
-            <input id="login" name="login" type="text"
-                   value="{{ user.login or '' }}"/>
-          </div>
-          <div class="basic_xinxi_03">
-            <a href="{{ url_for_security('change_password') }}">修改密码</a>
-          </div>
+          <div class="basic_xinxi_01"><label for="login">登录名</label></div>
+          <div class="basic_xinxi_02"><input id="login" name="login" type="text" value="{{ user.login or '' }}"/></div>
+          <div class="basic_xinxi_03"><a href="{{ url_for_security('change_password') }}">修改密码</a></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="display">昵称</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="display">昵称</label></div>
           <div class="basic_xinxi_02">
-            <input id="display" name="display" type="text"
-                   value="{{ user.display or '' }}"/>
+            <input id="display" name="display" type="text" value="{{ user.display or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="gender">性别</label>
-          </div>
-          <div class="basic_xinxi_02 basic_xinxi_022"
-               style="padding-left: 60px;">
+          <div class="basic_xinxi_01"><label for="gender">性别</label></div>
+          <div class="basic_xinxi_02 basic_xinxi_022" style="padding-left: 60px;">
             <label>
-              <input id="gender" name="gender" type="radio" value="男"
-                     {% if user.gender == "男" %}checked{% endif %}/>男
+              <input id="gender" name="gender" type="radio" value="男" {% if user.gender == "男" %}checked{% endif %}/>男
             </label>
             <label>
-              <input id="gender" name="gender" type="radio" value="女"
-                     {% if user.gender == "女" %}checked{% endif %}/>女
+              <input id="gender" name="gender" type="radio" value="女" {% if user.gender == "女" %}checked{% endif %}/>女
             </label>
             <label>
               <input id="gender" name="gender" type="radio" value="保密"
@@ -58,80 +40,73 @@
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="birthday">出生年月</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="birthday">出生年月</label></div>
           <div class="basic_xinxi_02">
-            <input id="birthday" name="birthday" type="date"
-                   value="{% if user.birthday is defined and user.birthday != None%}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}">
+            <input value="
+
+
+
+                {% if user.birthday is defined and user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}"
+                   id="birthday" name="birthday" type="date">
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="mobile_phone">手机号</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="mobile_phone">手机号</label></div>
           <div class="basic_xinxi_02">
-            <input type="text" id="mobile_phone" name="mobile_phone"
-                   value="{{ user.mobile_phone }}"/>
+            <input type="text" id="mobile_phone" name="mobile_phone" value="{{ user.mobile_phone or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="email">电子邮箱</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="email">电子邮箱</label></div>
           <div class="basic_xinxi_02">
-            <input type="text" name="email" id="email"
-                   value="{{ user.email }}"/>
+            <input type="text" name="email" id="email" value="{{ user.email or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="weibo_account">微博</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="weibo_account">微博</label></div>
           <div class="basic_xinxi_02">
-            <input type="text" id="weibo_account" name="weibo_account"
-                   value="{{ user.weibo_account or '' }}"/>
+            <input type="text" id="weibo_account" name="weibo_account" value="{{ user.weibo_account or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="wechat_account">微信</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="wechat_account">微信</label></div>
           <div class="basic_xinxi_02">
-            <input type="text" name="wechat_account" id="wechat_account"
-                   value="{{ user.wechat_account or '' }}"/>
+            <input type="text" name="wechat_account" id="wechat_account" value="{{ user.wechat_account or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="qq_number">QQ</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="qq_number">QQ</label></div>
           <div class="basic_xinxi_02">
-            <input type="text" id="qq_number" name="qq_number"
-                   value="{{ user.qq_number or '' }}"/>
+            <input type="text" id="qq_number" name="qq_number" value="{{ user.qq_number or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="photo">修改头像</label>
-          </div>
-          <div class="basic_xinxi_02">
-            <input type="file" name="photo" id="photo">
-          </div>
+          <div class="basic_xinxi_01"><label for="photo">修改头像</label></div>
+          <div class="basic_xinxi_02"><input type="file" name="photo" id="photo"></div>
         </li>
         <li>
-          <div class="basic_xinxi_01">
-            <label for="introduce">个人简介</label>
-          </div>
+          <div class="basic_xinxi_01"><label for="introduce">个人简介</label></div>
           <div class="basic_xinxi_02">
-            <input type="text" id="introduce" name="introduce"
-                   value="{{ user.introduce or '' }}"/>
+            <input type="text" id="introduce" name="introduce" value="{{ user.introduce or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li class="inherit-height">
+          <div class="basic_xinxi_01"><label for="users_styles">擅长风格</label></div>
+          <div class="basic_xinxi_02 inherit-height">
+            <select multiple="multiple" name="users_styles" id="users_styles">
+              {% for s in all_styles %}
+                <option value="{{ s.id }}" {% if s in user_styles %}selected{% endif %} class="simple-option">
+                  {{ s.display }}
+                </option>
+              {% endfor %}
+            </select>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>

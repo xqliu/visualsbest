@@ -1,7 +1,8 @@
 # encoding=utf-8
+from app import const
+from app.models import EnumValues
 from flask.ext.security.forms import Form, Required
-from wtforms import StringField, RadioField, DateField
-from wtforms.fields.html5 import DateTimeField
+from wtforms import StringField, RadioField, DateField, SelectMultipleField
 from wtforms.validators import Optional
 
 
@@ -18,3 +19,12 @@ class UserProfileForm(Form):
     weibo_account = StringField('Weibo Account')
     wechat_account = StringField('Wechat Account')
     introduce = StringField('Introduce')
+    users_styles = SelectMultipleField('users_styles')
+
+    def __init__(self):
+        super(UserProfileForm, self).__init__()
+        styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+        scs = []
+        for s in styles:
+            scs.append((str(s.id), s.display))
+        self.users_styles.choices = scs

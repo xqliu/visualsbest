@@ -10,11 +10,9 @@ from app.util.db_util import save_obj_commit
 from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection, \
     query_for_photo_collection
 from app.util.view_util import render_template_front_layout
-from boto.mturk import price
 from flask import request, redirect, url_for
 from flask.ext.login import current_user
 from flask.ext.security import login_required
-from sqlalchemy import or_
 
 app = app_provider.AppInfo.get_app()
 
@@ -155,6 +153,7 @@ def messages():
 @login_required
 def settings():
     user = User.query.filter_by(id=current_user.id).first()
+    all_styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     if request.method == 'POST':
         form = UserProfileForm()
         if request.form.get('gender') is None \
@@ -171,13 +170,18 @@ def settings():
             user.wechat_account = form.wechat_account.data
             user.qq_number = form.qq_number.data
             user.introduce = form.introduce.data
+            user.styles = []
+            for style_id in form.users_styles.data:
+                style = EnumValues.query.get(int(style_id))
+                if style is not None:
+                    user.styles.append(style)
             if ('photo' in request.files) and \
                     (len(request.files.get('photo').filename) > 0):
                 view_util.save_user_gallery(user, request.files['photo'])
             save_obj_commit(user)
     return render_template_front_layout('settings.html',
                                         user_profile_form=UserProfileForm(),
-                                        user=user)
+                                        user_styles=user.styles, user=user, all_styles=all_styles)
 
 
 @app.route('/experience', methods=['GET', 'POST'])
