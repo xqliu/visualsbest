@@ -172,7 +172,23 @@
 .remark-text {
     text-align: center;
     background-color: #EFEFEF;
-    width:100%;
+    width: 100%;
+}
+
+.search_no_result {
+    margin: auto;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 18px;
+}
+
+.include_none {
+    float: right;
+}
+
+.lose-left {
+    padding-left: 20px;
+    padding-right: 10px;
 }
 
 

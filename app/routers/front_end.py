@@ -1,4 +1,5 @@
 # encoding=utf-8
+from datetime import datetime
 from app import app_provider, AppInfo, const
 from app.forms.photo_collection_form import PhotoCollectionForm
 from app.forms.user_profile_form import UserProfileForm
@@ -6,11 +7,14 @@ from app.models import User, UserExperience, EnumValues, \
     PhotoCollection
 from app.util import view_util
 from app.util.db_util import save_obj_commit
-from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection
+from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection, \
+    query_for_photo_collection
 from app.util.view_util import render_template_front_layout
+from boto.mturk import price
 from flask import request, redirect, url_for
 from flask.ext.login import current_user
 from flask.ext.security import login_required
+from sqlalchemy import or_
 
 app = app_provider.AppInfo.get_app()
 
@@ -22,14 +26,31 @@ def index():
 
 @app.route("/works", methods=['GET', 'POST'])
 def works():
-    collections = PhotoCollection.query.all()
     categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
-    category, style = None, None
+    category, style, include_none_date, include_none_price, min_price, max_price, min_date, max_date = \
+        [None, None, None, None, None, None, None, None]
     if request.method == 'POST':
-        pass
+        category_id = int(request.form.get('category_id')) if len(request.form.get('category_id')) > 0 else None
+        style_id = int(request.form.get('style_id')) if len(request.form.get('style_id')) > 0 else None
+        min_price = int(request.form.get('min_price')) if len(request.form.get('min_price')) > 0 else None
+        max_price = int(request.form.get('max_price')) if len(request.form.get('max_price')) > 0 else None
+        min_date = datetime.strptime(request.form.get('min_date'), '%Y-%m-%d') \
+            if len(request.form.get('min_date')) > 0 else None
+        max_date = datetime.strptime(request.form.get('max_date'), '%Y-%m-%d') \
+            if len(request.form.get('max_date')) > 0 else None
+        include_none_price = request.form.get('include_none_price')
+        include_none_date = request.form.get('include_none_date')
+        collections, category, style = query_for_photo_collection(category_id, include_none_date, include_none_price,
+                                                                  max_date, max_price, min_date, min_price, style_id)
+        min_date = request.form.get('min_date')
+        max_date = request.form.get('max_date')
+    else:
+        collections = PhotoCollection.query.all()
     return render_template_front_layout('works.html', collections=collections,
-                                        categories=categories, styles=styles, category=category, style=style)
+                                        categories=categories, styles=styles, category=category, style=style,
+                                        min_price=min_price, max_price=max_price, include_none_price=include_none_price,
+                                        min_date=min_date, max_date=max_date, include_none_date=include_none_date)
 
 
 @app.route("/collection_details/<int:collection_id>")

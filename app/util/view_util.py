@@ -3,10 +3,8 @@ import uuid
 from app import app_provider
 from app.forms import UserRegisterForm
 from app.models import Image
-from app.util import file_util
 from flask import render_template
 from flask.ext.security import LoginForm
-import os
 
 gallery_service = app_provider.AppInfo.get_galleries_store_service()
 image_service = app_provider.AppInfo.get_image_store_service()

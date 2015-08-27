@@ -4,7 +4,6 @@ from flask import Flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
 from flask.ext.images import Images
 from flask.ext.mail import Mail
-from flask.ext.migrate import Migrate
 from flask.ext.security import SQLAlchemyUserDatastore, Security
 import os
 import rollbar

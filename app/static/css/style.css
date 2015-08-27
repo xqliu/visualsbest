@@ -323,7 +323,7 @@ table{border-collapse:collapse;border-spacing:0;}
 
 .search_top ul.search_time{float:left; font-size:14px; color:#8f8f8f; margin-left:36px;}
 .search_top ul.search_time li{ float:left;}
-.search_top ul.search_time li input{width:373px; height:36px; margin-top:18px; border:1px solid #ccc; border-radius:3px;}
+.search_top ul.search_time li input{width:173px; height:36px; margin-top:18px; border:1px solid #ccc; border-radius:3px; padding-left: 10px;}
 .search_top ul.search_time li.zhi{ margin:0 5px; line-height:72px;}
 .search_top ul.shooting_style li P{float:right;text-indent:0px; margin-right:16px; margin-top:17px; cursor:pointer;}
 .search_top ul.shooting_style li dl{ width:252px; height:auto; display:none; position:absolute; background:#F2F2F2;border:1px solid #ccc; border-bottom-left-radius:3px; border-top:none;border-bottom-right-radius:3px; top:34px; left:-1px; z-index:10000;}

@@ -1,0 +1,22 @@
+{% macro enum_value_search_field(current_value, values, title, title_span_id) %}
+  <div class="search_top_head">
+    <h6>{{ title }}</h6>
+    <ul class="shooting_style shooting_style1">
+      <li>
+        <span id="{{ title_span_id }}">{{ current_value.display or '所有' + title }}</span>
+
+        <p><img src="{{ url_for('static', filename='images/xiala.png') }}"/></p>
+        <dl>
+          {% if current_value != None %}
+            <dd id=""><a href="#">所有{{ title }}</a></dd>
+          {% endif %}
+          {% for v in values %}
+            <dd id="{{ v.id }}">
+              <a href="#">{{ v.display }}</a>
+            </dd>
+          {% endfor %}
+        </dl>
+      </li>
+    </ul>
+  </div>
+{% endmacro %}
