@@ -1,7 +1,10 @@
 # coding=utf-8
-from app import AppInfo
+from datetime import datetime
+from app import AppInfo, const
 from app.models import PhotoWork, Image, EnumValues, PhotoCollection
 from app.util import view_util
+from app.util.view_util import render_template_front_layout
+from flask import request
 from sqlalchemy import or_
 
 
@@ -77,3 +80,42 @@ def query_for_photo_collection(category_id, include_none_date, include_none_pric
             query = query.filter(PhotoCollection.date <= max_date)
     collections = query.all()
     return collections, category, style
+
+
+def extra_fields_from_form():
+    """
+    从request中获取用户输入的查询条件各字段
+    :return: 查询的作品分类id、是否包含无日期的、是否包含无价格的、最大日期、最大价格、最小日期、最小价格、查询的作品风格id
+    """
+    category_id = int(request.form.get('category_id')) if len(request.form.get('category_id')) > 0 else None
+    style_id = int(request.form.get('style_id')) if len(request.form.get('style_id')) > 0 else None
+    min_price = int(request.form.get('min_price')) if len(request.form.get('min_price')) > 0 else None
+    max_price = int(request.form.get('max_price')) if len(request.form.get('max_price')) > 0 else None
+    min_date = datetime.strptime(request.form.get('min_date'), '%Y-%m-%d') \
+        if len(request.form.get('min_date')) > 0 else None
+    max_date = datetime.strptime(request.form.get('max_date'), '%Y-%m-%d') \
+        if len(request.form.get('max_date')) > 0 else None
+    include_none_price = request.form.get('include_none_price')
+    include_none_date = request.form.get('include_none_date')
+    return category_id, include_none_date, include_none_price, max_date, max_price, min_date, min_price, style_id
+
+
+def render_search_result(template, router, get_all, get_filtered):
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    category, style, include_none_date, include_none_price, min_price, max_price, min_date, max_date = \
+        [None, None, None, None, None, None, None, None]
+    if request.method == 'POST':
+        category_id, include_none_date, include_none_price, max_date, max_price, min_date, min_price, style_id = \
+            extra_fields_from_form()
+        collections, category, style = query_for_photo_collection(category_id, include_none_date, include_none_price,
+                                                                  max_date, max_price, min_date, min_price, style_id)
+        min_date = request.form.get('min_date')
+        max_date = request.form.get('max_date')
+        result_list = get_filtered(collections)
+    else:
+        result_list = get_all()
+    return render_template_front_layout(template, result_list=result_list, categories=categories,
+                                        styles=styles, category=category, style=style, route=router,
+                                        min_price=min_price, max_price=max_price, include_none_price=include_none_price,
+                                        min_date=min_date, max_date=max_date, include_none_date=include_none_date)
