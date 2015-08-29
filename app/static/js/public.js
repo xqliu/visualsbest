@@ -109,21 +109,13 @@ $(function () {
     $("#register-popup-closer").click(function () {
         $(".zhuce_fixed").css("display", "none");
     });
-
+    // photo_collection_form 删除调用的代码
+    $("#delete_photo_collection_link").click(function () {
+        if (confirm("确定删除本作品集？")) {
+            $("#photo-collection-to-delete").val($("#id").val());
+            $('form[name="edit_collection_info_form"]').submit();
+        }
+    });
+    //后台显示的提示信息显示5秒钟然后自己隐藏
+    $(".flashes").delay(5000).fadeOut();
 });
-
-// photo_categories 删除和修改的Javascript代码，
-// 在photo_categories.html中调用
-function delete_photo_category(id) {
-    if (confirm("确定删除本作品分类？")) {
-        $("#edit-operation").val('delete');
-        $("#edit-id").val(id);
-        $("#edit-form").submit();
-    }
-}
-
-function edit_photo_category(id) {
-    $("#edit-id").val(id);
-    $("#edit-name").val($("#col-" + id + "-name").text());
-    $("#photo_category_edit_panel").show();
-}

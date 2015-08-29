@@ -1,7 +1,8 @@
 {% macro photo_collection_form(form, photo_collection, categories, styles, is_edit) %}
   {{ form.hidden_tag() }}
   {% if is_edit == True %}
-    <input type="hidden" name="id" value="{{ photo_collection.id or '' }}"/>
+    <input type="hidden" name="id" id="id" value="{{ photo_collection.id or '' }}"/>
+    <input type="hidden" name="photo-collection-to-delete" id="photo-collection-to-delete" value=""/>
   {% endif %}
   <ul class="basic_xinxi">
     <li>
@@ -9,6 +10,7 @@
       <div class="basic_xinxi_02">
         <input type="text" value="{{ photo_collection.name or '' }}" name="name" id="name"/>
       </div>
+      <div class="basic_xinxi_03"><span id="delete_photo_collection_link">删除本作品集</span></div>
     </li>
     <li>
       <div class="basic_xinxi_01"><label for="category">拍摄类别</label></div>

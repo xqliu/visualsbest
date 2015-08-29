@@ -52,6 +52,7 @@ class User(db.Model, UserMixin):
     birthday = db.Column(Date, nullable=True)
     confirmed_at = Column(DateTime, nullable=True)
 
+
     # 该用户是由哪个用户推荐的
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     recommend_by = db.relation("User", remote_side=id, backref=backref(

@@ -9,7 +9,7 @@ from app.util.db_util import save_obj_commit
 from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection, \
     render_search_result
 from app.util.view_util import render_template_front_layout
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 
@@ -41,6 +41,7 @@ def photograph():
                 photographs.append(c.photographer)
         return photographs
 
+    flash("这是一条我也不知道干什么用的提示信息")
     return render_search_result(template='photograph.html', router='/photograph', get_all=get_all,
                                 get_filtered=get_filtered)
 
@@ -71,9 +72,20 @@ def edit_collection(collection_id):
     categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     photo_collection = PhotoCollection.query.get(collection_id)
+    if photo_collection.photographer != current_user:
+        flash('您没有权限编辑本作品集，将返回网站主页')
+        return url_for('index')
     form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
-        if request.form.get('photo-works-to-delete') is not None:
+        if request.form.get('photo-collection-to-delete') is not None \
+                and len(request.form.get('photo-collection-to-delete')) != 0:
+            id_to_delete = int(request.form.get('photo-collection-to-delete'))
+            pc = PhotoCollection.query.get(id_to_delete)
+            AppInfo.get_db().session.delete(pc)
+            AppInfo.get_db().session.commit()
+            flash('作品集删除成功')
+            return redirect(url_for('my_photos'))
+        elif request.form.get('photo-works-to-delete') is not None:
             works_to_delete = request.form.get('photo-works-to-delete').split(',')
             delete_photo_works(works_to_delete)
             files = request.files.getlist('photos[]')
@@ -101,12 +113,13 @@ def create_collection():
             photo_collection.uploader_id = current_user.id
             save_photo_collection(form, photo_collection)
             save_obj_commit(photo_collection)
-            return redirect(url_for('edit_collection',
-                                    collection_id=photo_collection.id))
+            flash('作品集创建成功，您可以在本界面上传作品集中的作品')
+            return redirect(url_for('edit_collection', collection_id=photo_collection.id))
+        else:
+            flash('请填写所有信息并再次尝试创建')
     return render_template_front_layout('create_collection.html',
                                         photo_collection=photo_collection,
-                                        categories=categories,
-                                        form=form, styles=styles)
+                                        categories=categories, form=form, styles=styles)
 
 
 @app.route("/blog")

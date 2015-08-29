@@ -2,7 +2,7 @@
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 {% from "macro/photo_collection_form.html" import photo_collection_form %}
 {% block header_tail %}
-  <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+  <script type="text/javascript">
     $(function () {
       $(".shangchuang_cuo").click(function () {
         $(this).parent("li").css("display", "none");
@@ -14,13 +14,14 @@
 {% block dashboard_main %} {{ super() }}
   <div class="others_right_top">
     <div class="others_right_head">
-      <h4>编辑作品集 | <a href="{{ url_for('collection_details', collection_id=photo_collection.id) }}" target="_blank">查看作品集显示效果</a></h4>
+      <h4>编辑作品集 | <a href="{{ url_for('collection_details', collection_id=photo_collection.id) }}" target="_blank">查看作品集显示效果</a>
+      </h4>
     </div>
     <h3>作品集信息</h3>
 
-    <form method="post"
-          action="{{ url_for('edit_collection', collection_id=photo_collection.id) }}"
-          name="edit_collection_form">
+    <form method="post" name="edit_collection_info_form"
+          action="{{ url_for('edit_collection', collection_id=photo_collection.id) }}">
+
       {{ photo_collection_form(form, photo_collection, categories, styles, True) }}
     </form>
   </div>
@@ -28,9 +29,8 @@
     <div class="others_right_head">
       <h4>管理作品集中的作品</h4>
     </div>
-    <form method="POST"
-          action="{{ url_for('edit_collection', collection_id=photo_collection.id) }}"
-          enctype="multipart/form-data" name="edit_collection_form">
+    <form method="POST" action="{{ url_for('edit_collection', collection_id=photo_collection.id) }}"
+          enctype="multipart/form-data" name="edit_collection_photo_form">
       <input type='hidden' name='photo-works-to-delete'
              id='photo-works-to-delete' value=""/>
       <ul id="images-preview-panel">
@@ -66,6 +66,5 @@
 {% endblock %}
 
 {% block tail_js %}
-  <script type="text/javascript"
-          src="{{ url_for('static',  filename='js/upload_files_preview.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static',  filename='js/upload_files_preview.js') }}"></script>
 {% endblock %}

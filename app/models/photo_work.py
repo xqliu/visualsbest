@@ -17,18 +17,15 @@ class PhotoWork(db.Model):
     __tablename__ = 'photo_work'
     id = Column(Integer, primary_key=True)
 
-    # 该照片作品所属的影集
-    photo_collection_id = Column(Integer, ForeignKey(PhotoCollection.id),
-                                 nullable=False)
-    photo_collection = relationship(PhotoCollection,
-                                    backref=backref('photos',
-                                                    uselist=True),
-                                    foreign_keys=[photo_collection_id])
+    # 该照片作品所属的影集, 注意在该作品所属的影集被删除时，其相关联的所有的作品都会被删除
+    photo_collection_id = Column(Integer, ForeignKey(PhotoCollection.id), nullable=False)
+    photo_collection = relationship(PhotoCollection, foreign_keys=[photo_collection_id],
+                                    backref=backref('photos', uselist=True, cascade='all, delete-orphan'))
 
     # 该作品的图片对象
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
-    image = db.relation(Image, backref=backref('image_photo_work',
-                                               uselist=False))
+    image = db.relation(Image, backref=backref('image_photo_work', uselist=False),
+                        cascade="all, delete-orphan", single_parent=True)
 
     is_cover = db.Column(Boolean, nullable=True)
 

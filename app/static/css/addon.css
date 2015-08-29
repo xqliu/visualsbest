@@ -212,4 +212,24 @@
     margin: 5px auto;
 }
 
+#delete_photo_collection_link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #FFB867;
+}
+
+.flashes {
+    position: fixed;
+    z-index: 100001;
+    width: 40%;
+    left: 30%;
+    text-align: center;
+    background: rgba(50, 50, 50, 0.5);
+    height: 50px;
+    line-height: 50px;
+    top: 53px;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
 

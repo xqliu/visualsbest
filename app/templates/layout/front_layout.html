@@ -9,32 +9,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>作品</title>
     <link href='{{ url_for('static', filename='images/logo.png') }}' rel='icon' sizes='32x32' type='image/png'>
-    <link
-        href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}"
-        rel="stylesheet">
-    <link
-        href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}"
-        rel="stylesheet">
-    <link type="text/css" rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}"/>
-    <link type="text/css" rel="stylesheet"
-          href="{{ url_for('static', filename='css/addon.css') }}"/>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/jquery-1.7.2.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/jquery.sochange.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/n_public.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/public.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/preview.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/jquery.masonry.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/jquery.infinitescroll.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static',  filename='js/works.js') }}"></script>
+    <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}" rel="stylesheet">
+    <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/addon.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.7.2.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.sochange.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/n_public.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/public.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/preview.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.masonry.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.infinitescroll.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/works.js') }}"></script>
     {% block header_tail %}
     {% endblock %}
   </head>
@@ -42,6 +28,15 @@
 <!-- Header end -->
 
 <body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 {% block before_nav %}
 {% endblock %}
 
