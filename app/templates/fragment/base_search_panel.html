@@ -1,8 +1,6 @@
 {% from "macro/enum_value_search_field.html" import enum_value_search_field %}
 <div class="search_top">
   <form action="{{ route }}" method="post">
-    <input type="hidden" name="category_id" id="category_id" value="{{ category.id or '' }}"/>
-    <input type="hidden" name="style_id" id="style_id" value="{{ style.id or '' }}"/>
     {{ enum_value_search_field(category, categories, '拍摄类别', 'category') }}
     {{ enum_value_search_field(style, styles, '拍摄风格', 'style') }}
     <div class="search_top_concet">
@@ -43,6 +41,8 @@
         </li>
       </ul>
     </div>
+    {% block additional_condition %}
+    {% endblock %}
     <button type="submit">搜索</button>
   </form>
 </div>

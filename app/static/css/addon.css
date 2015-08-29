@@ -2,6 +2,12 @@
 /*height:400px;*/
 /*}*/
 
+@media (min-width: 1280px) {
+    .demo {
+        width: 1000px;
+    }
+}
+
 #fixed_zhuce_form {
     display: none;
 }
@@ -202,7 +208,7 @@
 }
 
 .simple-option {
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #999999;
     margin: 5px auto;
 }
 

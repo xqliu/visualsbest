@@ -1,0 +1,5 @@
+{% extends "fragment/base_search_panel.html" %}
+
+{% block additional_condition %}
+  {{ enum_value_search_field(style, styles, '擅长风格', 'good_at_style') }}
+{% endblock %}
