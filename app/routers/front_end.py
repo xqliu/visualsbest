@@ -12,6 +12,7 @@ from app.util.view_util import render_template_front_layout
 from flask import request, redirect, url_for, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
+from sqlalchemy import or_, desc
 
 app = app_provider.AppInfo.get_app()
 
@@ -122,9 +123,12 @@ def create_collection():
                                         categories=categories, form=form, styles=styles)
 
 
-@app.route("/blog")
-def blog():
-    return render_template_front_layout('blog.html')
+@app.route("/blog/<int:photographer_id>")
+def blog(photographer_id):
+    photographer = User.query.get(photographer_id)
+    sorted_collections = PhotoCollection.query.filter_by(photographer_id=photographer.id) \
+        .order_by(desc(PhotoCollection.date)).all()
+    return render_template_front_layout('blog.html', photographer=photographer, collections=sorted_collections)
 
 
 @app.route("/dashboard")

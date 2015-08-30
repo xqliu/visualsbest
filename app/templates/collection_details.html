@@ -46,11 +46,11 @@
     </div>
     <div class="work_wz">
       <div class="work_wz_left">
-        <a href="{{ url_for('comments') }}">
-          {% if current_user.image is defined and current_user.image != None %}
+        <a href="{{ url_for('blog', photographer_id=collection.photographer_id) }}">
+          {% if collection.photographer.image is defined and collection.photographer.image != None %}
             <img
-                src="{{ url_for('images', filename=current_user.image.path, width=208, height=181, mode='fit') }}"
-                alt="{{ current_user.image.alt }}" class="big-circular"/>
+                src="{{ url_for('images', filename=collection.photographer.image.path, width=208, height=181, mode='fit') }}"
+                alt="{{ collection.photographer.image.alt }}" class="big-circular"/>
           {% else %}
             <img
                 src="{{ url_for('images', filename="big_tx.png", width=208, height=181, mode='fit') }}"
@@ -59,8 +59,12 @@
         </a>
       </div>
       <div class="work_wz_right">
-        <h6>作品简介 :</h6> <div style="padding-top:10px">{{ collection.introduce or '' }}</div>
-        <h6>作品拍摄价格 :</h6> <div style="padding-top:10px">{{ collection.price or '未知' }}</div>
+        <h6>作品简介 :</h6>
+
+        <div style="padding-top:10px">{{ collection.introduce or '' }}</div>
+        <h6>作品拍摄价格 :</h6>
+
+        <div style="padding-top:10px">{{ collection.price or '未知' }}</div>
       </div>
     </div>
   </div>

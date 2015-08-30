@@ -1,4 +1,5 @@
 # coding=utf-8
+from app.util.filter import _jinja2_filter_substring
 from app.util.image_store import ImageStore
 from flask import Flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
@@ -15,6 +16,8 @@ app = Flask(__name__, template_folder='app/templates', static_folder='app/static
 import app.config as config
 
 app.config.from_object(config)
+
+app.jinja_env.filters['substring'] = _jinja2_filter_substring
 
 from flask_babelex import Babel
 

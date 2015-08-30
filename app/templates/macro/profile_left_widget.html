@@ -1,19 +1,23 @@
-{% macro profile_left_widget(current_user) %}
+{% macro profile_left_widget(user, current_user) %}
   <!--个人简介 strat-->
   <div class="others_jj">
     <div class="others_tx">
-      {% if current_user.image is defined and current_user.image != None %}
-      <img src="{{ url_for('images', filename=current_user.image.path, width=208, height=181, mode='fit') }}"
-           alt="{{ current_user.image.alt }}"/>
+      {% if user.image is defined and user.image != None %}
+        <img src="{{ url_for('images', filename=user.image.path, width=208, height=181, mode='fit') }}"
+             alt="{{ user.image.alt }}"/>
       {% else %}
-        <img src="{{ url_for('images', filename="big_tx.png", width=208, height=181, mode='fit')}}"/>
+        <img src="{{ url_for('images', filename="big_tx.png", width=208, height=181, mode='fit') }}"/>
       {% endif %}
     </div>
-    <div class="zuozhe_name">{{ current_user.display }}</div>
+    <div class="zuozhe_name">{{ user.display }}</div>
     <div class="others_xq page_xq">
-      <h5><a href="{{ url_for('settings') }}">编辑个人资料</a></h5>
-      {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+      {% if user.id == current_user.id %}
+        <h5><a href="{{ url_for('settings') }}">编辑个人资料</a></h5>
+      {% endif %}
+      {% if user.type.code == 'PHOTOGRAPHER_USER' and user.id == current_user.id %}
         <h5><a href="{{ url_for('experience') }}">编辑摄影经历</a></h5>
+      {% else %}
+        <h5><a href="{{ url_for('experience') }}">查看该用户摄影经历</a></h5>
       {% endif %}
     </div>
   </div>
