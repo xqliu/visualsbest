@@ -58,15 +58,22 @@
     padding-top: 15px;
 }
 
-.experience li {
+.edit-experience li {
     height: auto;
 }
 
-.experience {
+.edit-experience {
     padding-top: 20px;
     width: 95%;
     margin: auto;
     text-align: center;
+}
+
+.experience {
+    line-height:200%;
+    min-font-size: 14px;
+    font-size:14px;
+    padding:20px;
 }
 
 .cke_contents {

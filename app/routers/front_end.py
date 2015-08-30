@@ -188,22 +188,30 @@ def settings():
                     (len(request.files.get('photo').filename) > 0):
                 view_util.save_user_gallery(user, request.files['photo'])
             save_obj_commit(user)
-    return render_template_front_layout('settings.html',
-                                        user_profile_form=UserProfileForm(),
-                                        user_styles=user.styles, user=user, all_styles=all_styles)
+    return render_template_front_layout('settings.html', user_profile_form=UserProfileForm(), user_styles=user.styles,
+                                        user=user, all_styles=all_styles)
 
 
-@app.route('/experience', methods=['GET', 'POST'])
+@app.route('/experience/edit/<int:photographer_id>', methods=['GET', 'POST'])
 @login_required
-def experience():
-    user = User.query.filter_by(id=current_user.id).first()
+def edit_experience(photographer_id):
+    user = User.query.filter_by(id=photographer_id).first()
     exp = user.experience
-    if request.method == 'POST':
-        if exp is None:
-            exp = UserExperience()
-        exp.user_id = user.id
-        exp.content = request.form['content']
-        save_obj_commit(exp)
-    return render_template_front_layout('experience.html',
-                                        user_profile_form=UserProfileForm(),
-                                        experience=exp)
+    if photographer_id == current_user.id:
+        if request.method == 'POST':
+            if exp is None:
+                exp = UserExperience()
+            exp.user_id = user.id
+            exp.content = request.form['content']
+            save_obj_commit(exp)
+        return render_template_front_layout('edit_experience.html', user_profile_form=UserProfileForm(), experience=exp)
+    else:
+        flash('您没有权限编辑该用户的摄影经理')
+        return url_for('index')
+
+
+@app.route('/experience/<int:photographer_id>', methods=['GET'])
+def experience(photographer_id):
+    user = User.query.filter_by(id=photographer_id).first()
+    exp = user.experience
+    return render_template_front_layout('experience.html', user_profile_form=UserProfileForm(), experience=exp)
