@@ -50,7 +50,7 @@ def photograph():
 @app.route("/works", methods=['GET', 'POST'])
 def works():
     def get_all():
-        return PhotoCollection.query.all()
+        return PhotoCollection.query.filter(PhotoCollection.photos.any()).all()
 
     def get_filtered(collections):
         return collections

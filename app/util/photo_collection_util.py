@@ -74,7 +74,7 @@ def query_for_photo_collection(category_id, include_none_date, include_none_pric
             query = query.filter(or_(PhotoCollection.date <= max_date, PhotoCollection.date.is_(None)))
         else:
             query = query.filter(PhotoCollection.date <= max_date)
-    collections = query.all()
+    collections = query.filter(PhotoCollection.photos.any()).all()
     return collections, category, style
 
 
