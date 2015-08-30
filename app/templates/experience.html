@@ -1,6 +1,9 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 
+{% block dashboard_left_widget %}
+  {{ profile_left_widget(photographer, current_user) }}
+{% endblock %}
 {% block dashboard_nav %}
   {{ super() }}
   {{ dashboard_nav("settings", current_user) }}

@@ -75,7 +75,7 @@ def edit_collection(collection_id):
     photo_collection = PhotoCollection.query.get(collection_id)
     if photo_collection.photographer != current_user:
         flash('您没有权限编辑本作品集，将返回网站主页')
-        return url_for('index')
+        return redirect(url_for('index'))
     form = PhotoCollectionForm(categories, styles)
     if request.method == 'POST':
         if request.form.get('photo-collection-to-delete') is not None \
@@ -195,9 +195,9 @@ def settings():
 @app.route('/experience/edit/<int:photographer_id>', methods=['GET', 'POST'])
 @login_required
 def edit_experience(photographer_id):
-    user = User.query.filter_by(id=photographer_id).first()
-    exp = user.experience
     if photographer_id == current_user.id:
+        user = User.query.filter_by(id=photographer_id).first()
+        exp = user.experience
         if request.method == 'POST':
             if exp is None:
                 exp = UserExperience()
@@ -206,12 +206,13 @@ def edit_experience(photographer_id):
             save_obj_commit(exp)
         return render_template_front_layout('edit_experience.html', user_profile_form=UserProfileForm(), experience=exp)
     else:
-        flash('您没有权限编辑该用户的摄影经理')
-        return url_for('index')
+        flash('您没有权限编辑该用户的摄影经历')
+        return redirect(url_for('index'))
 
 
 @app.route('/experience/<int:photographer_id>', methods=['GET'])
 def experience(photographer_id):
     user = User.query.filter_by(id=photographer_id).first()
     exp = user.experience
-    return render_template_front_layout('experience.html', user_profile_form=UserProfileForm(), experience=exp)
+    return render_template_front_layout('experience.html', user_profile_form=UserProfileForm(), photographer=user,
+                                        experience=exp)
