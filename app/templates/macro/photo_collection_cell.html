@@ -10,8 +10,8 @@
     </a>
 
     <h2>{{ photo_collection.name }}</h2>
-    <h6>{{ photo_collection.introduce or '' }}</h6>
-    <h6>{{ photo_collection.date or '' }}</h6>
+    <h6>{{ photo_collection.introduce|substring("left", 20) + '...' or '' }}</h6>
+    <h6>时间: {{ photo_collection.date or '' }}</h6>
 
     <div>
       <a href="#" class="zan">（0）</a>
