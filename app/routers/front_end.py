@@ -211,6 +211,7 @@ def experience(photographer_id):
     exp = user.experience
     return rt('experience.html', user_profile_form=UserProfileForm(), photographer=user, experience=exp)
 
+
 @app.route('/date_status/json/<int:photographer_id>', methods=['GET'])
 def date_status_json(photographer_id):
     pass
