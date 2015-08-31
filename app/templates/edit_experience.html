@@ -1,6 +1,9 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 
+{% block header_tail %}
+  <script src="{{ url_for('static', filename='ckeditor/ckeditor.js', version='4.5.1') }}"></script>
+{% endblock %}
 {% block dashboard_nav %}
   {{ super() }}
   {{ dashboard_nav("settings", current_user) }}
@@ -11,15 +14,14 @@
     <form action="{{ url_for('edit_experience',photographer_id=current_user.id) }}" method="POST">
       <div class="others_right_head">
         <h4>
-          <label for="content">编辑我的摄影经历</label> |
+          <label for="experience-textarea">编辑我的摄影经历</label> |
           <a target="_blank" href="{{ url_for('experience', photographer_id=current_user.id) }}">查看我的经历效果预览</a>
         </h4>
       </div>
       <ul class="edit-experience">
         <li>
           <div>
-          <textarea class="ckeditor form-control" name="content" id="content"
-                    rows="20">
+          <textarea class="ckeditor form-control" name="experience-textarea" id="experience-textarea">
             {{ experience.content or '' | safe }}
           </textarea>
           </div>
@@ -31,6 +33,7 @@
 {% endblock %}
 
 {% block tail_js %}
-  <script
-      src="{{ url_for('static', filename='ckeditor/ckeditor.js', version='4.5.1') }}"></script>
+  <script lang="javascript">
+    CKEDITOR.replace("experience-textarea", {height: 400});
+  </script>
 {% endblock %}

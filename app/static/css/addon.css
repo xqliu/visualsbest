@@ -70,14 +70,10 @@
 }
 
 .experience {
-    line-height:200%;
+    line-height: 200%;
     min-font-size: 14px;
-    font-size:14px;
-    padding:20px;
-}
-
-.cke_contents {
-    height: 100% !important;
+    font-size: 14px;
+    padding: 20px;
 }
 
 .circular {
@@ -237,6 +233,22 @@
     top: 53px;
     color: #FFFFFF;
     font-size: 16px;
+}
+
+#events-calendar-container {
+    width: 80%;
+    margin: 30px auto auto;
+}
+
+#events-calendar {
+    font-size: 16px;
+}
+
+#event-calender-info {
+    margin: 10px auto auto;
+    color: #333333;
+    padding-bottom: 20px;
+    font-size: 14px;
 }
 
 
