@@ -251,4 +251,23 @@
     font-size: 14px;
 }
 
+.others_right .button {
+    height: 40px;
+}
+
+#date_status_list_container {
+    width: 95%;
+    margin: 20px auto;
+}
+
+#events-calendar .glyphicon {
+    color: #999999;
+    padding: 0 30px;
+}
+
+.del-icon {
+    cursor: pointer;
+    font-size: 16px;
+}
+
 

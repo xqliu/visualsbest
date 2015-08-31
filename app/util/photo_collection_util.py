@@ -3,7 +3,7 @@ from datetime import datetime
 from app import AppInfo, const
 from app.models import PhotoWork, Image, EnumValues, PhotoCollection
 from app.util import view_util
-from app.util.view_util import render_template_front_layout
+from app.util.view_util import rt
 from flask import request
 from sqlalchemy import or_
 
@@ -111,7 +111,7 @@ def render_search_result(template, router, get_all, get_filtered):
         result_list = get_filtered(collections)
     else:
         result_list = get_all()
-    return render_template_front_layout(template, result_list=result_list, categories=categories,
+    return rt(template, result_list=result_list, categories=categories,
                                         styles=styles, category=category, style=style, route=router,
                                         min_price=min_price, max_price=max_price, include_none_price=include_none_price,
                                         min_date=min_date, max_date=max_date, include_none_date=include_none_date)

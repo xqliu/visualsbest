@@ -1,0 +1,76 @@
+{% extends 'layout/dashboard_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
+{% block header_tail %}
+  <link href="{{ url_for('static', filename='css/bic_calendar.css', v='3.3.0') }}" rel="stylesheet">
+{% endblock %}
+{% block dashboard_nav %}
+  {{ super() }}
+  {{ dashboard_nav("settings", current_user) }}
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+  <div class="others_right_top">
+    <form action="{{ url_for('edit_date_status',photographer_id=current_user.id) }}" method="POST">
+      {{ form.hidden_tag() }}
+      <input type="hidden" name="action" value="create">
+      <input name="from_day" id="from_day" type="text" value="" style="display:none">
+      <input name="end_day" id="end_day" type="text" value="" style="display: none;">
+
+      <div class="others_right_head">
+        <h4>
+          <label for="content">维护我的工作日历</label>
+        </h4>
+      </div>
+      <div id="events-calendar-container">
+        <div id="events-calendar"></div>
+        <span id="event-calender-info" class="glyphicon glyphicon-info-sign">
+          点击开始和结束日期，然后点击下面的“标记日期为不可用”按钮，即可标记某段时间为不可用
+        </span>
+      </div>
+      <button class="button" style="letter-spacing: 2px;">标记日期为不可用</button>
+    </form>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4>
+        <label for="content">未来不可用日期列表</label>
+      </h4>
+    </div>
+    <div id="date_status_list_container">
+      <form method="POST" name="del_date_status_form"
+            action="{{ url_for('edit_date_status',photographer_id=current_user.id) }}">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="id_to_delete" id="id_to_delete" value="">
+        <table class="table table-bordered table-hover table-striped text-center">
+          <thead>
+          <tr>
+            <th class="text-center">开始时间</th>
+            <th class="text-center">结束时间</th>
+            <th class="text-center">状态</th>
+            <th class="text-center">操作</th>
+          </tr>
+          </thead>
+          <tbody style="color:#333333">
+
+          {% for ds in date_statuses %}
+            <tr>
+              <td>{{ ds.start_date.strftime('%Y-%m-%d') }}</td>
+              <td>{{ ds.end_date.strftime('%Y-%m-%d') }}</td>
+              <td>{{ ds.status.display }}</td>
+              <td>
+                <span class="glyphicon glyphicon-remove del-icon" onclick="delete_date_status({{ ds.id }})"></span>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block tail_js %}
+  <script src="{{ url_for('static', filename='js/moment-with-locales.js', version='2.10.6') }}"></script>
+  <script src="{{ url_for('static', filename='js/bic_calendar.js', version='3.3.0') }}"></script>
+  <script src="{{ url_for('static', filename='js/date_status.js', version='0.0.2') }}"></script>
+{% endblock %}

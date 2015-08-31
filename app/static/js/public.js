@@ -119,3 +119,11 @@ $(function () {
     //后台显示的提示信息显示5秒钟然后自己隐藏
     $(".flashes").delay(5000).fadeOut();
 });
+
+//删除日历时间状态
+function delete_date_status(id) {
+    if (confirm("确定删除本时间段的可用状态设定？")) {
+        $("#id_to_delete").val(id);
+        $('form[name="del_date_status_form"]').submit();
+    }
+}

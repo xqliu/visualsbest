@@ -11,15 +11,19 @@
     <link href='{{ url_for('static', filename='images/logo.png') }}' rel='icon' sizes='32x32' type='image/png'>
     <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap.min.css', v='3.3.5') }}" rel="stylesheet">
     <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/css/bootstrap-theme.min.css', v='3.3.5') }}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}"/>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/addon.css') }}"/>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.7.2.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-1.11.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.sochange.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.masonry.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.infinitescroll.js') }}"></script>
+    <script type="text/javascript" src="{{ admin_static.url(filename='bootstrap/bootstrap3/js/bootstrap.js', v='3.3.5') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/n_public.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/public.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/preview.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.masonry.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static',  filename='js/jquery.infinitescroll.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/works.js') }}"></script>
     {% block header_tail %}
     {% endblock %}
@@ -44,7 +48,7 @@
 {% block navigator %}
   <div
       class="{% block header_bg_css %} header_bg others_header_bg {% endblock %}"></div>
-  <div class="header">
+  <div class="common-header">
     <div class="layer">
       <div class="logo"><a href="{{ url_for('index') }}"><img
           src="../../static/images/logo.png" alt="Logo"/></a></div>

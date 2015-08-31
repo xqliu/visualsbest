@@ -10,7 +10,7 @@ gallery_service = app_provider.AppInfo.get_galleries_store_service()
 image_service = app_provider.AppInfo.get_image_store_service()
 
 
-def render_template_front_layout(template_html, **args):
+def rt(template_html, **args):
     return render_template(template_html, login_user_form=LoginForm(),
                            register_user_form=UserRegisterForm(), **args)
 
