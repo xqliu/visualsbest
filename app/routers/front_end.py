@@ -197,7 +197,7 @@ def edit_experience(photographer_id):
             if exp is None:
                 exp = UserExperience()
             exp.user_id = user.id
-            exp.content = request.form['content']
+            exp.content = request.form['experience-textarea']
             save_obj_commit(exp)
         return rt('edit_experience.html', user_profile_form=UserProfileForm(), experience=exp)
     else:
