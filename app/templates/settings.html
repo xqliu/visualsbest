@@ -46,6 +46,11 @@
 
 
 
+
+
+
+
+
                 {% if user.birthday is defined and user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}"
                    id="birthday" name="birthday" type="date">
           </div>
@@ -94,6 +99,13 @@
           <div class="basic_xinxi_01"><label for="introduce">个人简介</label></div>
           <div class="basic_xinxi_02">
             <input type="text" id="introduce" name="introduce" value="{{ user.introduce or '' }}"/>
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li>
+          <div class="basic_xinxi_01"><label for="daily_price">日拍摄报价</label></div>
+          <div class="basic_xinxi_02">
+            <input type="number" id="daily_price" name="daily_price" value="{{ user.daily_price or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>

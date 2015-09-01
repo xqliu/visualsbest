@@ -5,7 +5,7 @@ from app.app_provider import AppInfo
 from app.models.enum_values import EnumValues
 from flask.ext.security import RoleMixin, UserMixin
 from image import Image
-from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime, Date
+from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime, Date, Numeric
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import backref, relationship
 
@@ -18,6 +18,7 @@ roles_users = db.Table('roles_users', db.Column('id', db.Integer(), primary_key=
 users_styles = db.Table('users_styles', db.Column('id', db.Integer(), primary_key=True),
                         db.Column('user_id', db.Integer(), db.ForeignKey('users.id'), nullable=False),
                         db.Column('style_id', db.Integer(), db.ForeignKey('enum_values.id'), nullable=False))
+
 
 class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
@@ -52,7 +53,6 @@ class User(db.Model, UserMixin):
     birthday = db.Column(Date, nullable=True)
     confirmed_at = Column(DateTime, nullable=True)
 
-
     # 该用户是由哪个用户推荐的
     recommend_by_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     recommend_by = db.relation("User", remote_side=id, backref=backref(
@@ -66,6 +66,9 @@ class User(db.Model, UserMixin):
     type_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     type = relationship('EnumValues', backref=backref(
         'users_of_type', uselist=True), foreign_keys=[type_id])
+
+    # 每天的报价(用户提交请求时，自动生成报价)
+    daily_price = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=True)
 
     @staticmethod
     def type_filter():

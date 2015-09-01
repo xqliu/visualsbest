@@ -3,6 +3,7 @@ from app import const
 from app.models import EnumValues
 from flask.ext.security.forms import Form, Required
 from wtforms import StringField, RadioField, DateField, SelectMultipleField
+from wtforms.fields.html5 import DecimalField
 from wtforms.validators import Optional
 
 
@@ -20,6 +21,7 @@ class UserProfileForm(Form):
     wechat_account = StringField('Wechat Account')
     introduce = StringField('Introduce')
     users_styles = SelectMultipleField('users_styles')
+    daily_price = DecimalField('daily_price', validators=(Optional(),))
 
     def __init__(self):
         super(UserProfileForm, self).__init__()

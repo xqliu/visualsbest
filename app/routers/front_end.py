@@ -43,7 +43,6 @@ def photograph():
                 photographs.append(c.photographer)
         return photographs
 
-    flash("这是一条我也不知道干什么用的提示信息")
     return render_search_result(template='photograph.html', router='/photograph', get_all=get_all,
                                 get_filtered=get_filtered)
 
@@ -174,6 +173,7 @@ def settings():
             user.wechat_account = form.wechat_account.data
             user.qq_number = form.qq_number.data
             user.introduce = form.introduce.data
+            user.daily_price = form.daily_price.data
             user.styles = []
             for style_id in form.users_styles.data:
                 style = EnumValues.query.get(int(style_id))
