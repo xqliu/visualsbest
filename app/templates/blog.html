@@ -1,5 +1,6 @@
 {% extends 'layout/front_layout.html' %}
 {% from "macro/profile_left_widget.html" import profile_left_widget %}
+{% from "macro/request_shortcut.html" import request_shortcut %}
 <!--main start-->
 {% block main %}
   {{ super() }}
@@ -49,8 +50,7 @@
         </div>
       </div>
     </div>
-    <!--other_left end-->
-    <!--other_right strat-->
+    {{ request_shortcut(photographer, True, True) }}
     <div class="others_right">
       <div class="others_right_top">
         <div class="others_right_head">

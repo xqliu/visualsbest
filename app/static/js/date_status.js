@@ -1,16 +1,22 @@
 $(document).ready(function () {
     document.addEventListener('bicCalendarSelect', function (e) {
-        moment.lang('es'); // default the language to English
+        moment.lang('zh_CN'); // default the language to Chinese
         var dateFirst = new moment(e.detail.dateFirst);
         var dateLast = new moment(e.detail.dateLast);
+        if (dateLast - dateFirst > 0) {
+            $('#from_day').val(dateFirst.format('YYYY-MM-DD'));
+            $('#end_day').val(dateLast.format('YYYY-MM-DD'));
+        } else {
+            $('#from_day').val(dateLast.format('YYYY-MM-DD'));
+            $('#end_day').val(dateFirst.format('YYYY-MM-DD'));
+        }
 
-        $('#from_day').val(dateFirst.format('YYYY-MM-DD'));
-        $('#end_day').val(dateLast.format('YYYY-MM-DD'));
-
-        /*
-         * more about moment.js
-         * http://momentjs.com/docs/#/displaying/
-         */
+        var price = $("#price");
+        var amount = $("#amount");
+        if (amount.length && price.length) {
+            var number = (dateLast - dateFirst) > 0 ? dateLast - dateFirst : dateFirst - dateLast;
+            amount.val(Math.abs(price.val() * (1 + number / 3600 / 24 / 1000)))
+        }
     });
 });
 
@@ -42,7 +48,8 @@ $(document).ready(function () {
         //set ajax call
         reqAjax: {
             type: 'get',
-            url: ''
+            //url: 'http://bic.cat/bic_calendar/index.php'
+            url: '/date_status/json/' + $("#photographer_id").val()
         }
     });
 });

@@ -6,13 +6,12 @@
  *  Made by bichotll
  *  Under Apache License
  */
-$.fn.bic_calendar = function(options) {
+$.fn.bic_calendar = function (options) {
 
     var opts = $.extend({}, $.fn.bic_calendar.defaults, options);
 
 
-
-    this.each(function() {
+    this.each(function () {
 
 
         /*** vars ***/
@@ -32,14 +31,14 @@ $.fn.bic_calendar = function(options) {
         //Date obj to calc the day
         var objFecha;
         if (opts.date) {
-          if (typeof opts.date == 'string') {
-            var arrayDate = opts.date.split('/');
-            objFecha = new Date(parseInt(arrayDate[2]), parseInt(arrayDate[1]) - 1, parseInt(arrayDate[0]));
-          } else {
-            objFecha = opts.date;
-          }
+            if (typeof opts.date == 'string') {
+                var arrayDate = opts.date.split('/');
+                objFecha = new Date(parseInt(arrayDate[2]), parseInt(arrayDate[1]) - 1, parseInt(arrayDate[0]));
+            } else {
+                objFecha = opts.date;
+            }
         } else {
-          objFecha = new Date();
+            objFecha = new Date();
         }
 
         var dayNames;
@@ -59,18 +58,6 @@ $.fn.bic_calendar = function(options) {
             showDays = opts.showDays;
         else
             showDays = true;
-
-        var popoverOptions;
-        if (typeof opts.popoverOptions != "undefined")
-            popoverOptions = opts.popoverOptions;
-        else
-            popoverOptions = {placement: 'bottom', html: true, trigger: 'hover'};
-
-        var tooltipOptions;
-        if (typeof opts.tooltipOptions != "undefined")
-            tooltipOptions = opts.tooltipOptions;
-        else
-            tooltipOptions = {placement: 'bottom', trigger: 'hover'};
 
         var reqAjax;
         if (typeof opts.reqAjax != "undefined")
@@ -105,9 +92,6 @@ $.fn.bic_calendar = function(options) {
         /*** --vars-- ***/
 
 
-
-
-
         /*** functions ***/
 
         /**
@@ -130,7 +114,7 @@ $.fn.bic_calendar = function(options) {
             //next-previous month controllers
             var nextMonthButton = $('<td><a href="#" class="button-month-next"><i class="glyphicon glyphicon-arrow-right" ></i></a></td>');
             //event
-            nextMonthButton.click(function(e) {
+            nextMonthButton.click(function (e) {
                 e.preventDefault();
                 month = (month + 1) % 12;
                 if (month == 0)
@@ -139,7 +123,7 @@ $.fn.bic_calendar = function(options) {
             })
             var previousMonthButton = $('<td><a href="#" class="button-month-previous"><i class="glyphicon glyphicon-arrow-left" ></i></a></td>');
             //event
-            previousMonthButton.click(function(e) {
+            previousMonthButton.click(function (e) {
                 e.preventDefault();
                 month = (month - 1);
                 if (month == -1) {
@@ -152,14 +136,14 @@ $.fn.bic_calendar = function(options) {
             //next-previous year controllers
             var nextYearButton = $('<td><a href="#" class="button-year-next"><i class="glyphicon glyphicon-arrow-right" ></i></a></td>');
             //event
-            nextYearButton.click(function(e) {
+            nextYearButton.click(function (e) {
                 e.preventDefault();
                 year++;
                 changeDate(month, year);
             })
             var previousYearButton = $('<td><a href="#" class="button-year-previous"><i class="glyphicon glyphicon-arrow-left" ></i></a></td>');
             //event
-            previousYearButton.click(function(e) {
+            previousYearButton.click(function (e) {
                 e.preventDefault();
                 year--;
                 changeDate(month, year);
@@ -225,7 +209,7 @@ $.fn.bic_calendar = function(options) {
             if (showDays != false) {
                 var capaDiasSemana = $('<tr class="days-month" >');
                 var codigoInsertar = '';
-                $(dayNames).each(function(indice, valor) {
+                $(dayNames).each(function (indice, valor) {
                     codigoInsertar += '<td';
                     if (indice == 0) {
                         codigoInsertar += ' class="first"';
@@ -377,12 +361,14 @@ $.fn.bic_calendar = function(options) {
                     url: reqAjax.url,
                     data: {mes: month + 1, ano: year},
                     dataType: 'json'
-                }).done(function(data) {
+                }).done(function (data) {
+                    if (data.events !== undefined) {
+                        data = data.events;
+                    }
+                    //if (typeof events == 'undefined')
+                    events = [];
 
-                    if (typeof events == 'undefined')
-                        events = [];
-
-                    $.each(data, function(k, v) {
+                    $.each(data, function (k, v) {
                         events.push(data[k]);
                     });
 
@@ -426,27 +412,12 @@ $.fn.bic_calendar = function(options) {
                     }
 
                     //class
-                    if (events[i].class)
+                    if (events[i].class) {
                         loopDayTd.addClass(events[i].class);
-
-                    //tooltip vs popover
-                    if (events[i].content) {
-                        loopDayTd.addClass('event_popover');
-                        loopDayA.attr('rel', 'popover');
-                        loopDayA.attr('data-content', events[i].content);
-                    } else {
-                        loopDayTd.addClass('event_tooltip');
-                        loopDayA.attr('rel', 'tooltip');
                     }
                 }
             }
 
-            $('#' + calendarId + ' ' + '.event_tooltip a').tooltip(tooltipOptions);
-            $('#' + calendarId + ' ' + '.event_popover a').popover(popoverOptions);
-
-            $('.manual_popover').click(function() {
-                $(this).popover('toggle');
-            });
         }
 
         /**
@@ -457,8 +428,12 @@ $.fn.bic_calendar = function(options) {
 
                 var eventBicCalendarSelect;
 
-                elem.on('click', 'td.day', function() {
+                elem.on('click', 'td.day', function () {
                     //if multiSelect
+                    if ($(this).hasClass('unavailable') || $(this).hasClass('week-day-0') || $(this).hasClass('week-day-6')) {
+                        alert('警告: 该摄影师在该日期没有时间');
+                        return;
+                    }
                     if (multiSelect == true) {
                         if (daySelected == '') {
                             daySelected = $(this).data('date');
@@ -471,9 +446,8 @@ $.fn.bic_calendar = function(options) {
 
                                 markSelectedDays();
 
-                                //create n fire event
-                                //to change
-                                var eventBicCalendarSelect = new CustomEvent("bicCalendarSelect", {
+                                //create n fire event to change
+                                eventBicCalendarSelect = new CustomEvent("bicCalendarSelect", {
                                     detail: {
                                         dateFirst: firstDaySelected,
                                         dateLast: lastDaySelected
@@ -493,7 +467,7 @@ $.fn.bic_calendar = function(options) {
                         //add class selection
                         $(this).find('div').addClass('selection');
                         //create n fire event
-                        var eventBicCalendarSelect = new CustomEvent("bicCalendarSelect", {
+                        eventBicCalendarSelect = new CustomEvent("bicCalendarSelect", {
                             detail: {
                                 date: $(this).data('date')
                             }
@@ -547,7 +521,7 @@ $.fn.bic_calendar = function(options) {
 
 
 
-        //fire calendar!
+            //fire calendar!
         showCalendar();
 
 

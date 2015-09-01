@@ -1,5 +1,6 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
+{% from "macro/request_shortcut.html" import request_shortcut %}
 
 {% block dashboard_left_widget %}
   {{ profile_left_widget(photographer, current_user) }}
@@ -12,10 +13,11 @@
   {{ super() }}
   <div class="others_right_top">
     <div class="others_right_head">
-      <h4><label for="content">该摄影师的摄影经历</label></h4>
+      <h4><label for="content">{{ photographer.display or '' }}的摄影经历</label></h4>
     </div>
     <div class="experience">
       {{ experience.content|safe or '' }}
     </div>
   </div>
+  {{ request_shortcut(photographer, False, True) }}
 {% endblock %}

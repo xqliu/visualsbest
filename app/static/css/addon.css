@@ -8,6 +8,28 @@
     }
 }
 
+::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #CCCCCC;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #CCCCCC;
+    opacity: 1;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #CCCCCC;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #CCCCCC;
+}
+
 #fixed_zhuce_form {
     display: none;
 }
@@ -235,7 +257,7 @@
     font-size: 16px;
 }
 
-#events-calendar-container {
+#events-calendar-container, .request-form-container {
     width: 80%;
     margin: 30px auto auto;
 }
@@ -270,4 +292,62 @@
     font-size: 16px;
 }
 
+.event, .unavailable, .unavailable a {
+    cursor: not-allowed !important;
+}
+
+#events-calendar td.week-day-0:not(.invalid-day), #events-calendar td.week-day-6:not(.invalid-day) {
+    background: rgba(190, 190, 190, 0.6);
+    border: 1px solid #FFFFFF;
+    cursor: not-allowed;
+}
+
+#events-calendar td.week-day-0:not(.invalid-day) a, #events-calendar td.week-day-6:not(.invalid-day) a {
+    color: #FFFFFF;
+    font-weight: bolder;
+    cursor: not-allowed;
+}
+
+.blog_buttons {
+    margin: auto;
+    position: fixed;
+    top: 100px;
+    right: 50px;
+}
+
+.blog_buttons .button {
+    width: 200px;
+    height: 60px;
+    background: #42BACC;
+    line-height: 33px;
+    text-align: center;
+    color: #FFFFFF;
+    border: none;
+    margin: 22px auto;
+    display: block;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-family: "微软雅黑", "Microsoft YaHei", serif;
+    cursor: pointer;
+    padding: 10px 10px 20px 20px;
+    z-index: 100;
+}
+
+.request-form-container .basic_xinxi li .basic_xinxi_01 {
+    height: 28px;
+    width: 25%
+}
+
+.request-form-container .basic_xinxi li .basic_xinxi_02 {
+    width: 75%;
+    line-height: 28px;
+}
+
+.request-form-container .basic_xinxi li .basic_xinxi_02 select {
+    margin-left: 30px;
+}
+
+.bic_calendar .event {
+    border: 1px solid #FFFFFF;
+}
 

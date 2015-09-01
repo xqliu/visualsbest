@@ -12,6 +12,7 @@
   <div class="others_right_top">
     <form action="{{ url_for('edit_date_status',photographer_id=current_user.id) }}" method="POST">
       {{ form.hidden_tag() }}
+      <input type="hidden" id="photographer_id" value="{{ current_user.id }}"/>
       <input type="hidden" name="action" value="create">
       <input name="from_day" id="from_day" type="text" value="" style="display:none">
       <input name="end_day" id="end_day" type="text" value="" style="display: none;">

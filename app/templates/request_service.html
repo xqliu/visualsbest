@@ -1,0 +1,113 @@
+{% extends 'layout/dashboard_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
+{% from "macro/request_shortcut.html" import request_shortcut %}
+
+{% block dashboard_left_widget %}
+  {{ profile_left_widget(photographer, current_user) }}
+{% endblock %}
+{% block dashboard_nav %}
+  {{ super() }}
+  {{ dashboard_nav("settings", current_user) }}
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+  <div class="others_right_top">
+    <div class="others_right_head">
+      <h4><label for="content">预约{{ photographer.display or '' }}的拍摄时间</label></h4>
+    </div>
+    <div id="events-calendar-container">
+      <input type="hidden" id="photographer_id" value="{{ photographer.id }}"/>
+      <input type="hidden" id="requester_id" value="{{ current_user.id }}"/>
+
+      <div id="events-calendar"></div>
+        <span id="event-calender-info" class="glyphicon glyphicon-info-sign">
+        &nbsp;&nbsp;点击需要预约的起始日期，然后填写必要信息，点击预约按钮即可预约该摄影师
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;(背景为灰色的日期不可预约)
+        </span>
+    </div>
+    <div class="request-form-container">
+      <form action="{{ url_for('request_service',photographer_id=photographer.id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        <ul class="basic_xinxi">
+          <li>
+            <div class="basic_xinxi_01"><label for="category">拍摄类别</label></div>
+            <div class="basic_xinxi_02">
+              {% if categories|length > 0 %}
+                <select name="category" id="category">
+                  {% for category in categories %}
+                    <option value="{{ category.id }}">
+                      {{ category.display }}
+                    </option>
+                  {% endfor %}
+                </select>
+              {% endif %}
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="from_day">开始时间</label></div>
+            <div class="basic_xinxi_02">
+              <input name="from_day" id="from_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="end_day">结束时间</label></div>
+            <div class="basic_xinxi_02 basic_xinxi_0222">
+              <input name="end_day" id="end_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="style">拍摄风格说明</label></div>
+            <div class="basic_xinxi_02">
+              {#              {% if styles|length > 0 %}#}
+              {#                <select name="style" id="style">#}
+              {#                  {% for style in styles %}#}
+              {#                    <option value="{{ style.id }}">#}
+              {#                      {{ style.display }}#}
+              {#                    </option>#}
+              {#                  {% endfor %}#}
+              {#                </select>#}
+              {#              {% endif %}#}
+              <input name="style" id="style" type="text" value="" placeholder="拍摄风格大致说明">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="lens_needed">需要镜头</label></div>
+            <div class="basic_xinxi_02">
+              <input name="lens_needed" id="lens_needed" type="text" value="" placeholder="拍摄所需要的镜头概述">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="location">拍摄地点</label></div>
+            <div class="basic_xinxi_02">
+              <input name="location" id="location" type="text" value="" placeholder="拍摄地点">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="price">摄影师每日报价</label></div>
+            <div class="basic_xinxi_02">
+              <input name="price" id="price" type="text" readonly value="{{ photographer.daily_price or '价格未知' }}">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="amount">总价预估</label></div>
+            <div class="basic_xinxi_02">
+              <input name="amount" id="amount" type="text" readonly value="" placeholder="选择日期后，预估总价会自动计算">
+            </div>
+          </li>
+        </ul>
+        <button class="button" style="letter-spacing: 2px;">申请拍摄请求</button>
+      </form>
+    </div>
+  </div>
+  {{ request_shortcut(photographer, True, False) }}
+{% endblock %}
+
+{% block tail_js %}
+  <script src="{{ url_for('static', filename='js/moment-with-locales.js', version='2.10.6') }}"></script>
+  <script src="{{ url_for('static', filename='js/date_status.js', version='0.0.2') }}"></script>
+  <script src="{{ url_for('static', filename='js/bic_calendar.js', version='3.3.0') }}"></script>
+{% endblock %}
+
+{% block header_tail %}
+  <link href="{{ url_for('static', filename='css/bic_calendar.css', v='3.3.0') }}" rel="stylesheet">
+{% endblock %}

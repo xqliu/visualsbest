@@ -1,7 +1,10 @@
 # encoding=utf-8
+import calendar
+from datetime import datetime, date, timedelta
 from app import app_provider, AppInfo, const
 from app.forms.date_status_form import DateStatusForm
 from app.forms.photo_collection_form import PhotoCollectionForm
+from app.forms.request_service_form import RequestServiceForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, UserExperience, EnumValues, \
     PhotoCollection, DateStatus
@@ -10,10 +13,10 @@ from app.util.db_util import save_obj_commit, delete_by_id
 from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection, \
     render_search_result
 from app.util.view_util import rt
-from flask import request, redirect, url_for, flash
+from flask import request, redirect, url_for, flash, jsonify
 from flask.ext.login import current_user
 from flask.ext.security import login_required
-from sqlalchemy import desc
+from sqlalchemy import desc, or_, and_
 
 app = app_provider.AppInfo.get_app()
 
@@ -214,7 +217,25 @@ def experience(photographer_id):
 
 @app.route('/date_status/json/<int:photographer_id>', methods=['GET'])
 def date_status_json(photographer_id):
-    pass
+    year = int(request.args.get('ano'))
+    month = int(request.args.get('mes'))
+    month_begin = date(year, month, 1)
+    month_end = date(year, month, calendar.monthrange(year, month)[1])
+    query = AppInfo.get_db().session.query(DateStatus)
+    date_statuses = query.filter(DateStatus.user_id == photographer_id) \
+        .filter(or_(and_(DateStatus.start_date >= month_begin, DateStatus.start_date <= month_end),
+                    and_(DateStatus.end_date >= month_begin, DateStatus.end_date <= month_end))).all()
+    events = []
+    for ds in date_statuses:
+        day_count = (ds.end_date - ds.start_date).days + 1
+        for single_date in [d for d in (ds.start_date + timedelta(n) for n in range(day_count)) if d <= ds.end_date]:
+            event = dict()
+            event['date'] = '{dt.day}/{dt.month}/{dt.year}'.format(dt=single_date)
+            event['title'] = u'不可用'
+            event['color'] = u'rgba(190, 190, 190, 0.6)'
+            event['class'] = u'unavailable'
+            events.append(event)
+    return jsonify(events=events)
 
 
 @app.route('/date_status/edit/<int:photographer_id>', methods=['GET', 'POST'])
@@ -246,3 +267,14 @@ def edit_date_status(photographer_id):
     else:
         flash('您没有权限编辑该用户的工作日历')
         return redirect(url_for('index'))
+
+
+@app.route('/request/<int:photographer_id>', methods=['GET'])
+@login_required
+def request_service(photographer_id):
+    user = User.query.filter_by(id=photographer_id).first()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    form = RequestServiceForm(styles)
+    return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user, categories=categories,
+              styles=styles, form=form)
