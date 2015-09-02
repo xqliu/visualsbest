@@ -21,7 +21,10 @@ $(document).ready(function () {
         var amount = $("#amount");
         if (amount.length && price.length) {
             var number = (dateLast - dateFirst) > 0 ? dateLast - dateFirst : dateFirst - dateLast;
-            amount.val(Math.abs(price.val() * (1 + number / 3600 / 24 / 1000)))
+            amount = Math.abs(price.val() * (1 + number / 3600 / 24 / 1000));
+            if (!isNaN(amount)) {
+                amount.val(amount)
+            }
         }
     });
 });

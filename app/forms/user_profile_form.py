@@ -21,7 +21,7 @@ class UserProfileForm(Form):
     wechat_account = StringField('Wechat Account')
     introduce = StringField('Introduce')
     users_styles = SelectMultipleField('users_styles')
-    daily_price = DecimalField('daily_price', validators=(Optional(),))
+    daily_price = DecimalField('daily_price', validators=(Required(),))
 
     def __init__(self):
         super(UserProfileForm, self).__init__()
