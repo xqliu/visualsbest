@@ -1,10 +1,13 @@
-{% macro request_shortcut(photographer, show_experience, show_request_service) %}
+{% macro request_shortcut(photographer, show_experience, show_request_service, show_blog=True) %}
   <div class="blog_buttons">
     {% if show_experience == True %}
       <a class="button" href="{{ url_for('experience', photographer_id=photographer.id) }}">查看该摄影师介绍</a>
     {% endif %}
     {% if show_request_service == True %}
       <a class="button" href="{{ url_for('request_service', photographer_id=photographer.id) }}">预约该摄影师服务</a>
+    {% endif %}
+    {% if show_blog == True %}
+      <a class="button" href="{{ url_for('blog', photographer_id=photographer.id) }}">查看该摄影师动态</a>
     {% endif %}
   </div>
 {% endmacro %}

@@ -5,10 +5,6 @@
 {% block dashboard_left_widget %}
   {{ profile_left_widget(photographer, current_user) }}
 {% endblock %}
-{% block dashboard_nav %}
-  {{ super() }}
-  {{ dashboard_nav("settings", current_user) }}
-{% endblock %}
 {% block dashboard_main %}
   {{ super() }}
   <div class="others_right_top">

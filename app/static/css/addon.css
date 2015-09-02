@@ -312,11 +312,11 @@
     margin: auto;
     position: fixed;
     top: 100px;
-    right: 50px;
+    right: 0;
 }
 
 .blog_buttons .button {
-    width: 200px;
+    width: 180px;
     height: 60px;
     background: #42BACC;
     line-height: 33px;
@@ -329,7 +329,7 @@
     letter-spacing: 2px;
     font-family: "微软雅黑", "Microsoft YaHei", serif;
     cursor: pointer;
-    padding: 10px 10px 20px 20px;
+    padding: 10px 10px 10px 10px;
     z-index: 100;
 }
 
