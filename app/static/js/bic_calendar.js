@@ -459,6 +459,8 @@ $.fn.bic_calendar = function (options) {
                                 lastDaySelected = '';
                                 daySelected = '';
                                 elem.find('.selection').removeClass('middle-selection selection first-selection last-selection');
+                                var eventBicCalendarUnSelect = new CustomEvent("bicCalendarUnSelect", {});
+                                document.dispatchEvent(eventBicCalendarUnSelect);
                             }
                         }
                     } else {

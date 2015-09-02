@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    document.addEventListener('bicCalendarUnSelect', function (e) {
+        var amount = $("#amount");
+        if (amount.length) {
+            amount.val('');
+        }
+    });
     document.addEventListener('bicCalendarSelect', function (e) {
         moment.lang('zh_CN'); // default the language to Chinese
         var dateFirst = new moment(e.detail.dateFirst);
