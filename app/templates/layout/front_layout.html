@@ -25,7 +25,11 @@
     <script type="text/javascript" src="{{ url_for('static',  filename='js/preview.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',  filename='js/works.js') }}"></script>
     <script language="javascript" type="text/javascript">
-      Raven.config('___PUBLIC_DSN___').install()
+      Raven.config('___PUBLIC_DSN___', {
+        whitelistUrls: [
+          /localhost/
+        ]
+      }).install()
     </script>
     {% block header_tail %}
     {% endblock %}
