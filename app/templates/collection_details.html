@@ -38,12 +38,14 @@
                         bigImg="{{ url_for('images', filename=photo.image.path, width=1000, height=750, mode='crop') }}"/>
                   </div>
                 </li>
+              {% endfor %}
+              {% if collection.photos|length == 1 %}
                 <li style="display:none">
                   <img
                       src="{{ url_for('images', filename='white.png', width=223, height=155, mode='crop') }}"
                       bigImg="{{ url_for('images', filename='white.png', width=1000, height=750, mode='crop') }}"/>
                 </li>
-              {% endfor %}
+              {% endif %}
             </ul>
           </div>
         </div>
