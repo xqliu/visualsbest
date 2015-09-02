@@ -10,6 +10,7 @@ import os
 import rollbar
 import rollbar.contrib.flask
 from flask import got_request_exception
+from raven.contrib.flask import Sentry
 
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
 
@@ -86,6 +87,8 @@ log.setLevel(logging.ERROR)
 def init_rollbar():
     """init rollbar module"""
     if config.DEBUG is not True:
+        app.config['SENTRY_DSN'] = app.config.get['SENTRY_DSN']
+        sentry = Sentry(app)
         rollbar.init(
             # access token for the demo app: https://rollbar.com/demo
             '90a56a42d47d4343a45b1105338d47c8',
