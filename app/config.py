@@ -6,6 +6,7 @@ import os
 # 在Debug时候，不在forward时停止
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
+SENTRY_DSN = os.environ.get('SENTRY_DSN') or ''
 
 # 最大的上传文件大小(4M)
 MAX_CONTENT_LENGTH = 4 * 1024 * 1024

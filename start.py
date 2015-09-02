@@ -87,7 +87,6 @@ log.setLevel(logging.ERROR)
 def init_rollbar():
     """init rollbar module"""
     if config.DEBUG is not True:
-        app.config['SENTRY_DSN'] = app.config.get['SENTRY_DSN']
         sentry = Sentry(app)
         rollbar.init(
             # access token for the demo app: https://rollbar.com/demo
