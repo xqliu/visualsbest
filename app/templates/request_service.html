@@ -12,9 +12,6 @@
       <h4><label for="content">预约{{ photographer.display or '' }}的拍摄时间</label></h4>
     </div>
     <div id="events-calendar-container">
-      <input type="hidden" id="photographer_id" value="{{ photographer.id }}"/>
-      <input type="hidden" id="requester_id" value="{{ current_user.id }}"/>
-
       <div id="events-calendar"></div>
         <span id="event-calender-info" class="glyphicon glyphicon-info-sign">
         &nbsp;&nbsp;点击需要预约的起始日期，然后填写必要信息，点击预约按钮即可预约该摄影师
@@ -23,6 +20,8 @@
     </div>
     <div class="request-form-container">
       <form action="{{ url_for('request_service',photographer_id=photographer.id) }}" method="POST">
+        <input type="hidden" id="photographer_id" value="{{ photographer.id }}"/>
+        <input type="hidden" id="requester_id" value="{{ current_user.id }}"/>
         {{ form.hidden_tag() }}
         <ul class="basic_xinxi">
           <li>
@@ -70,6 +69,12 @@
             <div class="basic_xinxi_01"><label for="lens_needed">需要镜头</label></div>
             <div class="basic_xinxi_02">
               <input name="lens_needed" id="lens_needed" type="text" value="" placeholder="拍摄所需要的镜头概述">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="remark">其他备注信息</label></div>
+            <div class="basic_xinxi_02">
+              <input name="remark" id="remark" type="text" value="" placeholder="其他备注信息">
             </div>
           </li>
           <li>

@@ -1,4 +1,6 @@
 # encoding=utf-8
 
-from front_end import index, works, collection_details, photograph, search, comments, create_collection, blog, \
-    dashboard, my_photos, orders, messages, settings, experience, edit_collection, edit_experience, edit_date_status
+from front_end import *
+from date_status import *
+from experience import *
+from photo_collection import *

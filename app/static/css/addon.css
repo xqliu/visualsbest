@@ -262,6 +262,10 @@
     margin: 30px auto auto;
 }
 
+.request-form-container {
+    width: 88%;
+}
+
 #events-calendar {
     font-size: 16px;
 }

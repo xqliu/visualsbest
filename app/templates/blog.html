@@ -11,44 +11,6 @@
       {% block dashboard_left_widget %}
         {{ profile_left_widget(photographer, current_user) }}
       {% endblock %}
-      <!--日历 strat-->
-      <div class="others_jj">
-        <h4>预定</h4>
-
-        <div class="other_time">
-          <div class="time_head">
-            <h6>档期:</h6>
-
-            <p>拍摄人数:</p>
-          </div>
-          <div class="time_select">
-            <select>
-              <option>2015-06-29</option>
-              <option>2015-06-29</option>
-              <option>2015-06-29</option>
-            </select>
-            <select>
-              <option>2015-06-29</option>
-              <option>2015-06-29</option>
-              <option>2015-06-29</option>
-            </select>
-            <select class="time_num">
-              <option>1人</option>
-              <option>1人</option>
-              <option>1人</option>
-            </select>
-          </div>
-          <div class="time_other">
-            <div class="time_other_left">￥492*3晚</div>
-            <div>￥1469</div>
-            <div class="time_other_left">服务费</div>
-            <div>￥177</div>
-            <div class="time_other_left">总价</div>
-            <div>￥1646</div>
-          </div>
-          <button>快速预定</button>
-        </div>
-      </div>
     </div>
     {{ request_shortcut(photographer, True, True, False) }}
     <div class="others_right">
@@ -94,12 +56,14 @@
                 <span><a href="#">Jason_Zhang </a>回复<a href="#"> 熊贝贝</a>：谢谢你的支持，我们一起加油哈！</span>
               </div>
               <div class="clear"></div>
-              <ul>
-                <li><a href="#">转发</a></li>
-                <li><a href="#">评论<span>3333</span></a></li>
-                <li><a href="#">分享<span>3333</span></a></li>
-                <li class="zan1" title="赞"><a href="#">1500</a></li>
-              </ul>
+              <div class="center-block">
+                <ul>
+                  <li><a href="#">评论<span>3333</span></a></li>
+                  <li>
+                    <a href="#" title="加入收藏"><img src="/static/images/zan1.png" style="padding-right:5px">1500</a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="la"><img src="../static/images/la.png" width="21" height="18"/></div>
             <div class="la_block">

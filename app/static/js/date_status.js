@@ -17,13 +17,13 @@ $(document).ready(function () {
             $('#end_day').val(dateFirst.format('YYYY-MM-DD'));
         }
 
-        var price = $("#price");
-        var amount = $("#amount");
-        if (amount.length && price.length) {
+        var priceElem = $("#price");
+        var amountElem = $("#amount");
+        if (amountElem.length && priceElem.length) {
             var number = (dateLast - dateFirst) > 0 ? dateLast - dateFirst : dateFirst - dateLast;
-            amount = Math.abs(price.val() * (1 + number / 3600 / 24 / 1000));
+            var amount = Math.abs(priceElem.val() * (1 + number / 3600 / 24 / 1000));
             if (!isNaN(amount)) {
-                amount.val(amount)
+                amountElem.val(amount)
             }
         }
     });

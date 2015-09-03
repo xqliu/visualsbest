@@ -61,3 +61,21 @@ class PhotoCollectionFavourite(db.Model):
     favourite_id = Column(Integer, ForeignKey('favourite.id'), nullable=False)
     favourite = relationship('Favourite', foreign_keys=[favourite_id],
                              backref=backref('associated_photo_collection', uselist=False))
+
+
+class PhotoCollectionComment(db.Model):
+    """
+    作品集评价，可以有文字说明
+    """
+    __tablename__ = 'photo_collection_comment'
+    id = Column(Integer, primary_key=True)
+
+    # 关联作品集
+    photo_collection_id = Column(Integer, ForeignKey('photo_collection.id'), nullable=False)
+    photo_work = relationship('PhotoCollection', foreign_keys=[photo_collection_id],
+                              backref=backref('photo_collection_comments', uselist=True))
+
+    # 关联的评论
+    comment_id = Column(Integer, ForeignKey('comment.id'), nullable=False)
+    comment = relationship('Comment', foreign_keys=[comment_id],
+                           backref=backref('associated_photo_collection', uselist=False))
