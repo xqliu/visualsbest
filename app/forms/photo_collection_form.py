@@ -10,7 +10,7 @@ class PhotoCollectionForm(Form):
     introduce = StringField('introduce', [Required()])
     category = SelectField('category', [Required()])
     style = SelectField('style', [Required()])
-    price = DecimalField('price')
+    price = DecimalField('price', [Required()])
 
     def __init__(self, categories, styles):
         super(PhotoCollectionForm, self).__init__()

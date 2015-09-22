@@ -23,8 +23,8 @@ SECURITY_REGISTERABLE = True
 SECURITY_CONFIRMABLE = True
 SECURITY_RECOVERABLE = True
 SECURITY_CHANGEABLE = True
-MAIL_SERVER = os.environ['SMTP_SERVER']
-MAIL_PORT = os.environ['MAIL_PORT']
+MAIL_SERVER = os.environ.get('SMTP_SERVER') or 'localhost'
+MAIL_PORT = os.environ.get('MAIL_PORT') or '25'
 MAIL_USE_TLS = (os.environ.get('MAIL_USE_TLS') == 'True') or False
 MAIL_USE_SSL = (os.environ.get('MAIL_USE_SSL') == 'True') or False
 SECURITY_EMAIL_SENDER = os.environ['MAIL_DEFAULT_SENDER']

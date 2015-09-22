@@ -42,7 +42,7 @@ class PhotoCollection(db.Model):
     date = db.Column(Date, nullable=True)
 
     # 价格
-    price = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=True)
+    price = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=False)
 
 
 class PhotoCollectionFavourite(db.Model):

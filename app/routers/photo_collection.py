@@ -64,6 +64,6 @@ def create_collection():
             flash('作品集创建成功，您可以在本界面上传作品集中的作品')
             return redirect(url_for('edit_collection', collection_id=photo_collection.id))
         else:
-            flash('请填写所有信息并再次尝试创建')
+            flash('请填写所有信息并再次尝试创建(作品集的拍摄价格为必填字段)')
     return rt('create_collection.html', photo_collection=photo_collection, categories=categories, form=form,
               styles=styles)
