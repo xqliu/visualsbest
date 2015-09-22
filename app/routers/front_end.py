@@ -129,12 +129,12 @@ def settings():
               user=user, all_styles=all_styles)
 
 
-@app.route('/request/<int:photographer_id>', methods=['GET'])
+@app.route('/request/<int:photographer_id>', methods=['GET','POST'])
 @login_required
 def request_service(photographer_id):
     user = User.query.filter_by(id=photographer_id).first()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
-    form = RequestServiceForm(styles)
+    form = RequestServiceForm(categories, styles)
     return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user, categories=categories,
               styles=styles, form=form)

@@ -25,6 +25,18 @@
         {{ form.hidden_tag() }}
         <ul class="basic_xinxi">
           <li>
+            <div class="basic_xinxi_01"><label for="from_day">开始时间</label></div>
+            <div class="basic_xinxi_02">
+              <input name="from_day" id="from_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
+            </div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="end_day">结束时间</label></div>
+            <div class="basic_xinxi_02 basic_xinxi_0222">
+              <input name="end_day" id="end_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
+            </div>
+          </li>
+          <li>
             <div class="basic_xinxi_01"><label for="category">拍摄类别</label></div>
             <div class="basic_xinxi_02">
               {% if categories|length > 0 %}
@@ -39,30 +51,17 @@
             </div>
           </li>
           <li>
-            <div class="basic_xinxi_01"><label for="from_day">开始时间</label></div>
+            <div class="basic_xinxi_01"><label for="style">拍摄风格</label></div>
             <div class="basic_xinxi_02">
-              <input name="from_day" id="from_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
-            </div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01"><label for="end_day">结束时间</label></div>
-            <div class="basic_xinxi_02 basic_xinxi_0222">
-              <input name="end_day" id="end_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
-            </div>
-          </li>
-          <li>
-            <div class="basic_xinxi_01"><label for="style">拍摄风格说明</label></div>
-            <div class="basic_xinxi_02">
-              {#              {% if styles|length > 0 %}#}
-              {#                <select name="style" id="style">#}
-              {#                  {% for style in styles %}#}
-              {#                    <option value="{{ style.id }}">#}
-              {#                      {{ style.display }}#}
-              {#                    </option>#}
-              {#                  {% endfor %}#}
-              {#                </select>#}
-              {#              {% endif %}#}
-              <input name="style" id="style" type="text" value="" placeholder="拍摄风格大致说明">
+              {% if styles|length > 0 %}
+                <select name="style" id="style">
+                  {% for style in styles %}
+                    <option value="{{ style.id }}">
+                      {{ style.display }}
+                    </option>
+                  {% endfor %}
+                </select>
+              {% endif %}
             </div>
           </li>
           <li>

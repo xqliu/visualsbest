@@ -11,16 +11,21 @@ class RequestServiceForm(Form):
     from_day = DateField('from_day', validators=(Required(),))
     end_day = DateField('end_day', validators=(Required(),))
     category = SelectField('category', [Required()])
-    style = StringField('style', [Required()])
+    style = SelectField('style', [Required()])
     lens_needed = StringField('lens_needed', [Required()])
     remark = StringField('remark', [Optional()])
     location = StringField('location', [Required()])
     price = DecimalField('price', [Optional()])
     amount = DecimalField('amount', [Optional()])
 
-    def __init__(self, categories):
+    def __init__(self, categories, styles):
         super(RequestServiceForm, self).__init__()
         cats = []
         for c in categories:
             cats.append((str(c.id), c.display))
         self.category.choices = cats
+        scs = []
+        for s in styles:
+            scs.append((str(s.id), s.display))
+        self.style.choices = scs
+
