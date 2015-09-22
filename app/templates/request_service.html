@@ -20,20 +20,20 @@
     </div>
     <div class="request-form-container">
       <form action="{{ url_for('request_service',photographer_id=photographer.id) }}" method="POST">
-        <input type="hidden" id="photographer_id" value="{{ photographer.id }}"/>
-        <input type="hidden" id="requester_id" value="{{ current_user.id }}"/>
+        <input type="hidden" name="photographer_id" value="{{ photographer.id }}"/>
+        <input type="hidden" name="requester_id" value="{{ current_user.id }}"/>
         {{ form.hidden_tag() }}
         <ul class="basic_xinxi">
           <li>
             <div class="basic_xinxi_01"><label for="from_day">开始时间</label></div>
             <div class="basic_xinxi_02">
-              <input name="from_day" id="from_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
+              <input name="start_date" id="from_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
             </div>
           </li>
           <li>
             <div class="basic_xinxi_01"><label for="end_day">结束时间</label></div>
             <div class="basic_xinxi_02 basic_xinxi_0222">
-              <input name="end_day" id="end_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
+              <input name="end_date" id="end_day" type="text" value="" readonly placeholder="请在日历中点击选取起始日期">
             </div>
           </li>
           <li>

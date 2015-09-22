@@ -1,4 +1,5 @@
-"""empty message
+# coding=utf-8
+"""将作品集中的价格设置为非空字段
 
 Revision ID: 1447b8ddf293
 Revises: 253dbf2c5574

@@ -3,12 +3,12 @@ from app import app_provider, const
 from app.forms.request_service_form import RequestServiceForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
-    PhotoCollection
+    PhotoCollection, Request
 from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.photo_collection_util import render_search_result
 from app.util.view_util import rt
-from flask import request
+from flask import request, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 from sqlalchemy import desc
@@ -129,12 +129,30 @@ def settings():
               user=user, all_styles=all_styles)
 
 
-@app.route('/request/<int:photographer_id>', methods=['GET','POST'])
+@app.route('/request/<int:photographer_id>', methods=['GET', 'POST'])
 @login_required
 def request_service(photographer_id):
     user = User.query.filter_by(id=photographer_id).first()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    request_obj = Request()
     form = RequestServiceForm(categories, styles)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            default_status = EnumValues.find_one_by_code('REQUEST_STATUS_DRAFT')
+            request_obj.category_id = int(form.category.data)
+            request_obj.style_id = int(form.style.data)
+            request_obj.start_date = form.start_date.data
+            request_obj.end_date = form.end_date.data
+            request_obj.lens_needed = form.lens_needed.data
+            request_obj.requester_id = current_user.id
+            request_obj.photographer_id = int(form.photographer_id.data)
+            request_obj.location = form.location.data
+            request_obj.remark = form.remark.data
+            request_obj.status = default_status
+            save_obj_commit(request_obj)
+            flash('创建拍摄请求成功')
+        else:
+            flash('校验失败，请填写所有信息并再次尝试创建拍摄请求')
     return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user, categories=categories,
               styles=styles, form=form)

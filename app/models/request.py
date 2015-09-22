@@ -28,8 +28,16 @@ class Request(db.Model):
     start_date = Column(DateTime, nullable=False)
     # 结束时间
     end_date = Column(DateTime, nullable=False)
-    # 拍摄风格
-    style = Column(String(128), nullable=False)
+
+    # 作品所属的风格
+    style_id = Column(Integer, ForeignKey('enum_values.id'), nullable=True)
+    style = relationship('EnumValues', backref=backref('request_of_style', uselist=True),
+                         foreign_keys=[style_id])
+
+    # 作品所属的分类
+    category_id = Column(Integer, ForeignKey('enum_values.id'), nullable=True)
+    category = relationship('EnumValues', backref=backref('request_of_category', uselist=True),
+                            foreign_keys=[category_id])
     # 拍摄地点
     location = Column(String(128), nullable=False)
     # 需要带的镜头
