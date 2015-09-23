@@ -2,7 +2,7 @@
 
 from app.app_provider import AppInfo
 from user import User
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Numeric
 from sqlalchemy.orm import backref, relationship
 
 db = AppInfo.get_db()
@@ -44,6 +44,10 @@ class Request(db.Model):
     lens_needed = Column(String(128))
     # 其他备注信息
     remark = Column(String(512))
+    # 单价
+    price = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=True)
+    # 总价
+    amount = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=True)
 
     # 请求的状态，可能为拒绝或者同意，同意的会自动转变为订单
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)

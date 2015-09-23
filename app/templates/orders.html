@@ -7,42 +7,101 @@
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}
-  <div class="others_right">
-  	<div class="others_right_top">
-          <div class="others_right_head">
-              <h4>订单管理</h4>
-          </div>
-          <dl class="geren2_order">
-              <dt>
-                  <div>订单号</div>
-                  <div>订单图片</div>
-                  <div>价格</div>
-                  <div>状态</div>
-                  <div>评价</div>
-              </dt>
-              <dd>
-                  <div>102234</div>
-                  <div><img src="../static/pic/gl.jpg" /></div>
-                  <div>￥2335.00</div>
-                  <div>代付款</div>
-                  <div>已评价</div>
-              </dd>
-              <dd>
-                  <div>102234</div>
-                  <div><img src="../static/pic/gl.jpg" /></div>
-                  <div>￥2335.00</div>
-                  <div>代付款</div>
-                  <div>已评价</div>
-              </dd>
-              <dd>
-                  <div>102234</div>
-                  <div><img src="../static/pic/gl.jpg" /></div>
-                  <div>￥2335.00</div>
-                  <div>代付款</div>
-                  <div>已评价</div>
-              </dd>
-          </dl>
-      </div>
-  </div>
+  <div class="others_right_top">
+    <div class="others_right_head">
+      <h4>我的拍摄请求</h4>
 
+      <div><a href="#">更多</a></div>
+    </div>
+    <ul class="personal_gl">
+      <li><a href="{{ url_for('orders', obj_type='request', status_code='draft') }}">未确认</a></li>
+      <li><a href="{{ url_for('orders', obj_type='request', status_code='confirmed') }}">已确认</a></li>
+      <li><a href="{{ url_for('orders', obj_type='request', status_code='cancelled') }}">已取消</a></li>
+    </ul>
+    {% if requests|length > 0 %}
+      <form name='process_request' id='process_request' method="post"
+            action="{{ url_for('process_request') }}">
+        <input type="hidden" name="operation" id="operation" value=""/>
+        <input type="hidden" name="request_id" id='request_id' value=""/>
+        <ul class="others_works renwu">
+          {% for request in requests %}
+            <li>
+              <div class="rw">
+                <div class="rw_details">
+                  {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+                    <h4>{{ request.requester.display }}请求从 {{ request.start_date.strftime('%m-%d') or '' }}
+                      到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄</h4>
+                  {% else %}
+                    <h4>请求 {{ request.photographer.display }} 于 {{ request.start_date.strftime('%m-%d') or '' }}
+                      到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄</h4>
+                  {% endif %}
+                  <p>
+                    拍摄分类：{{ request.category.display or '' }}， 拍摄风格：{{ request.style.display or '' }}，
+                    日单价：{{ request.price or '未知' }}，总金额： {{ request.amount or '未知' }}<br>
+                    所需镜头： {{ request.lens_needed or '' }}，备注：{{ request.remark or '' }}</p>
+                  {% if request.status.code == 'REQUEST_STATUS_DRAFT' %}
+                    {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+                      <div class="rw_button">
+                        <button class="gowancheng" id="confirm_request_{{ request.id }}">确认</button>
+                        <button class="zaishuo" id="reject_request_{{ request.id }}">无法拍摄</button>
+                      </div>
+                    {% else %}
+                      <div class="rw_button">
+                        <button class="zaishuo" id="cancel_request_{{ request.id }}">取消请求</button>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </form>
+    {% endif %}
+
+    <div class="clear"></div>
+    <ul class="other_qie">
+      <li class="curr"></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4>我的服务订单</h4>
+
+      <div><a href="#">共12个</a></div>
+    </div>
+    <dl class="geren2_order me_service">
+      <dt>
+        {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+          <div>客户</div>
+        {% else %}
+          <div>摄影师</div>
+        {% endif %}
+      <div>类别</div>
+      <div>风格</div>
+      <div>地点</div>
+      <div>时间</div>
+      </dt>
+      <dd>
+        <div>上海居鼎设计有限公司</div>
+        <div>产品拍摄</div>
+        <div>上海市松江区松江路11号</div>
+        <div>2015-04-21</div>
+      </dd>
+      <dd>
+        <div>上海居鼎设计有限公司</div>
+        <div>产品拍摄</div>
+        <div>上海市松江区松江路11号</div>
+        <div>2015-04-21</div>
+      </dd>
+      <dd>
+        <div>上海居鼎设计有限公司</div>
+        <div>产品拍摄</div>
+        <div>上海市松江区松江路11号</div>
+        <div>2015-04-21</div>
+      </dd>
+    </dl>
+  </div>
 {% endblock %}

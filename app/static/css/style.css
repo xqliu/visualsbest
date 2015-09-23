@@ -302,8 +302,8 @@ table{border-collapse:collapse;border-spacing:0;}
 .me_works h5{ border-bottom:1px solid #EBEBEB; text-align:center; font-size:18px; font-weight:normal;}
 .me_works div{ text-align:center;font-size:16px;}
 .me_works div a{ color:#64C3D3;}
-.me_service dt div{ width:25%; text-align:left; text-indent:2em;font-size:16px;}
-.me_service dd div{ width:25%; font-size:14px; text-align:left; text-indent:2.2em; color:#868686;}
+.me_service dt div{ width:20%; text-align:left; text-indent:2em;font-size:16px;}
+.me_service dd div{ width:20%; font-size:14px; text-align:left; text-indent:2.2em; color:#868686;}
 
 /*搜索页面*/
 .search_top{ width:100%; height:auto; border:1px solid #ECECEC; margin-top:31px; }

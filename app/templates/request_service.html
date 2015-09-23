@@ -85,7 +85,7 @@
           <li>
             <div class="basic_xinxi_01"><label for="price">摄影师每日报价</label></div>
             <div class="basic_xinxi_02">
-              <input name="price" id="price" type="text" readonly value="{{ photographer.daily_price or '价格未知' }}">
+              <input name="price" id="price" type="text" readonly value="{{ photographer.daily_price or '' }}" placeholder="价格未知">
             </div>
           </li>
           <li>
