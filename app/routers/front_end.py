@@ -23,7 +23,7 @@ def index():
 @app.route("/photograph", methods=['GET', 'POST'])
 def photograph():
     def get_all():
-        pg_type = EnumValues.find_one_by_code('PHOTOGRAPHER_USER_TYPE')
+        pg_type = EnumValues.find_one_by_code(const.PHOTOGRAPHER_USER_TYPE)
         photographs = User.query.filter_by(type_id=pg_type.id).all()
         return photographs
 
