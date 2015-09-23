@@ -70,7 +70,7 @@
     <div class="others_right_head">
       <h4>我的服务订单</h4>
 
-      <div><a href="#">共12个</a></div>
+      <div><a href="#">共{{ orders|length }}个</a></div>
     </div>
     <dl class="geren2_order me_service">
       <dt>
@@ -79,29 +79,19 @@
         {% else %}
           <div>摄影师</div>
         {% endif %}
-      <div>类别</div>
-      <div>风格</div>
       <div>地点</div>
       <div>时间</div>
+      <div>状态</div>
       </dt>
-      <dd>
-        <div>上海居鼎设计有限公司</div>
-        <div>产品拍摄</div>
-        <div>上海市松江区松江路11号</div>
-        <div>2015-04-21</div>
-      </dd>
-      <dd>
-        <div>上海居鼎设计有限公司</div>
-        <div>产品拍摄</div>
-        <div>上海市松江区松江路11号</div>
-        <div>2015-04-21</div>
-      </dd>
-      <dd>
-        <div>上海居鼎设计有限公司</div>
-        <div>产品拍摄</div>
-        <div>上海市松江区松江路11号</div>
-        <div>2015-04-21</div>
-      </dd>
+      {% for order in orders %}
+        <dd>
+          <div>{{ order.request.requester.display or '' }}</div>
+          <div>{{ order.request.location or '' }}</div>
+          <div>{{ order.request.start_date.strftime('%m-%d') or '' }}
+            - {{ order.request.end_date.strftime('%m-%d') or '' }} </div>
+          <div>{{ order.status.display or '' }}</div>
+        </dd>
+      {% endfor %}
     </dl>
   </div>
 {% endblock %}

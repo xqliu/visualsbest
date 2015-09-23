@@ -65,6 +65,15 @@ def process_request():
         req = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_ownership)
     elif operation == 'confirm':
         req = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_towards)
+        order = Order()
+        order.request_id = req.id
+        if req.amount is None:
+            order.amount = 0
+        else:
+            order.amount = req.amount
+        draft_order_status = EnumValues.find_one_by_code(const.ORDER_STATUS_DRAFT)
+        order.status = draft_order_status
+        save_obj_commit(order)
     elif operation == 'reject':
         req = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
     save_obj_commit(req)
