@@ -6,9 +6,10 @@ from app.forms.request_service_form import RequestServiceForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
     Request, Order
-from app.util.db_util import save_obj_commit
+from app.util.db_util import save_obj_commit, save_objects_commit
+from app.util.message_util import create_message
 from app.util.view_util import rt
-from flask import request, flash, url_for, redirect
+from flask import request, flash, url_for, redirect, render_template
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 
@@ -132,7 +133,9 @@ def request_service(photographer_id):
             request_obj.status = default_status
             request_obj.price = Decimal(form.price.data)
             request_obj.amount = Decimal(form.amount.data)
-            save_obj_commit(request_obj)
+            content = render_template('message/new_request.txt', request=request_obj)
+            message = create_message(request_obj.requester_id, request_obj.photographer_id, content)
+            save_objects_commit(request_obj, message)
             flash('创建拍摄请求成功, 转到拍摄请求管理页面')
             return redirect(url_for('orders'))
         else:

@@ -62,7 +62,7 @@ $(function () {
         process_request(e, '取消', 'cancel');
     });
     $("button[id^='confirm_request']").click(function (e) {
-        process_request(e, '确认', 'confirm');
+        process_request(e, '接受', 'confirm');
     });
     $("button[id^='reject_request']").click(function (e) {
         process_request(e, '无法接受', 'reject');

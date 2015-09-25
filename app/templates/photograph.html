@@ -32,7 +32,9 @@
                     <img src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
                          class="md-circular"/>
                   {% endif %}
-                  <span>{{ p.display or '无名大侠' }}</span></a></h5>
+                  <span>{{ p.display or '无名大侠' }}</span></a>
+                  <span><a href="{{ url_for('request_service', photographer_id=p.id) }}">预约</a></span>
+                </h5>
                 <dl>
                   <dt>擅长风格:</dt>
                   {% if p.styles|length > 0 %}

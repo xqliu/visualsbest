@@ -1,9 +1,21 @@
 from app import AppInfo
 
+db = AppInfo.get_db()
+
+
+def save_objects_commit(*objects):
+    """
+    Save object and commit to database
+    :param objects: Objects to save
+    """
+    for obj in objects:
+        db.session.add(obj)
+    db.session.commit()
+
 
 def save_obj_commit(obj):
-    AppInfo.get_db().session.add(obj)
-    AppInfo.get_db().session.commit()
+    db.session.add(obj)
+    db.session.commit()
 
 
 def delete_by_id(obj_type, id_to_del):
