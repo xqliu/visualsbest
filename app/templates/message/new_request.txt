@@ -1,9 +1,8 @@
-您好，{{request.photographer.display}}， {{ request.requester.display }} 邀请您
-从 {{ request.start_date.strftime('%m-%d') or '' }} 到 {{ request.end_date.strftime('%m-%d') or '' }}
-在 {{ request.location or '' }} 进行拍摄。
-其他相关信息如下：
-拍摄作品分类：{{request.category.display}}
-拍摄作品风格：{{request.style.display}}
-所需要的镜头：{{request.lens_needed}}
-其他备注信息：{{request.remark}}
+您好，{{request.photographer.display}}， {{ request.requester.display }} 邀请您从 {{ request.start_date.strftime('%m-%d') or '' }} 到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄。
+
+相关信息如下：
+\t拍摄作品分类：{{request.category.display}}
+\t拍摄作品风格：{{request.style.display}}
+\t所需要的镜头：{{request.lens_needed}}
+\t其他备注信息：{{request.remark}}
 请您<a href="{{url_for('orders')}}">点击这里</a>查看该邀请并进行回应。

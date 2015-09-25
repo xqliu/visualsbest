@@ -122,12 +122,16 @@ def request_service(photographer_id):
         if form.validate_on_submit():
             default_status = EnumValues.find_one_by_code(REQUEST_STATUS_DRAFT)
             request_obj.category_id = int(form.category.data)
+            request_obj.category = EnumValues.query.get(request_obj.category_id)
             request_obj.style_id = int(form.style.data)
+            request_obj.style = EnumValues.query.get(request_obj.style_id)
             request_obj.start_date = form.start_date.data
             request_obj.end_date = form.end_date.data
             request_obj.lens_needed = form.lens_needed.data
+            request_obj.requester = current_user
             request_obj.requester_id = current_user.id
             request_obj.photographer_id = int(form.photographer_id.data)
+            request_obj.photographer = User.query.get(request_obj.photographer_id)
             request_obj.location = form.location.data
             request_obj.remark = form.remark.data
             request_obj.status = default_status
