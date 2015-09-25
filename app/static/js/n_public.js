@@ -29,12 +29,27 @@ $(function () {
 /*orders.html，取消、确认和拒绝拍摄请求*/
 $(function () {
 
+    function process_order(event, operation_label, operation_value) {
+        event.preventDefault();
+        var elemId = event.currentTarget.id;
+        var order_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        if (confirm("确定" + operation_label + "本订单？")) {
+            $("#order_operation").val(operation_value);
+            $("#order_id").val(order_id);
+            $('form[name="process_order"]').submit();
+        }
+    }
+
+    $("a[id^='complete_order']").click(function (e) {
+        process_order(e, '完成', 'complete');
+    });
+
     function process_request(event, operation_label, operation_value) {
         event.preventDefault();
         var elemId = event.currentTarget.id;
         var request_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
         if (confirm("确定" + operation_label + "本拍摄请求？")) {
-            $("#operation").val(operation_value);
+            $("#request_operation").val(operation_value);
             $("#request_id").val(request_id);
             $('form[name="process_request"]').submit();
         }

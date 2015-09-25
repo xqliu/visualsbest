@@ -30,7 +30,7 @@ def orders(obj_type="request", status_code='draft'):
         order_query = order_query.filter(Request.requester_id == current_user.id)
         request_query = request_query.filter(Request.requester_id == current_user.id)
     if obj_type == 'order':
-        all_orders = order_query.filter(EnumValues.code == "ORDER_STATUS_".join(status_code.upper())).all()
+        all_orders = order_query.filter(EnumValues.code == "ORDER_STATUS_" + status_code.upper()).all()
         requests = request_query.filter(EnumValues.code == const.REQUEST_STATUS_DRAFT).all()
     else:
         requests = request_query.filter(EnumValues.code == "REQUEST_STATUS_" + status_code.upper()).all()
@@ -47,6 +47,23 @@ def check_and_update_coming_request(req, operation_label, status_code, check_fun
         status = EnumValues.find_one_by_code(status_code)
         req.status = status
     return req
+
+
+@app.route('/order/process', methods=['POST'])
+@login_required
+def process_order():
+    operation = request.form.get('operation')
+    order_id = int(request.form.get('order_id'))
+    order = Order.query.get(order_id)
+    if operation == 'complete':
+        if order.request.requester_id == current_user.id:
+            status = EnumValues.find_one_by_code(const.ORDER_STATUS_COMPLETE)
+            order.status = status
+            save_obj_commit(order)
+        else:
+            flash("只有订单的发起人才可以将该订单标记为完成")
+    all_orders, requests = get_requests_orders()
+    return rt('orders.html', requests=requests, orders=all_orders)
 
 
 @app.route('/request/process', methods=['POST'])
@@ -77,6 +94,11 @@ def process_request():
     elif operation == 'reject':
         req = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
     save_obj_commit(req)
+    all_orders, requests = get_requests_orders()
+    return rt('orders.html', requests=requests, orders=all_orders)
+
+
+def get_requests_orders():
     order_query = AppInfo.get_db().session.query(Order).outerjoin(Request, Order.request) \
         .outerjoin(EnumValues, Order.status)
     request_query = AppInfo.get_db().session.query(Request).outerjoin(EnumValues, Request.status)
@@ -84,7 +106,7 @@ def process_request():
     request_query = request_query.filter(Request.requester_id == current_user.id)
     requests = request_query.filter(EnumValues.code == const.REQUEST_STATUS_DRAFT).all()
     all_orders = order_query.filter(EnumValues.code == const.ORDER_STATUS_DRAFT).all()
-    return rt('orders.html', requests=requests, orders=all_orders)
+    return all_orders, requests
 
 
 @app.route('/request/<int:photographer_id>', methods=['GET', 'POST'])

@@ -242,7 +242,7 @@ table{border-collapse:collapse;border-spacing:0;}
 .personal_gl li{ width:225px; height:38px; background:#EFEFEF;margin-left:19px; float:left; text-align:center; line-height:38px;}
 .personal_gl li a{color:#42bacc; font-size:16px;}
 /*个人主页2--订单管理*/
-.geren2_order{ width:690px; margin:0 auto; height:auto; border:1px solid #EBEBEB; border-bottom:0px; margin-top:21px; margin-bottom:312px;}
+.geren2_order{ width:95%; margin:0 auto; height:auto; border:1px solid #EBEBEB; border-bottom:0px; margin-top:21px; margin-bottom:312px;}
 .geren2_order dt,.geren2_order dd{ width:100%; line-height:44px; text-align:center; overflow:hidden;}
 .geren2_order dt{ background:#EFEFEF;color:#64C3D3;border-bottom:1px solid #EBEBEB;}
 .geren2_order dt div,.geren2_order dd div{ float:left; font-size:16px; width:20%; height:44px;}
@@ -302,8 +302,8 @@ table{border-collapse:collapse;border-spacing:0;}
 .me_works h5{ border-bottom:1px solid #EBEBEB; text-align:center; font-size:18px; font-weight:normal;}
 .me_works div{ text-align:center;font-size:16px;}
 .me_works div a{ color:#64C3D3;}
-.me_service dt div{ width:25%; text-align:left; text-indent:2em;font-size:16px;}
-.me_service dd div{ width:25%; font-size:14px; text-align:left; text-indent:2.2em; color:#868686;}
+.me_service dt div{ width:20%; text-align:left; text-indent:2em;font-size:16px;}
+.me_service dd div{ width:20%; font-size:14px; text-align:left; text-indent:2.2em; color:#868686;}
 
 /*搜索页面*/
 .search_top{ width:100%; height:auto; border:1px solid #ECECEC; margin-top:31px; }
