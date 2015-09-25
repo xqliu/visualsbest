@@ -12,15 +12,18 @@
     <div class="others_right_head">
       <h4>我的拍摄请求</h4>
 
-      <div><a href="#">更多</a></div>
+      <div><a href="#">共{{ requests|length }}个</a></div>
     </div>
     <ul class="personal_gl personal_gl_tab">
-      {% if request.path == '/orders/request/' or request.path == '/orders/' or request.path == '/orders/request/draft' %}
+      {% if request.path == '/orders/request/' or
+            request.path == '/orders/' or
+            request.path == '/orders/request/draft' or
+            request.path | startswith('/orders/order/') %}
         <li style="border: 1px solid #EFEFEF; background: #FFFFFF; border-bottom: none;">
           {% else %}
         <li>
       {% endif %}
-      <a href="{{ url }}">未确认</a>
+      <a href="{{ url_for('orders', obj_type='request', status_code='draft') }}">未确认</a>
       </li>
       {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='confirmed'), "已确认") }}
       {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='cancelled'), "已取消") }}
@@ -48,7 +51,7 @@
                   {% if request.status.code == 'REQUEST_STATUS_DRAFT' %}
                     {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
                       <div class="rw_button">
-                        <button class="gowancheng" id="confirm_request_{{ request.id }}">确认</button>
+                        <button class="gowancheng" id="confirm_request_{{ request.id }}">确认请求</button>
                         <button class="zaishuo" id="reject_request_{{ request.id }}">无法拍摄</button>
                       </div>
                     {% else %}
@@ -65,7 +68,7 @@
       </form>
     {% else %}
       <ul class="others_works renwu">
-        <li style="font-size: 14px; line-height: 120px; text-align: center;">
+        <li class="no_request_table_msg">
           您还没有该状态的服务请求
         </li>
       </ul>
@@ -85,7 +88,16 @@
       <div><a href="#">共{{ orders|length }}个</a></div>
     </div>
     <ul class="personal_gl personal_gl_tab">
-      {{ ul_tab_cell(url_for('orders', obj_type='order', status_code='draft'), "草稿") }}
+      {% if request.path == '/orders/order/' or
+            request.path == '/orders/' or
+            request.path == '/orders/order/draft' or
+            request.path | startswith('/orders/request/') %}
+        <li style="border: 1px solid #EFEFEF; background: #FFFFFF; border-bottom: none;">
+          {% else %}
+        <li>
+      {% endif %}
+      <a href="{{ url_for('orders', obj_type='order', status_code='draft') }}">草稿</a>
+      </li>
       {{ ul_tab_cell(url_for('orders', obj_type='order', status_code='paid'), "已付款") }}
       {{ ul_tab_cell(url_for('orders', obj_type='order', status_code='completed'), "已完成") }}
     </ul>
@@ -113,8 +125,10 @@
                 到 {{ order.request.end_date.strftime('%m-%d') or '' }} </div>
               <div>{{ order.status.display or '' }}</div>
               <div>
-                {% if order.status.code == 'ORDER_STATUS_DRAFT' and current_user.id == order.request.requester_id %}
-                  <a href="#" id="complete_order_{{ order.id }}">标记拍摄完成</a>
+                {% if order.status.code == 'ORDER_STATUS_DRAFT' and current_user.id == order.request.photographer_id %}
+                  <a href="#" id="confirm_paid_order_{{ order.id }}">标记订单已付款</a>
+                {% elif order.status.code == 'ORDER_STATUS_PAID' and current_user.id == order.request.requester_id %}
+                  <a href="#" id="complete_order_{{ order.id }}">标记订单已完成</a>
                 {% elif order.status.code == 'ORDER_STATUS_COMPLETED' and current_user.id == order.request.photographer_id %}
                   <a href="{{ url_for('create_collection') }}" target="_blank">上传拍摄作品集</a>
                 {% endif %}

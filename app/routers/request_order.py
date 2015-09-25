@@ -38,8 +38,16 @@ def orders(obj_type="request", status_code='draft'):
     return rt('orders.html', requests=requests, orders=all_orders)
 
 
-def check_and_update_coming_request(req, operation_label, status_code, check_function):
-    if not check_function(req):
+def check_ownership(obj):
+    return obj.requester_id == current_user.id
+
+
+def check_towards(obj):
+    return obj.photographer_id == current_user.id
+
+
+def check_and_update_coming_request(req, operation_label, status_code, check_func):
+    if not check_func(req):
         flash('您没有权限' + operation_label + '本拍摄请求')
     elif req.status.code != const.REQUEST_STATUS_DRAFT:
         flash('只能' + operation_label + '处于草稿状态的拍摄请求')
@@ -49,6 +57,27 @@ def check_and_update_coming_request(req, operation_label, status_code, check_fun
     return req
 
 
+def mark_order_complete(order, check_func, msg):
+    if check_func(order.request):
+        status = EnumValues.find_one_by_code(const.ORDER_STATUS_COMPLETED)
+        order.status = status
+        save_obj_commit(order)
+    else:
+        flash(msg)
+
+
+def create_order_from_request(req):
+    order = Order()
+    order.request_id = req.id
+    if req.amount is None:
+        order.amount = 0
+    else:
+        order.amount = req.amount
+    draft_order_status = EnumValues.find_one_by_code(const.ORDER_STATUS_DRAFT)
+    order.status = draft_order_status
+    return order
+
+
 @app.route('/order/process', methods=['POST'])
 @login_required
 def process_order():
@@ -56,25 +85,15 @@ def process_order():
     order_id = int(request.form.get('order_id'))
     order = Order.query.get(order_id)
     if operation == 'complete':
-        if order.request.requester_id == current_user.id:
-            status = EnumValues.find_one_by_code(const.ORDER_STATUS_COMPLETE)
-            order.status = status
-            save_obj_commit(order)
-        else:
-            flash("只有订单的发起人才可以将该订单标记为完成")
-    all_orders, requests = get_requests_orders()
-    return rt('orders.html', requests=requests, orders=all_orders)
+        mark_order_complete(order, check_ownership, u'只有订单的发起人才可以将该订单标记为完成')
+    elif operation == 'confirm_paid':
+        mark_order_complete(order, check_towards, u'只有接受订单的摄影师才可以将该订单标记为已付款')
+    return redirect(url_for('orders', obj_type='order'))
 
 
 @app.route('/request/process', methods=['POST'])
 @login_required
 def process_request():
-    def check_ownership(obj):
-        return obj.requester_id == current_user.id
-
-    def check_towards(obj):
-        return obj.photographer_id == current_user.id
-
     operation = request.form.get('operation')
     request_id = int(request.form.get('request_id'))
     req = Request.query.get(request_id)
@@ -82,31 +101,12 @@ def process_request():
         req = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_ownership)
     elif operation == 'confirm':
         req = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_towards)
-        order = Order()
-        order.request_id = req.id
-        if req.amount is None:
-            order.amount = 0
-        else:
-            order.amount = req.amount
-        draft_order_status = EnumValues.find_one_by_code(const.ORDER_STATUS_DRAFT)
-        order.status = draft_order_status
+        order = create_order_from_request(req)
         save_obj_commit(order)
     elif operation == 'reject':
         req = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
     save_obj_commit(req)
-    all_orders, requests = get_requests_orders()
-    return rt('orders.html', requests=requests, orders=all_orders)
-
-
-def get_requests_orders():
-    order_query = AppInfo.get_db().session.query(Order).outerjoin(Request, Order.request) \
-        .outerjoin(EnumValues, Order.status)
-    request_query = AppInfo.get_db().session.query(Request).outerjoin(EnumValues, Request.status)
-    order_query = order_query.filter(Request.requester_id == current_user.id)
-    request_query = request_query.filter(Request.requester_id == current_user.id)
-    requests = request_query.filter(EnumValues.code == const.REQUEST_STATUS_DRAFT).all()
-    all_orders = order_query.filter(EnumValues.code == const.ORDER_STATUS_DRAFT).all()
-    return all_orders, requests
+    return redirect(url_for('orders'))
 
 
 @app.route('/request/<int:photographer_id>', methods=['GET', 'POST'])

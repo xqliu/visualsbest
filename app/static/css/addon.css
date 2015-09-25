@@ -366,3 +366,13 @@
     font-size: 14px
 }
 
+.no_request_table_msg {
+    font-size: 14px;
+    line-height: 120px;
+    text-align: center;
+}
+
+.renwu .rw div.rw_details .rw_button .zaishuo {
+    background: #AAAAAA;
+}
+

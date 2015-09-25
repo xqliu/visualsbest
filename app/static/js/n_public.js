@@ -29,11 +29,11 @@ $(function () {
 /*orders.html，取消、确认和拒绝拍摄请求*/
 $(function () {
 
-    function process_order(event, operation_label, operation_value) {
+    function process_order(event, operation_label, operation_value, optional_msg) {
         event.preventDefault();
         var elemId = event.currentTarget.id;
         var order_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
-        if (confirm("确定" + operation_label + "本订单？")) {
+        if (confirm("确定标记本订单为" + operation_label + "？(" + optional_msg + ")")) {
             $("#order_operation").val(operation_value);
             $("#order_id").val(order_id);
             $('form[name="process_order"]').submit();
@@ -41,7 +41,10 @@ $(function () {
     }
 
     $("a[id^='complete_order']").click(function (e) {
-        process_order(e, '完成', 'complete');
+        process_order(e, '完成', 'complete', "请务必在摄影师提供了拍摄服务之后再进行确认");
+    });
+    $("a[id^='confirm_paid_order']").click(function (e) {
+        process_order(e, '已付款', 'confirm_paid', "请务必在收到付款后再进行确认");
     });
 
     function process_request(event, operation_label, operation_value) {
@@ -62,6 +65,6 @@ $(function () {
         process_request(e, '确认', 'confirm');
     });
     $("button[id^='reject_request']").click(function (e) {
-        process_request(e, '拒绝', 'reject');
+        process_request(e, '无法接受', 'reject');
     });
 });

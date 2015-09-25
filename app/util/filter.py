@@ -1,4 +1,4 @@
-def _jinja2_filter_substring(string, direction="left", length='100'):
+def jinja2_filter_substring(string, direction="left", length='100'):
     if string is None:
         return ''
     if direction == "left":
@@ -9,3 +9,7 @@ def _jinja2_filter_substring(string, direction="left", length='100'):
         if length >= len(string):
             return ''
         return string[length:len(string)]
+
+
+def jinja2_filter_startswith(string, start_str):
+    return (string is not None) and (string.startswith(start_str))
