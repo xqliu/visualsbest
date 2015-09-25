@@ -15,7 +15,13 @@
       <div><a href="#">更多</a></div>
     </div>
     <ul class="personal_gl personal_gl_tab">
-      {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='draft'), "未确认") }}
+      {% if request.path == '/orders/request/' or request.path == '/orders/' or request.path == '/orders/request/draft' %}
+        <li style="border: 1px solid #EFEFEF; background: #FFFFFF; border-bottom: none;">
+          {% else %}
+        <li>
+      {% endif %}
+      <a href="{{ url }}">未确认</a>
+      </li>
       {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='confirmed'), "已确认") }}
       {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='cancelled'), "已取消") }}
     </ul>
