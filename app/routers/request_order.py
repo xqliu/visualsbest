@@ -8,7 +8,7 @@ from app.models import User, EnumValues, \
     Request, Order
 from app.util.db_util import save_obj_commit
 from app.util.view_util import rt
-from flask import request, flash
+from flask import request, flash, url_for, redirect
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 
@@ -133,8 +133,12 @@ def request_service(photographer_id):
             request_obj.price = Decimal(form.price.data)
             request_obj.amount = Decimal(form.amount.data)
             save_obj_commit(request_obj)
-            flash('创建拍摄请求成功')
+            flash('创建拍摄请求成功, 转到拍摄请求管理页面')
+            return redirect(url_for('orders'))
         else:
             flash('校验失败，请填写所有信息并再次尝试创建拍摄请求')
-    return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user, categories=categories,
-              styles=styles, form=form)
+            return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user,
+                      categories=categories, styles=styles, form=form)
+    else:
+        return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user,
+                  categories=categories, styles=styles, form=form)
