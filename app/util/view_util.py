@@ -1,18 +1,26 @@
 # encoding=utf-8
 import uuid
-from app import app_provider
+from app import app_provider, AppInfo
+from app.const import MESSAGE_STATUS_UNREAD
 from app.forms import UserRegisterForm
-from app.models import Image
+from app.models import Image, Message, EnumValues
 from flask import render_template
+from flask.ext.login import current_user
 from flask.ext.security import LoginForm
 
 gallery_service = app_provider.AppInfo.get_galleries_store_service()
 image_service = app_provider.AppInfo.get_image_store_service()
+app = app_provider.AppInfo.get_app()
+db = AppInfo.get_db()
 
 
 def rt(template_html, **args):
+    msgs = db.session.query(Message).outerjoin(EnumValues, Message.status) \
+        .filter(EnumValues.code == MESSAGE_STATUS_UNREAD).filter(
+        Message.receive_user_id == current_user.id).all()
+    unread_msg_size = len(msgs)
     return render_template(template_html, login_user_form=LoginForm(),
-                           register_user_form=UserRegisterForm(), **args)
+                           unread_msg_size=unread_msg_size, register_user_form=UserRegisterForm(), **args)
 
 
 def default_date_formatter(view, context, model, name):

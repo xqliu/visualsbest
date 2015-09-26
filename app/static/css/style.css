@@ -1,4 +1,6 @@
 @charset "utf-8";
+/*Reset margin and padding to to default for all elements*/
+*{margin:0;padding:0;}
 /* CSS Document */
 /*公共样式*/
 body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select,img{margin:0;padding:0;}
