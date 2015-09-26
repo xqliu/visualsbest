@@ -1,0 +1,11 @@
+您好{{ request.requester.display }}，{{request.photographer.display}}已经接受了您从 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄的请求，
+您现在可以按照双方约定的价格进行付款。
+
+摄影师联系方式如下：
+
+电话: {{request.photographer.mobile_phone or ''}}
+微信: {{request.photographer.wechat_account}}
+
+待付款金额：{{request.amount}}
+
+付款后，请<a href="{{url_for('orders', obj_type='order', status_code='draft')}}">点击这里</a>标记该订单为已付款

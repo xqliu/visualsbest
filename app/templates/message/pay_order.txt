@@ -1,0 +1,8 @@
+您好 {{request.requester.display}}，摄影师 {{request.photographer.display}} 已经将 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 拍摄的订单标记为已付款。
+
+您可以与该摄影师联系拍摄的相关事宜，该摄影师的联系信息如下：
+
+电话：{{request.photographer.mobile_phone or ''}}
+微信: {{request.photographer.wechat_account or ''}}
+
+拍摄完成后，您可以<a href="{{url_for('orders',obj_type='order', status_code='paid')}}">点击这里</a>将本次订单标记为完成。

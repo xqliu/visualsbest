@@ -1,0 +1,3 @@
+您好 {{request.photographer.display}}，客户 {{request.requester.display}} 已经将 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄的订单标记为已完成。
+
+您可以<a href="{{url_for('orders',obj_type='order', status_code='completed')}}">点击这里</a>上传您本次订单中的相关作品到系统中，供其他用户查看。

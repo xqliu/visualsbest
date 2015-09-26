@@ -7,7 +7,7 @@ from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
     Request, Order
 from app.util.db_util import save_obj_commit, save_objects_commit
-from app.util.message_util import create_message
+from app.util.message_util import create_message, create_request_msg
 from app.util.view_util import rt
 from flask import request, flash, url_for, redirect, render_template
 from flask.ext.login import current_user
@@ -62,13 +62,14 @@ def check_and_update_coming_request(req, operation_label, status_code, check_fun
     return req, success
 
 
-def mark_order_complete(order, check_func, msg):
+def mark_order_status(order, check_func, msg, status_code):
     if check_func(order.request):
-        status = EnumValues.find_one_by_code(const.ORDER_STATUS_COMPLETED)
+        status = EnumValues.find_one_by_code(status_code)
         order.status = status
-        save_obj_commit(order)
+        return order, True
     else:
         flash(msg)
+        return order, False
 
 
 def create_order_from_request(req):
@@ -89,10 +90,23 @@ def process_order():
     operation = request.form.get('operation')
     order_id = int(request.form.get('order_id'))
     order = Order.query.get(order_id)
+    success = False
     if operation == 'complete':
-        mark_order_complete(order, check_ownership, u'只有订单的发起人才可以将该订单标记为完成')
+        order, success = mark_order_status(order, check_ownership,
+                                           u'只有订单的发起人才可以将该订单标记为完成', const.ORDER_STATUS_COMPLETED)
+        if success:
+            create_request_msg(order.request.requester_id, order.request.photographer_id,
+                               'message/complete_order.txt', order.request)
     elif operation == 'confirm_paid':
-        mark_order_complete(order, check_towards, u'只有接受订单的摄影师才可以将该订单标记为已付款')
+        order, success = mark_order_status(order, check_towards,
+                                           u'只有接受订单的摄影师才可以将该订单标记为已付款', const.ORDER_STATUS_PAID)
+        if success:
+            create_request_msg(order.request.photographer_id, order.request.requester_id,
+                               'message/pay_order.txt', order.request)
+    if success:
+        flash(u'更新订单状态成功')
+        db.session.add(order)
+        db.session.commit()
     return redirect(url_for('orders', obj_type='order'))
 
 
@@ -105,13 +119,16 @@ def process_request():
     success = False
     if operation == 'cancel':
         req, success = check_and_update_coming_request(req, '取消', const.REQUEST_STATUS_CANCELLED, check_ownership)
+        create_request_msg(req.requester_id, req.photographer_id, 'message/cancel_request.txt', req)
     elif operation == 'confirm':
         req, success = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_towards)
         if success:
             order = create_order_from_request(req)
             db.session.add(order)
+            create_request_msg(req.photographer_id, req.requester_id, 'message/confirm_request.txt', req)
     elif operation == 'reject':
         req, success = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
+        create_request_msg(req.photographer_id, req.requester_id, 'message/reject_request.txt', req)
     if success:
         save_obj_commit(req)
         flash('更新拍摄请求状态成功')

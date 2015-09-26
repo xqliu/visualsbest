@@ -1,8 +1,17 @@
 from datetime import datetime
-from app import const
 
+from app import const, AppInfo
 from app.models import Message, EnumValues
-from app.util.db_util import save_obj_commit
+from flask import render_template
+
+app = AppInfo.get_app()
+db = AppInfo.get_db()
+
+
+def create_request_msg(from_user_id, to_user_id, template_file, render_obj):
+    content = render_template(template_file, request=render_obj)
+    message = create_message(from_user_id, to_user_id, content)
+    db.session.add(message)
 
 
 def create_message(from_user_id, to_user_id, content):

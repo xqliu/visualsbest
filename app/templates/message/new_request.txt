@@ -4,4 +4,12 @@
 
 其他备注信息：{{request.remark}}
 
+客户联系方式如下：
+
+电话: {{request.requester.mobile_phone or ''}}
+微信: {{request.requester.wechat_account}}
+
+本次拍摄日单价：{{request.price or '未知'}}
+本次拍摄总金额：{{request.amount or '未知'}}
+
 请您<a href="{{url_for('orders')}}" target="_blank">点击这里</a>查看该邀请并进行回应。

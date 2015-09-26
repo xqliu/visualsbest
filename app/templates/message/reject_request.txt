@@ -1,0 +1,7 @@
+您好{{ request.requester.display }}，摄影师{{request.photographer.display}} 确认无法从 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄，
+您可以线下联系该摄影师，确认相关信息。
+
+摄影师联系方式如下：
+
+电话: {{request.photographer.mobile_phone or ''}}
+微信: {{request.photographer.wechat_account}}

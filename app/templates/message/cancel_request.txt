@@ -1,0 +1,7 @@
+您好 {{request.photographer.display}}， {{ request.requester.display }} 取消了邀请您从 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄的请求，
+你可以线下与该用户进行联系以确认。
+
+该用户联系方式如下：
+
+电话: {{request.requester.mobile_phone or ''}}
+微信: {{request.requester.wechat_account}}

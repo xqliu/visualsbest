@@ -84,7 +84,7 @@
             </a>
             {% if unread_msg_size > 0 %}
               <a href="{{ url_for('messages') }}">
-                <div class="noti_bubble">{{ unread_msg_size }}</div>
+                <span class="noti_bubble">{{ unread_msg_size }}</span>
               </a>
             {% endif %}
           </div>

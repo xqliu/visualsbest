@@ -418,6 +418,7 @@
 
 .noti_bubble {
     position: relative; /* This breaks the div from the normal HTML document. */
+    display: block;
     top: -40px;
     right: -35px;
     padding: 1px 2px 1px 2px;
