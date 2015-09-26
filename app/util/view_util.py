@@ -15,10 +15,13 @@ db = AppInfo.get_db()
 
 
 def rt(template_html, **args):
-    msgs = db.session.query(Message).outerjoin(EnumValues, Message.status) \
-        .filter(EnumValues.code == MESSAGE_STATUS_UNREAD).filter(
-        Message.receive_user_id == current_user.id).all()
-    unread_msg_size = len(msgs)
+    if current_user.get_id() is not None:
+        msgs = db.session.query(Message).outerjoin(EnumValues, Message.status) \
+            .filter(EnumValues.code == MESSAGE_STATUS_UNREAD).filter(
+            Message.receive_user_id == current_user.id).all()
+        unread_msg_size = len(msgs)
+    else:
+        unread_msg_size = 0
     return render_template(template_html, login_user_form=LoginForm(),
                            unread_msg_size=unread_msg_size, register_user_form=UserRegisterForm(), **args)
 
