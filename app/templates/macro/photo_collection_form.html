@@ -10,7 +10,9 @@
       <div class="basic_xinxi_02">
         <input type="text" value="{{ photo_collection.name or '' }}" name="name" id="name"/>
       </div>
+      {% if is_edit == True %}
       <div class="basic_xinxi_03"><span id="delete_photo_collection_link">删除本作品集</span></div>
+      {% endif %}
     </li>
     <li>
       <div class="basic_xinxi_01"><label for="category">拍摄类别</label></div>
