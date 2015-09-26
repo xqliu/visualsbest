@@ -3,6 +3,7 @@ import calendar
 from datetime import date, timedelta
 
 from app import app_provider, AppInfo
+from app.const import DATE_STATUS_NOT_AVAILABLE
 from app.forms.date_status_form import DateStatusForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
@@ -55,7 +56,7 @@ def edit_date_status(photographer_id):
                     date_status.start_date = start_date
                     date_status.end_date = end_date
                     date_status.user_id = photographer_id
-                    date_status.status = EnumValues.find_one_by_code('DATE_STATUS_NOT_AVAILABLE')
+                    date_status.status = EnumValues.find_one_by_code(DATE_STATUS_NOT_AVAILABLE)
                     save_obj_commit(date_status)
                     flash('工作日历修改成功')
                 else:

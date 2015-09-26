@@ -1,11 +1,11 @@
 # encoding=utf-8
 from decimal import Decimal
 from app import app_provider, const, AppInfo
-from app.const import REQUEST_STATUS_DRAFT
+from app.const import *
 from app.forms.request_service_form import RequestServiceForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
-    Request, Order
+    Request, Order, DateStatus
 from app.util.db_util import save_obj_commit, save_objects_commit
 from app.util.message_util import create_message, create_request_msg
 from app.util.view_util import rt
@@ -48,7 +48,7 @@ def check_towards(obj):
     return obj.photographer_id == current_user.id
 
 
-def check_and_update_coming_request(req, operation_label, status_code, check_func):
+def check_and_update_request(req, operation_label, status_code, check_func):
     if not check_func(req):
         flash('您没有权限' + operation_label + '本拍摄请求')
         success = False
@@ -84,25 +84,31 @@ def create_order_from_request(req):
     return order
 
 
+def create_date_status_from_request(req):
+    date_status = DateStatus()
+    date_status.start_date = req.start_date
+    date_status.end_date = req.end_date
+    date_status.status = EnumValues.find_one_by_code(DATE_STATUS_NOT_AVAILABLE)
+    date_status.user_id = req.photographer_id
+    return date_status
+
+
 @app.route('/order/process', methods=['POST'])
 @login_required
 def process_order():
     operation = request.form.get('operation')
     order_id = int(request.form.get('order_id'))
     order = Order.query.get(order_id)
+    req = order.request
     success = False
     if operation == 'complete':
-        order, success = mark_order_status(order, check_ownership,
-                                           u'只有订单的发起人才可以将该订单标记为完成', const.ORDER_STATUS_COMPLETED)
+        order, success = mark_order_status(order, check_ownership, u'只有订单的发起人才可以将该订单标记为完成', ORDER_STATUS_COMPLETED)
         if success:
-            create_request_msg(order.request.requester_id, order.request.photographer_id,
-                               'message/complete_order.txt', order.request)
+            create_request_msg(req.requester_id, req.photographer_id, 'message/complete_order.txt', req)
     elif operation == 'confirm_paid':
-        order, success = mark_order_status(order, check_towards,
-                                           u'只有接受订单的摄影师才可以将该订单标记为已付款', const.ORDER_STATUS_PAID)
+        order, success = mark_order_status(order, check_towards, u'只有接受订单的摄影师才可以将该订单标记为已付款', ORDER_STATUS_PAID)
         if success:
-            create_request_msg(order.request.photographer_id, order.request.requester_id,
-                               'message/pay_order.txt', order.request)
+            create_request_msg(req.photographer_id, req.requester_id, 'message/pay_order.txt', req)
     if success:
         flash(u'更新订单状态成功')
         db.session.add(order)
@@ -118,16 +124,18 @@ def process_request():
     req = Request.query.get(request_id)
     success = False
     if operation == 'cancel':
-        req, success = check_and_update_coming_request(req, '取消', const.REQUEST_STATUS_CANCELLED, check_ownership)
+        req, success = check_and_update_request(req, '取消', REQUEST_STATUS_CANCELLED, check_ownership)
         create_request_msg(req.requester_id, req.photographer_id, 'message/cancel_request.txt', req)
     elif operation == 'confirm':
-        req, success = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_towards)
+        req, success = check_and_update_request(req, '确认', REQUEST_STATUS_CONFIRMED, check_towards)
         if success:
             order = create_order_from_request(req)
             db.session.add(order)
+            date_status = create_date_status_from_request(req)
+            db.session.add(date_status)
             create_request_msg(req.photographer_id, req.requester_id, 'message/confirm_request.txt', req)
     elif operation == 'reject':
-        req, success = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
+        req, success = check_and_update_request(req, '拒绝', REQUEST_STATUS_REJECTED, check_towards)
         create_request_msg(req.photographer_id, req.requester_id, 'message/reject_request.txt', req)
     if success:
         save_obj_commit(req)
