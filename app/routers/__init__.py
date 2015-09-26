@@ -5,3 +5,4 @@ from date_status import *
 from experience import *
 from photo_collection import *
 from request_order import *
+from message import *

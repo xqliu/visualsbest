@@ -217,7 +217,8 @@ table{border-collapse:collapse;border-spacing:0;}
 .renwu .rw{ background:none; margin:10px 0 0 20px;}
 .renwu .rw p.rw_img{ float:left;}
 .renwu .rw p.rw_img img{ width:100px;}
-.renwu .rw div.rw_details{ background:none; float:left; width:500px; margin-left:20px;}
+.renwu .rw div.rw_details{ background:none; float:left; width:92%; margin-left:20px;
+    min-width: 500px;}
 .renwu .rw div.rw_details h4{ color:#868686; font-size:18px; font-weight:normal;}
 .renwu .rw div.rw_details p{ font-size:12px; margin:4px 0;}
 .renwu .rw div.rw_details .rw_button{background:none; margin-top:12px;}

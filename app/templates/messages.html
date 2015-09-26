@@ -1,5 +1,6 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
+{% from "macro/ul_tab_cell.html" import ul_tab_cell %}
 
 {% block dashboard_nav %}
   {{ dashboard_nav("messages", current_user) }}
@@ -11,23 +12,62 @@
     <div class="others_right_head">
       <h4>消息中心</h4>
     </div>
-    <ul class="personal_gl personal_message">
-      <li><a href="#">新消息</a></li>
-      <li><a href="#">已读信息</a></li>
-    </ul>
-    <ul class="personal_message_deatils">
-      <li>
-        <div>1.</div>
-        <div><img src="../static/pic/gl.jpg"/></div>
-        <div class="personal_message_wz"><p>您的订单已经生成、请尽快付款</p>
-          <span>2015-04-02</span></div>
+    <ul class="personal_gl msg_tab">
+      {% if request.path == '/messages/unread' or request.path == '/messages/' %}
+        <li style="border: 1px solid #EFEFEF; background: #FFFFFF; border-bottom: none;">
+          {% else %}
+        <li>
+      {% endif %}
+      <a href="{{ url_for('messages', status_code='unread') }}">未读</a>
       </li>
-      <li>
-        <div>2.</div>
-        <div><img src="../static/pic/gl.jpg"/></div>
-        <div class="personal_message_wz"><p>您的订单已经生成、请尽快付款</p>
-          <span>2015-04-02</span></div>
-      </li>
+      {{ ul_tab_cell(url_for('messages', status_code='read'), "已读") }}
     </ul>
+    {% if messages|length > 0 %}
+      <form name='process_message' id='process_message' method="post" action="{{ url_for('process_message') }}">
+        <input type="hidden" name="operation" id="message_operation" value=""/>
+        <input type="hidden" name="message_id" id='message_id' value=""/>
+        <ul class="others_works renwu">
+
+          {% for m in messages %}
+            <li>
+              <div class="rw">
+                <div class="rw_details">
+                  <p style="float:left;width:10%">
+                    {% if m.from_user.image is defined and m.from_user.image != None %}
+                      <img
+                          src="{{ url_for('images', filename=m.from_user.image.path, width=42, height=39, mode='fit') }}"
+                          class="circular">
+                    {% else %}
+                      <img src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
+                           class="circular"/>
+                    {% endif %}
+                  </p>
+
+                  <p style="line-height:200%;float:right;width:90%">
+                    {{ m.content|substring('left',80) or '' }}... | 发送时间:{{ m.date.strftime('%y-%m-%d') or '' }}
+                  </p>
+
+                  <div class="rw_button" style="clear:both;padding-top:12px;">
+                    {% if m.status.code == 'MESSAGE_STATUS_UNREAD' %}
+                      <button class="gowancheng" id="mark_read_message_{{ m.id }}">标记为已读
+                        <span class="loose-left-icon glyphicon glyphicon-ok"></span>
+                      </button>
+                    {% endif %}
+                    <button class="gowancheng" type="button"
+                            onclick="window.open('{{ url_for('message', msg_id=m.id) }}', '_self')">
+                      查看消息<span class="loose-left-icon glyphicon glyphicon-eye-open"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </form>
+    {% else %}
+      <ul class="others_works renwu">
+        <li class="no_request_table_msg">没有消息</li>
+      </ul>
+    {% endif %}
   </div>
 {% endblock %}

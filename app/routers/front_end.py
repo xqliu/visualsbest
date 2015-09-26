@@ -2,7 +2,7 @@
 from app import app_provider, const, AppInfo
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
-    PhotoCollection, Request, Order
+    PhotoCollection, Request, Order, Message
 from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.photo_collection_util import render_search_result
@@ -13,6 +13,7 @@ from flask.ext.security import login_required
 from sqlalchemy import desc
 
 app = app_provider.AppInfo.get_app()
+db = AppInfo.get_db()
 
 
 @app.route("/")
@@ -83,12 +84,6 @@ def my_photos():
     photo_collections = PhotoCollection.query.filter_by(
         photographer_id=current_user.id).all()
     return rt('my_photos.html', photo_collections=photo_collections)
-
-
-@app.route("/messages")
-@login_required
-def messages():
-    return rt('messages.html')
 
 
 @app.route("/settings", methods=['GET', 'POST'])

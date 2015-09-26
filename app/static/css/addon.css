@@ -355,8 +355,12 @@
     border: 1px solid #FFFFFF;
 }
 
-.personal_gl_tab {
+.personal_gl_tab, .msg_tab {
     border-bottom: 1px solid #EFEFEF;
+}
+
+.msg_tab ul li {
+    width: 45%;
 }
 
 .no_ul_table_content_msg {
@@ -374,5 +378,42 @@
 
 .renwu .rw div.rw_details .rw_button .zaishuo {
     background: #AAAAAA;
+    width: 120px;
+    padding-left: 20px;
 }
+
+.renwu .rw div.rw_details .rw_button .gowancheng {
+    width: 120px;
+    padding-left: 20px;
+}
+
+.loose-left-icon {
+    padding-left: 10px;
+}
+
+.message_container {
+    padding: 20px;
+    font-size: 14px;
+}
+
+.message_container div {
+    line-height: 200%;
+}
+
+.message_container pre {
+    width: 98%;
+    margin: 20px auto auto;
+}
+
+.message_container div span {
+    width: 150px;
+    min-width: 150px;
+    display: inline-block;
+    margin-right: 30px;
+    border-bottom: 1px solid #EEEEEE;
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
 

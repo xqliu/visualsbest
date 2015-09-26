@@ -1,0 +1,27 @@
+{% extends 'layout/dashboard_layout.html' %}
+{% from "macro/dashboard_nav.html" import dashboard_nav %}
+
+{% block dashboard_nav %}
+  {{ dashboard_nav("messages", current_user) }}
+{% endblock %}
+{% block dashboard_main %}
+  {{ super() }}
+
+  <div class="others_right_top">
+    <div class="others_right_head">
+      <h4>消息中心</h4>
+
+      <div><a href="{{ url_for('messages') }}">返回消息列表</a></div>
+    </div>
+    <div class="message_container">
+      <div><span>发件人</span>{{ message.from_user.display or '' }}</div>
+      <div><span>联系电话</span>{{ message.from_user.mobile_phone or '' }}</div>
+      <div><span>微信</span>{{ message.from_user.wechat_account or '' }}</div>
+      <div><span>发送时间</span> {{ message.date or '' }}</div>
+      <div><span>消息状态</span> {{ message.status.display or '' }}</div>
+      <div>
+        <pre>{{ message.content|safe or '' }}</pre>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -26,7 +26,26 @@ $(function () {
     });
 });
 
+/*messages.html，标记 message为已读、查看message详情*/
+$(function () {
+    function process_msg(event, operation_label, operation_value) {
+        event.preventDefault();
+        var elemId = event.currentTarget.id;
+        var msg_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        if (confirm("确定标记本消息为" + operation_label + "？")) {
+            $("#message_operation").val(operation_value);
+            $("#message_id").val(msg_id);
+            $('form[name="process_message"]').submit();
+        }
+    }
+
+    $("button[id^='mark_read_message']").click(function (e) {
+        process_msg(e, '已读', 'read');
+    });
+});
+
 /*orders.html，取消、确认和拒绝拍摄请求*/
+/*orders.html，标记订单为完成和已付款*/
 $(function () {
 
     function process_order(event, operation_label, operation_value, optional_msg) {

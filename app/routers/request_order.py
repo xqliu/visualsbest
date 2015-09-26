@@ -14,6 +14,7 @@ from flask.ext.login import current_user
 from flask.ext.security import login_required
 
 app = app_provider.AppInfo.get_app()
+db = AppInfo.get_db()
 
 
 @app.route("/orders/")
@@ -21,9 +22,9 @@ app = app_provider.AppInfo.get_app()
 @app.route("/orders/<obj_type>/<status_code>")
 @login_required
 def orders(obj_type="request", status_code='draft'):
-    order_query = AppInfo.get_db().session.query(Order) \
+    order_query = db.session.query(Order) \
         .outerjoin(Request, Order.request).outerjoin(EnumValues, Order.status)
-    request_query = AppInfo.get_db().session.query(Request).outerjoin(EnumValues, Request.status)
+    request_query = db.session.query(Request).outerjoin(EnumValues, Request.status)
     if current_user.type.code == const.PHOTOGRAPHER_USER_TYPE:
         order_query = order_query.filter(Request.photographer_id == current_user.id)
         request_query = request_query.filter(Request.photographer_id == current_user.id)
@@ -50,12 +51,15 @@ def check_towards(obj):
 def check_and_update_coming_request(req, operation_label, status_code, check_func):
     if not check_func(req):
         flash('您没有权限' + operation_label + '本拍摄请求')
+        success = False
     elif req.status.code != const.REQUEST_STATUS_DRAFT:
         flash('只能' + operation_label + '处于草稿状态的拍摄请求')
+        success = False
     else:
         status = EnumValues.find_one_by_code(status_code)
         req.status = status
-    return req
+        success = True
+    return req, success
 
 
 def mark_order_complete(order, check_func, msg):
@@ -98,15 +102,19 @@ def process_request():
     operation = request.form.get('operation')
     request_id = int(request.form.get('request_id'))
     req = Request.query.get(request_id)
+    success = False
     if operation == 'cancel':
-        req = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_ownership)
+        req, success = check_and_update_coming_request(req, '取消', const.REQUEST_STATUS_CANCELLED, check_ownership)
     elif operation == 'confirm':
-        req = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_towards)
-        order = create_order_from_request(req)
-        save_obj_commit(order)
+        req, success = check_and_update_coming_request(req, '确认', const.REQUEST_STATUS_CONFIRMED, check_towards)
+        if success:
+            order = create_order_from_request(req)
+            db.session.add(order)
     elif operation == 'reject':
-        req = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
-    save_obj_commit(req)
+        req, success = check_and_update_coming_request(req, '拒绝', const.REQUEST_STATUS_REJECTED, check_towards)
+    if success:
+        save_obj_commit(req)
+        flash('更新拍摄请求状态成功')
     return redirect(url_for('orders'))
 
 

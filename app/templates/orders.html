@@ -51,8 +51,10 @@
                   {% if request.status.code == 'REQUEST_STATUS_DRAFT' %}
                     {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
                       <div class="rw_button">
-                        <button class="gowancheng" id="confirm_request_{{ request.id }}">确认请求</button>
-                        <button class="zaishuo" id="reject_request_{{ request.id }}">无法拍摄</button>
+                        <button class="gowancheng" id="confirm_request_{{ request.id }}">确认请求
+                          <span class="loose-left-icon glyphicon glyphicon-ok"></span></button>
+                        <button class="zaishuo" id="reject_request_{{ request.id }}">无法拍摄
+                          <span class="glyphicon glyphicon-remove loose-left-icon"></span></button>
                       </div>
                     {% else %}
                       <div class="rw_button">
