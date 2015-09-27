@@ -24,6 +24,7 @@ def messages(status_code='unread'):
 
 
 @app.route('/message/<msg_id>', methods=['GET'])
+@login_required
 def message(msg_id):
     msg = Message.query.get(msg_id)
     status = EnumValues.find_one_by_code(MESSAGE_STATUS_READ)

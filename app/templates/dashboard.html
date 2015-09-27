@@ -40,88 +40,53 @@
   {{ super() }}
   <div class="others_right_top">
     <div class="others_right_head">
-      <h4>我的拍摄请求</h4>
-
-      <div><a href="#">更多</a></div>
+      <h4>拍摄请求</h4>
     </div>
     <ul class="personal_gl">
-      <li><a href="#">未确认</a></li>
-      <li><a href="#">已确认</a></li>
+      <li><a href="{{ url_for('orders', obj_type='request', status_code='draft') }}">
+        未确认{% if draft_requests|length > 0 %}(<span style="color:red">{{ draft_requests|length }}</span>){% endif %}</a>
+      </li>
+      <li><a href="{{ url_for('orders', obj_type='request', status_code='confirmed') }}">已确认</a></li>
+      <li><a href="{{ url_for('orders', obj_type='request', status_code='confirmed') }}">已确认</a></li>
     </ul>
-    <ul class="others_works renwu">
-      {% if requests|length > 0 %}
-        {% for request in requests %}
-          <li>
-            <div class="rw">
-              <div class="rw_details">
-                {% if current_user.type == 'PHOTOGRAPHER_USER' %}
-                  <h4>{{ request.requester.display }}请求从 {{ request.start_date.strftime('%m-%d') or '' }}
-                    到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄</h4>
-                {% else %}
-                  <h4>请求 {{ request.photographer.display }} 于 {{ request.start_date.strftime('%m-%d') or '' }}
-                    到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄</h4>
-                {% endif %}
-                <p>
-                  拍摄分类：{{ request.category.display or '' }}， 拍摄风格：{{ request.style.display or '' }}，
-                  价格：{{ request.price or '未知' }}，总金额： {{ request.amount or '未知' }}<br>
-                  所需镜头： {{ request.lens_needed or '' }}，备注：{{ request.remark or '' }}</p>
-                {% if current_user.type == 'PHOTOGRAPHER_USER' %}
-                  <div class="rw_button">
-                    <button class="gowancheng">确认</button>
-                    <button class="zaishuo">无法拍摄</button>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-        {% endfor %}
-      {% endif %}
-
-    </ul>
-    <div class="clear"></div>
-    <ul class="other_qie">
-      <li class="curr"></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <br/>
   </div>
   <div class="others_right_bottom">
     <div class="others_right_head">
-      <h4>我的服务订单</h4>
-
-      <div><a href="#">共12个</a></div>
+      <h4>服务订单</h4>
     </div>
-    <dl class="geren2_order me_service">
-      <dt>
-        {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
-          <div>客户</div>
-        {% else %}
-          <div>摄影师</div>
-        {% endif %}
-      <div>类别</div>
-      <div>风格</div>
-      <div>地点</div>
-      <div>时间</div>
-      </dt>
-      <dd>
-        <div>上海居鼎设计有限公司</div>
-        <div>产品拍摄</div>
-        <div>上海市松江区松江路11号</div>
-        <div>2015-04-21</div>
-      </dd>
-      <dd>
-        <div>上海居鼎设计有限公司</div>
-        <div>产品拍摄</div>
-        <div>上海市松江区松江路11号</div>
-        <div>2015-04-21</div>
-      </dd>
-      <dd>
-        <div>上海居鼎设计有限公司</div>
-        <div>产品拍摄</div>
-        <div>上海市松江区松江路11号</div>
-        <div>2015-04-21</div>
-      </dd>
-    </dl>
+    <ul class="personal_gl">
+      <li><a href="{{ url_for('orders', obj_type='order', status_code='draft') }}">草稿</a></li>
+      <li><a href="{{ url_for('orders', obj_type='order', status_code='paid') }}">已确认</a></li>
+      <li><a href="{{ url_for('orders', obj_type='order', status_code='completed') }}">已完成</a></li>
+      <li><a href="{{ url_for('orders', obj_type='order', status_code='rated') }}">已评价</a></li>
+    </ul>
+    <br/>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4>系统消息</h4>
+    </div>
+    <ul class="personal_gl">
+      <li><a href="{{ url_for('messages', status_code='unread') }}">
+        未读{% if unread_msg_size > 0 %}(<span style="color:red">{{ unread_msg_size }}</span>){% endif %}</a>
+      </li>
+      <li><a href="{{ url_for('messages', status_code='read') }}">已读</a></li>
+    </ul>
+    <br/>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4>个人设定</h4>
+    </div>
+    <ul class="personal_gl">
+      <li><a href="{{ url_for('settings') }}">编辑个人信息</a></li>
+      {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+        <li><a href="{{ url_for('edit_experience', photographer_id=current_user.id) }}">编辑摄影经历</a></li>
+        <li><a href="{{ url_for('edit_date_status', photographer_id=current_user.id) }}">编辑工作日历</a></li>
+      {% endif %}
+    </ul>
+    <br/>
   </div>
 {% endblock %}
 

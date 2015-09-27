@@ -71,11 +71,14 @@ def blog(photographer_id):
 @app.route("/dashboard")
 @login_required
 def dashboard():
+    request_query = db.session.query(Request).outerjoin(EnumValues, Request.status)
     if current_user.type.code == const.PHOTOGRAPHER_USER_TYPE:
-        requests = Request.query.filter_by(photographer_id=current_user.id).all()
+        draft_requests = request_query.filter(Request.photographer_id == current_user.id) \
+            .filter(EnumValues.code == const.REQUEST_STATUS_DRAFT).all()
     else:
-        requests = Request.query.filter_by(requester_id=current_user.id).all()
-    return rt('dashboard.html', requests=requests)
+        draft_requests = request_query.filter(Request.requester_id == current_user.id) \
+            .filter(EnumValues.code == const.REQUEST_STATUS_DRAFT).all()
+    return rt('dashboard.html', draft_requests=draft_requests)
 
 
 @app.route("/my_photos")

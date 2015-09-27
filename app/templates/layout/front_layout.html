@@ -73,7 +73,7 @@
         </div>
         {% if current_user.is_authenticated() %}
           <div class="header_gallery_setting">
-            <a href="{{ url_for('settings') }}">
+            <a href="{{ url_for('dashboard') }}">
               {% if current_user.image is defined and current_user.image != None %}
                 <img alt="个人设定" class="circular"
                      src="{{ url_for('images', filename=current_user.image.path, width=42, height=39, mode='fit') }}">
@@ -96,9 +96,7 @@
               <div class="fixed_login_op"></div>
               <div class="fixed_login">
                 <div style="text-align: center;float:none;margin-top:4px">
-                  <a href="#"
-                     class="glyphicon glyphicon-remove popup-close-button"
-                     id="login-popup-closer"></a>
+                  <a href="#" class="glyphicon glyphicon-remove popup-close-button" id="login-popup-closer"></a>
                 </div>
                 <div class="fixed_login_head">登录
                   <a href="#" id="register_link_in_login">注册</a>
@@ -109,13 +107,11 @@
                     {{ login_user_form.hidden_tag() }}
                     <li><label for="login">登录名:</label></li>
                     <li>
-                      <input id="login" name="login" type="text" value=""
-                             class="txt">
+                      <input id="login" name="login" type="text" value="" class="txt">
                     </li>
                     <li><label for="password">密码:</label></li>
                     <li>
-                      <input id="password" name="password" type="password"
-                             value="" class="txt">
+                      <input id="password" name="password" type="password" value="" class="txt">
                     </li>
                     <li>
                       <input id="remember" name="remember" type="checkbox"
@@ -124,8 +120,7 @@
                     </li>
                     <li>
                       <button>登录</button>
-                      <a href="{{ url_for_security('forgot_password') }}"
-                         class="wangji">忘记密码？</a></li>
+                      <a href="{{ url_for_security('forgot_password') }}" class="wangji">忘记密码？</a></li>
                     <li class="line"><span>或者</span></li>
                     <li>使用你的社交账户登录:</li>
                     <li class="hezuo"><a href="#">微博登录</a>|<a href="#">QQ登录</a>|<a
