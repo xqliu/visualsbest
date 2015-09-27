@@ -1,11 +1,12 @@
 # encoding=utf-8
 from decimal import Decimal
+import datetime
 from app import app_provider, const, AppInfo
 from app.const import *
 from app.forms.request_service_form import RequestServiceForm
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
-    Request, Order, DateStatus
+    Request, Order, DateStatus, OrderComment, Comment, Message
 from app.util.db_util import save_obj_commit, save_objects_commit
 from app.util.message_util import create_message, create_request_msg
 from app.util.view_util import rt
@@ -91,6 +92,33 @@ def create_date_status_from_request(req):
     date_status.status = EnumValues.find_one_by_code(DATE_STATUS_NOT_AVAILABLE)
     date_status.user_id = req.photographer_id
     return date_status
+
+
+@app.route('/order_comment', methods=['POST'])
+def create_order_comment():
+    order_id = int(request.form.get('order_id'))
+    order = Order.query.get(order_id)
+    if order.request.requester_id == current_user.id and order.status.code == ORDER_STATUS_COMPLETED:
+        order_comment = OrderComment()
+        comment = Comment()
+        comment.user_id = current_user.id
+        comment.content = request.form.get('content')
+        comment.date = datetime.datetime.now()
+        order_comment.comment = comment
+        order_comment.order = order
+        order_comment.rating = int(request.form.get('rating'))
+        status = EnumValues.find_one_by_code(const.ORDER_STATUS_RATED)
+        order.status = status
+        db.session.add(comment)
+        db.session.add(order_comment)
+        db.session.add(order)
+        content = render_template("message/rate_order.txt", request=order.request, order_comment=order_comment)
+        msg = create_message(order.request.requester.id, order.request.photographer.id, content)
+        db.session.add(msg)
+        db.session.commit()
+    else:
+        flash('您没有权限评论本订单')
+    return redirect(url_for('orders', obj_type='order', status_code='completed'))
 
 
 @app.route('/order/process', methods=['POST'])

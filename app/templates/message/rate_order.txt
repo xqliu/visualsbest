@@ -1,0 +1,9 @@
+您好 {{request.photographer.display}}， {{ request.requester.display }} 评价了您 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 的拍摄活动，
+
+评价内容如下：
+
+{{order_comment.comment.content or ''}}
+
+给您的评分为： {{order_comment.rating or '未评分'}}
+
+您可以 <a href="{{url_for('create_collection')}}">点这里</a> 上传本次拍摄的作品到系统中。

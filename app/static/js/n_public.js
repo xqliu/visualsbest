@@ -26,6 +26,22 @@ $(function () {
     });
 });
 
+/*orders.html，评论订单 */
+$(function () {
+    var overlay = $("#order_comment_overlay"), content = $("#order_comment_content");
+    $("a[id^='comment_order']").click(function (e) {
+        var elemId = e.currentTarget.id;
+        var order_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        $("#comment_order_id").val(order_id);
+        overlay.css('display', 'block');
+        content.css('display', 'block');
+    });
+    overlay.click(function () {
+        overlay.css('display', 'none');
+        content.css('display', 'none');
+    });
+});
+
 /*messages.html，标记 message为已读、查看message详情*/
 $(function () {
     function process_msg(event, operation_label, operation_value) {
