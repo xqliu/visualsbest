@@ -102,6 +102,7 @@
       {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
         <li><a href="{{ url_for('edit_experience', photographer_id=current_user.id) }}">编辑摄影经历</a></li>
         <li><a href="{{ url_for('edit_date_status', photographer_id=current_user.id) }}">编辑工作日历</a></li>
+        <li><a href="{{ url_for('blog', photographer_id=current_user.id) }}">查看我的动态</a></li>
       {% endif %}
     </ul>
     <br/>
