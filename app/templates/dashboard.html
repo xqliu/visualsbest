@@ -1,6 +1,7 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 {% block header_tail %}
+  <link href="{{ url_for('static', filename='css/bic_calendar.css', v='3.3.0') }}" rel="stylesheet">
   <script type="text/javascript">
     $(function () {
       $(".renwu_x").click(function () {
@@ -38,13 +39,30 @@
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}
-  <div class="others_right_top">
+  {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+    <div class="others_right_top">
+      <div class="others_right_head">
+        <h4>我的工作日历</h4>
+      </div>
+      <div id="events-calendar-container">
+        <input type="hidden" id="photographer_id" value="{{ current_user.id }}"/>
+
+        <div id="events-calendar"></div>
+      <span id="event-calender-info" class="glyphicon glyphicon-info-sign">
+        显示为灰色的是已经标记为不可用或者有拍摄安排的日期
+      </span>
+      </div>
+      <br/>
+    </div>
+  {% endif %}
+  <div class="others_right_bottom">
     <div class="others_right_head">
       <h4>拍摄请求</h4>
     </div>
     <ul class="personal_gl">
       <li><a href="{{ url_for('orders', obj_type='request', status_code='draft') }}">
-        未确认{% if draft_requests|length > 0 %}(<span style="color:red">{{ draft_requests|length }}</span>){% endif %}</a>
+        未确认{% if draft_requests|length > 0 %}(<span class="highlight">{{ draft_requests|length }}</span>){% endif %}
+      </a>
       </li>
       <li><a href="{{ url_for('orders', obj_type='request', status_code='confirmed') }}">已确认</a></li>
       <li><a href="{{ url_for('orders', obj_type='request', status_code='confirmed') }}">已确认</a></li>
@@ -69,7 +87,7 @@
     </div>
     <ul class="personal_gl">
       <li><a href="{{ url_for('messages', status_code='unread') }}">
-        未读{% if unread_msg_size > 0 %}(<span style="color:red">{{ unread_msg_size }}</span>){% endif %}</a>
+        未读{% if unread_msg_size > 0 %}(<span class="highlight">{{ unread_msg_size }}</span>){% endif %}</a>
       </li>
       <li><a href="{{ url_for('messages', status_code='read') }}">已读</a></li>
     </ul>
@@ -162,4 +180,10 @@
       <img src="../static/images/fixed_cuo.png" class="fixed_time_img"/>
     </div>
   </div>
+{% endblock %}
+
+{% block tail_js %}
+  <script src="{{ url_for('static', filename='js/moment-with-locales.js', version='2.10.6') }}"></script>
+  <script src="{{ url_for('static', filename='js/bic_calendar.js', version='3.3.0') }}"></script>
+  <script src="{{ url_for('static', filename='js/date_status.js', version='0.0.2') }}"></script>
 {% endblock %}
