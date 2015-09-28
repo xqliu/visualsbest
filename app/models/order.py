@@ -1,6 +1,8 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
+from app.const import ORDER_STATUS_KEY
+from app.models import EnumValues
 from request import Request
 from sqlalchemy import Column, Integer, ForeignKey, Numeric
 from sqlalchemy.orm import backref, relationship
@@ -28,6 +30,10 @@ class Order(db.Model):
     # 订单的总金额
     amount = Column(Numeric(precision=8, scale=2,
                             decimal_return_scale=2), nullable=False)
+
+    @staticmethod
+    def status_filter():
+        return EnumValues.type_filter(ORDER_STATUS_KEY)
 
 
 class OrderComment(db.Model):

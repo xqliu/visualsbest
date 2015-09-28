@@ -26,4 +26,5 @@ class DateStatus(db.Model):
 
     # 这段时间内的可用状态
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
-    status = relationship('EnumValues', foreign_keys=[status_id])
+    status = relationship('EnumValues', backref=backref('date_status_of_status', uselist=True),
+                          foreign_keys=[status_id])

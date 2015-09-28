@@ -1,6 +1,8 @@
 # coding=utf-8
 
 from app.app_provider import AppInfo
+from app.const import PHOTO_CATEGORY_KEY, PHOTO_STYLE_KEY, REQUEST_STATUS_KEY, REQUEST_STATUS_CANCELLED, REQUEST_STATUS_DRAFT
+from app.models import EnumValues
 from user import User
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Numeric
 from sqlalchemy.orm import backref, relationship
@@ -52,3 +54,24 @@ class Request(db.Model):
     # 请求的状态，可能为拒绝或者同意，同意的会自动转变为订单
     status_id = Column(Integer, ForeignKey('enum_values.id'), nullable=False)
     status = relationship('EnumValues', foreign_keys=[status_id])
+
+    @staticmethod
+    def category_filter():
+        return EnumValues.type_filter(PHOTO_CATEGORY_KEY)
+
+    @staticmethod
+    def style_filter():
+        return EnumValues.type_filter(PHOTO_STYLE_KEY)
+
+    @staticmethod
+    def status_filter():
+        return EnumValues.type_filter(REQUEST_STATUS_KEY)
+
+    @staticmethod
+    def draft_status_filter():
+        return db.session.query(Request).join(EnumValues, Request.status_id == EnumValues.id).filter_by(code=REQUEST_STATUS_DRAFT)
+
+    def __repr__(self):
+        return self.requester.display + '->' + self.photographer.display + ' @ [' \
+               + self.start_date.strftime('%Y/%m/%d') + ' TO ' + self.end_date.strftime('%Y/%m/%d') + '] @ ' \
+               + self.location

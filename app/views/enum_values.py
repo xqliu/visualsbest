@@ -17,5 +17,6 @@ class EnumValuesAdmin(ModelViewWithAccess):
     }
 
     form_excluded_columns = (
-        'users_of_type', 'users_of_status', 'orders_of_status',
-        'photo_collections')
+        'users_of_style', 'users_of_status', 'users_of_type', 'orders_of_status', 'photo_collections_of_style',
+        'date_status_of_status', 'request_of_style', 'request_of_category', 'photo_collections_of_category'
+    )

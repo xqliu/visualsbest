@@ -2,6 +2,7 @@
 from app import const
 
 from app.app_provider import AppInfo
+from app.const import USER_STATUS_UN_VERIFIED, USER_STATUS_VERIFIED
 from app.models.enum_values import EnumValues
 from flask.ext.security import RoleMixin, UserMixin
 from image import Image
@@ -48,7 +49,7 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
     styles = db.relationship(EnumValues, secondary=users_styles,
-                             backref=db.backref('users', lazy='dynamic'))
+                             backref=db.backref('users_of_style', lazy='dynamic'))
     gender = db.Column(db.String(8), nullable=True)
     birthday = db.Column(Date, nullable=True)
     confirmed_at = Column(DateTime, nullable=True)
@@ -74,12 +75,21 @@ class User(db.Model, UserMixin):
     def type_filter():
         return EnumValues.type_filter(const.USER_TYPE_KEY)
 
+    @staticmethod
+    def normal_user_filter():
+        # return EnumValues.type_filter(const.NORMAL_USER_TYPE)
+        return db.session.query(User).join(EnumValues).filter_by(code=const.NORMAL_USER_TYPE)
+
+    @staticmethod
+    def photographer_user_filter():
+        return db.session.query(User).join(EnumValues).filter_by(code=const.PHOTOGRAPHER_USER_TYPE)
+
     # 用户状态, 根据 confirmed_at 字段来动态的获取
     @hybrid_property
     def status(self):
         if self.confirmed_at is None:
-            return EnumValues.find_one_by_code('UN_VERIFIED')
-        return EnumValues.find_one_by_code('VERIFIED')
+            return EnumValues.find_one_by_code(USER_STATUS_UN_VERIFIED)
+        return EnumValues.find_one_by_code(USER_STATUS_VERIFIED)
 
     @status.setter
     def status(self, value):
