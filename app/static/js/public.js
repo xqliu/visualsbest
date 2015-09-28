@@ -13,11 +13,11 @@ $(function () {
 });
 /*banner上面的选择*/
 $(function () {
-    $(".banner_top ul li").click(function () {
+    $(".banner_top ul li").unbind('click').click(function () {
         $(this).children("ul").slideToggle(200);
         $(this).siblings().children("ul").slideUp(200);
     });
-    $(".banner_top ul li ul").click(function (e) {
+    $(".banner_top ul li ul").unbind('click').click(function (e) {
         e.stopPropagation();
     });
 });
