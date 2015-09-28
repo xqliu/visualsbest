@@ -1,8 +1,10 @@
 # encoding=utf-8
+from datetime import datetime
 from app import app_provider, AppInfo, const
 from app.forms.photo_collection_form import PhotoCollectionForm
 from app.models import EnumValues, \
-    PhotoCollection
+    PhotoCollection, Comment
+from app.models.photo_collection import PhotoCollectionComment
 from app.util.db_util import save_obj_commit, delete_by_id
 from app.util.photo_collection_util import add_photo_works, delete_photo_works, save_photo_collection
 from app.util.view_util import rt
@@ -10,7 +12,26 @@ from flask import request, redirect, url_for, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 
-app = app_provider.AppInfo.get_app()
+app = AppInfo.get_app()
+db = AppInfo.get_db()
+
+
+@app.route('/create_collection_comment', methods=['POST'])
+@login_required
+def create_photo_collection_comment():
+    collection_id = int(request.form.get('comment_owner_id'))
+    photo_collection = PhotoCollection.query.get(collection_id)
+    collection_comment = PhotoCollectionComment()
+    comment = Comment()
+    comment.user_id = current_user.id
+    comment.content = request.form.get('content')
+    comment.date = datetime.now()
+    collection_comment.comment = comment
+    collection_comment.photo_collection = photo_collection
+    db.session.add(comment)
+    db.session.add(collection_comment)
+    db.session.commit()
+    return redirect(url_for('blog', photographer_id=photo_collection.photographer_id))
 
 
 @app.route("/collection_details/<int:collection_id>")

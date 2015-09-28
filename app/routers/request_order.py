@@ -96,7 +96,7 @@ def create_date_status_from_request(req):
 
 @app.route('/order_comment', methods=['POST'])
 def create_order_comment():
-    order_id = int(request.form.get('order_id'))
+    order_id = int(request.form.get('comment_owner_id'))
     order = Order.query.get(order_id)
     if order.request.requester_id == current_user.id and order.status.code == ORDER_STATUS_COMPLETED:
         order_comment = OrderComment()
@@ -116,6 +116,7 @@ def create_order_comment():
         msg = create_message(order.request.requester.id, order.request.photographer.id, content)
         db.session.add(msg)
         db.session.commit()
+        flash('拍摄订单服务评价成功')
     else:
         flash('您没有权限评论本订单')
     return redirect(url_for('orders', obj_type='order', status_code='completed'))

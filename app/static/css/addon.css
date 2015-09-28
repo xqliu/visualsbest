@@ -440,13 +440,13 @@
     padding-top: 5px;
 }
 
-#order_comment_content {
+#comment_content {
     position: fixed;
     display: none;
     top: 200px;
     left: 30%;
     width: 40%;
-    height: 320px;
+    height: auto;
     background-color: rgb(239, 239, 239);
     border: 3px solid #5BD0E0;
     filter: alpha(opacity=95);
@@ -456,9 +456,19 @@
     z-index: 9999;
     border-radius: 15px;
     font-size: 14px;
+    padding-bottom: 25px;
 }
 
-#order_comment_overlay {
+#comment_content textarea {
+    width: 90%;
+    height: 140px;
+    display: block;
+    margin: 20px auto auto;
+    line-height: 150%;
+    padding: 20px
+}
+
+#comment_overlay {
     position: fixed;
     display: none;
     top: 0;
@@ -513,9 +523,17 @@
 /* End the rating */
 
 .highlight {
-    color:red;
+    color: red;
 }
 
 .search_top ul.search_time li input {
     width: 220px;
+}
+
+.work_wz {
+    padding: 20px;
+}
+
+.link-cursor {
+    cursor: pointer;
 }

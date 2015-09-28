@@ -1,4 +1,5 @@
 {% extends 'layout/front_layout.html' %}
+{% from "macro/comment_panel.html" import comment_panel %}
 
 {% block header_tail %}
   <script type="text/javascript"
@@ -64,15 +65,41 @@
                 class="big-circular"/>
           {% endif %}
         </a>
+
+        <div style="padding-top:20px">
+          <span class="link-cursor" id="comment_collection_{{ collection.id }}">评论作品集<span
+              class="glyphicon glyphicon-comment loose-left-icon"></span><a>
+        </div>
       </div>
       <div class="work_wz_right">
-        <h6>作品简介 :</h6>
+        <h6>简介</h6>
 
         <div style="padding-top:10px">{{ collection.introduce or '' }}</div>
-        <h6>作品拍摄价格 :</h6>
+        <h6>拍摄价格</h6>
 
         <div style="padding-top:10px">{{ collection.price or '未知' }}</div>
+
       </div>
     </div>
+    <div class="work_wz">
+      {% if collection.comments|length > 0 %}
+        <div class="collection_detail_comment">
+          <div class="bowen_time">
+            <a href="{{ url_for('collection_details', collection_id=collection.id) }}">{{ collection.date or '' }} 发布</a>
+          </div>
+          <div class="pinglun">
+            <p><img src="../static/images/top_ico.png"/></p>
+            {% for c in collection.comments %}
+              <span><a href="{{ url_for('blog', photographer_id=c.comment.user.id) }}">
+                {{ c.comment.user.display or '无名氏' }}</a>：{{ c.comment.content or 'TA什么也没说...' }}
+            </span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
   </div>
+{% endblock %}
+{% block before_body_end %}
+  {{ comment_panel("说点什么吧", "您觉得这组摄影作品怎么样呢？", url_for('create_photo_collection_comment'), False) }}
 {% endblock %}

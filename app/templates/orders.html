@@ -1,6 +1,7 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 {% from "macro/ul_tab_cell.html" import ul_tab_cell %}
+{% from "macro/comment_panel.html" import comment_panel %}
 
 {% block dashboard_nav %}
   {{ super() }}
@@ -153,42 +154,5 @@
 {% endblock %}
 
 {% block before_body_end %}
-  <div id="order_comment_overlay"></div>
-  <div id="order_comment_content">
-    <div style="text-align:center;font-size:16px;padding-top:20px">
-      评论本摄影订单
-    </div>
-    <form name="rate_order" method="POST" action="{{ url_for('create_order_comment') }}">
-      <input type="hidden" name="order_id" id="comment_order_id" value=""/>
-
-      <div>
-      <textarea id="content" name="content" placeholder="请简单评价一下您本次预约的摄影服务"
-                style="width:90%;height:140px;display:block;margin: 20px auto auto;"></textarea>
-      </div>
-      <div style="width:90%;display:block;margin: 20px auto auto;">
-          <span class="rating">
-              <input type="radio" class="rating-input"
-                     id="rating-input-1-5" name="rating" value="5">
-              <label for="rating-input-1-5" class="rating-star"></label>
-              <input type="radio" class="rating-input"
-                     id="rating-input-1-4" name="rating" value="4">
-              <label for="rating-input-1-4" class="rating-star"></label>
-              <input type="radio" class="rating-input"
-                     id="rating-input-1-3" name="rating" value="3">
-              <label for="rating-input-1-3" class="rating-star"></label>
-              <input type="radio" class="rating-input"
-                     id="rating-input-1-2" name="rating" value="2">
-              <label for="rating-input-1-2" class="rating-star"></label>
-              <input type="radio" class="rating-input"
-                     id="rating-input-1-1" name="rating" value="1">
-              <label for="rating-input-1-1" class="rating-star"></label>
-          </span>
-      </div>
-      <div style="width:90%;display:block;margin: 20px auto auto;text-align:center">
-        <button type="submit" class="gowancheng" id="submit_comment">提交评价<span
-            class="loose-left-icon glyphicon glyphicon-comment"></span>
-        </button>
-      </div>
-    </form>
-  </div>
+  {{ comment_panel("评论本摄影订单", "请简单评价一下您本次预约的摄影服务", url_for('create_order_comment'), True) }}
 {% endblock %}

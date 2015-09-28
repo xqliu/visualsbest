@@ -72,8 +72,8 @@ class PhotoCollectionComment(db.Model):
 
     # 关联作品集
     photo_collection_id = Column(Integer, ForeignKey('photo_collection.id'), nullable=False)
-    photo_work = relationship('PhotoCollection', foreign_keys=[photo_collection_id],
-                              backref=backref('photo_collection_comments', uselist=True))
+    photo_collection = relationship('PhotoCollection', foreign_keys=[photo_collection_id],
+                                    backref=backref('comments', uselist=True))
 
     # 关联的评论
     comment_id = Column(Integer, ForeignKey('comment.id'), nullable=False)

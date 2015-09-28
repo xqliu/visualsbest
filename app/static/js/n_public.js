@@ -28,13 +28,22 @@ $(function () {
 
 /*orders.html，评论订单 */
 $(function () {
-    var overlay = $("#order_comment_overlay"), content = $("#order_comment_content");
-    $("a[id^='comment_order']").click(function (e) {
+    var overlay = $("#comment_overlay"), content = $("#comment_content");
+
+    function show_comment_panel(e) {
         var elemId = e.currentTarget.id;
         var order_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
-        $("#comment_order_id").val(order_id);
+        $("#comment_owner_id").val(order_id);
         overlay.css('display', 'block');
         content.css('display', 'block');
+    }
+
+    $("a[id^='comment_order']").click(function (e) {
+        show_comment_panel(e);
+    });
+
+    $("span[id^='comment_collection']").click(function (e) {
+        show_comment_panel(e);
     });
     overlay.click(function () {
         overlay.css('display', 'none');

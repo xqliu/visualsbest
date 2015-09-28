@@ -4,8 +4,9 @@ from flask import url_for
 import os
 
 # 在Debug时候，不在forward时停止
+DEBUG_TB_ENABLED = False
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
+DEBUG_TB_TEMPLATE_EDITOR_ENABLED = False
 SENTRY_DSN = os.environ.get('SENTRY_DSN') or ''
 
 # 最大的上传文件大小(4M)
