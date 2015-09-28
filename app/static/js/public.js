@@ -42,7 +42,7 @@ $(function () {
 });
 /*首页登录注册*/
 $(function () {
-    $(".denglu").click(function () {
+    $("#top_login_link").unbind("click").click(function () {
         var $loginFixed = $(".login_fixed");
         if ($loginFixed.css('display') != 'none') {
             $loginFixed.css('display', 'none');
@@ -51,7 +51,7 @@ $(function () {
         }
         $loginFixed.siblings(".zhuce_fixed").css("display", "none");
     });
-    $(".zhuce").click(function () {
+    $("#top_register_link").unbind("click").click(function () {
         var $zhuceFixed = $(".zhuce_fixed");
         if ($zhuceFixed.css('display') != 'none') {
             $zhuceFixed.css('display', 'none');
@@ -60,25 +60,25 @@ $(function () {
         }
         $zhuceFixed.siblings(".login_fixed").css("display", "none");
     });
-    $(".fixed_zhuce p a").click(function () {
+    $(".fixed_zhuce p a").unbind("click").click(function () {
         var $loginFixed = $(".login_fixed");
         if ($loginFixed.css('display') != 'none') {
             $loginFixed.show().delay(1000).hide(0);
         }
         $(".zhuce_fixed").css("display", "none");
     });
-    $(".fixed_login_head a").click(function () {
+    $(".fixed_login_head a").unbind("click").click(function () {
         var $zhuceFixed = $(".zhuce_fixed");
         if ($zhuceFixed.css('display') != 'none') {
             $zhuceFixed.show().delay(1000).hide(0);
         }
         $(".login_fixed").css("display", "none");
     });
-    $("#login_link_in_register").click(function () {
+    $("#login_link_in_register").unbind("click").click(function () {
         $(".zhuce_fixed").css("display", "none");
         $(".login_fixed").show();
     });
-    $("#register_link_in_login").click(function () {
+    $("#register_link_in_login").unbind("click").click(function () {
         $(".login_fixed").css("display", "none");
         $(".zhuce_fixed").show();
     });
