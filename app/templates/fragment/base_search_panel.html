@@ -7,17 +7,31 @@
       <h6>日期</h6>
       <ul class="search_time">
         <li><label>
-          <input type="date" name="min_date" value="{{ min_date or '' }}"/>
+          <script>
+            $(function () {
+              $("#min_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                showButtonPanel: true
+              });
+              $("#max_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                showButtonPanel: true
+              });
+            });
+          </script>
+          <input value="{{ min_date or '' }}" name="min_date" type="text" id="min_date"
+                 style="z-index:100000;position: relative"/>
         </label></li>
         <li class="zhi">至</li>
         <li><label>
-          <input type="date" name="max_date" value="{{ max_date or '' }}"/>
+          <input type="text" id="max_date" name="max_date" value="{{ max_date or '' }}"
+                 style="z-index:100000;position: relative"/>
         </label></li>
         <li class="zhi">
           <label>
             <input type="checkbox" name="include_none_date" class="include_none"
                    {% if include_none_date == 'on' %}checked{% endif %}>
-            <span class="lose-left">包含日期为空的作品集</span>
+            <span class="lose-left">包含日期为空</span>
           </label>
         </li>
       </ul>
@@ -26,11 +40,11 @@
       <h6>拍摄价位</h6>
       <ul class="search_time">
         <li><label>
-          <input type="number" class="serach_txt" value="{{ min_price or '' }}" name="min_price"/>
+          <input type="text" class="serach_txt" value="{{ min_price or '' }}" name="min_price"/>
         </label></li>
         <li class="zhi">至</li>
         <li><label>
-          <input type="number" class="serach_txt" value="{{ max_price or '' }}" name="max_price">
+          <input type="text" class="serach_txt" value="{{ max_price or '' }}" name="max_price">
         </label></li>
         <li class="zhi">
           <label>

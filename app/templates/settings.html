@@ -42,17 +42,18 @@
         <li>
           <div class="basic_xinxi_01"><label for="birthday">出生年月</label></div>
           <div class="basic_xinxi_02">
-            <input value="
-
-
-
-
-
-
-
-
-                {% if user.birthday is defined and user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}"
-                   id="birthday" name="birthday" type="date">
+            <script>
+              $(function () {
+                $("#birthday").datepicker({
+                  dateFormat: 'yy-mm-dd',
+                  changeMonth: true,
+                  changeYear: true,
+                  defaultDate: '1985-01-01'
+                });
+              });
+            </script>
+            <input value="{% if user.birthday != None %}{{ user.birthday.strftime('%Y-%m-%d') }}{% else %}{% endif %}"
+                   id="birthday" name="birthday" type="text">
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
@@ -105,7 +106,7 @@
         <li>
           <div class="basic_xinxi_01"><label for="daily_price">日拍摄报价</label></div>
           <div class="basic_xinxi_02">
-            <input type="number" id="daily_price" name="daily_price" value="{{ user.daily_price or '' }}"/>
+            <input type="text" id="daily_price" name="daily_price" value="{{ user.daily_price or '' }}"/>
           </div>
           <div class="basic_xinxi_03"></div>
         </li>

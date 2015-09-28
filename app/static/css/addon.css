@@ -515,3 +515,7 @@
 .highlight {
     color:red;
 }
+
+.search_top ul.search_time li input {
+    width: 220px;
+}
