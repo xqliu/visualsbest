@@ -205,7 +205,7 @@ def request_service(photographer_id):
             flash('创建拍摄请求成功, 转到拍摄请求管理页面')
             return redirect(url_for('orders'))
         else:
-            flash('校验失败，请填写所有信息并再次尝试创建拍摄请求')
+            flash('校验失败，请填写所有信息并再次尝试创建拍摄请求(拍摄价格为必填字段)')
             return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user,
                       categories=categories, styles=styles, form=form)
     else:

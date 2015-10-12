@@ -15,7 +15,7 @@ class RequestServiceForm(Form):
     lens_needed = StringField('lens_needed', [Required()])
     remark = StringField('remark', [Optional()])
     location = StringField('location', [Required()])
-    price = DecimalField('price', [Optional()])
+    price = DecimalField('price', [Required()])
     amount = DecimalField('amount', [Optional()])
 
     def __init__(self, categories, styles):
