@@ -83,12 +83,14 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+if config.DEBUG is not True:
+    sentry = Sentry(app)
+
 
 @app.before_first_request
 def init_rollbar():
     """init rollbar module"""
     if config.DEBUG is not True:
-        sentry = Sentry(app)
         rollbar.init(
             # access token for the demo app: https://rollbar.com/demo
             '90a56a42d47d4343a45b1105338d47c8',
