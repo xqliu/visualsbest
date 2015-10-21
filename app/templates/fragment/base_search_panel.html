@@ -19,18 +19,15 @@
               });
             });
           </script>
-          <input value="{{ min_date or '' }}" name="min_date" type="text" id="min_date"
-                 style="z-index:100000;position: relative"/>
+          <input value="{{ min_date or '' }}" name="min_date" type="text" id="min_date" style="z-index:1;position: relative"/>
         </label></li>
         <li class="zhi">至</li>
         <li><label>
-          <input type="text" id="max_date" name="max_date" value="{{ max_date or '' }}"
-                 style="z-index:100000;position: relative"/>
+          <input type="text" id="max_date" name="max_date" value="{{ max_date or '' }}" style="z-index:1;position: relative"/>
         </label></li>
         <li class="zhi">
           <label>
-            <input type="checkbox" name="include_none_date" class="include_none"
-                   {% if include_none_date == 'on' %}checked{% endif %}>
+            <input type="checkbox" name="include_none_date" class="include_none" {% if include_none_date == 'on' %}checked{% endif %}>
             <span class="lose-left">包含日期为空</span>
           </label>
         </li>
