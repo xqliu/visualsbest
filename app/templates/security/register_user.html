@@ -4,14 +4,12 @@
     <div class="fixed_login fixed_register">
       <h3 style="text-align: center">欢迎注册Visual's Best网站</h3>
       {% include "security/_messages.html" %}
-      <form action="{{ url_for_security('register', next=url_for_security('login')) }}"
-            method="POST" name="register_user_form">
+      <form action="{{ url_for_security('register', next=url_for_security('login')) }}" method="POST" name="register_user_form">
         <ul>
           {{ register_user_form.hidden_tag() }}
           <li><label for="login">用户名:</label></li>
           <li>
-            <input id="login" name="login" type="text" class="txt"
-                   value="{{ register_user_form.login.data or '' }}">
+            <input id="login" name="login" type="text" class="txt" value="{{ register_user_form.login.data or '' }}">
           </li>
           {% if register_user_form.login.errors %}
             {% for error in register_user_form.login.errors %}
@@ -21,8 +19,7 @@
 
           <li><label for="display">昵称:</label></li>
           <li>
-            <input id="display" name="display" type="text" class="txt"
-                   value="{{ register_user_form.display.data or '' }}">
+            <input id="display" name="display" type="text" class="txt" value="{{ register_user_form.display.data or '' }}">
           </li>
           {% if register_user_form.display.errors %}
             {% for error in register_user_form.display.errors %}
@@ -32,8 +29,7 @@
 
           <li><label for="mobile_phone">手机号码:</label></li>
           <li>
-            <input id="mobile_phone" name="mobile_phone" type="text" class="txt"
-                   value="{{ register_user_form.mobile_phone.data or ''}}">
+            <input id="mobile_phone" name="mobile_phone" type="text" class="txt" value="{{ register_user_form.mobile_phone.data or '' }}">
           </li>
           {% if register_user_form.mobile_phone.errors %}
             {% for error in register_user_form.mobile_phone.errors %}
@@ -43,8 +39,7 @@
 
           <li><label for="email">邮箱地址:</label></li>
           <li>
-            <input id="email" name="email" type="text" class="txt"
-                   value="{{ register_user_form.email.data or ''}}">
+            <input id="email" name="email" type="text" class="txt" value="{{ register_user_form.email.data or '' }}">
           </li>
           {% if register_user_form.email.errors %}
             {% for error in register_user_form.email.errors %}
@@ -54,8 +49,7 @@
 
           <li><label for="password">密码:</label></li>
           <li>
-            <input id="password" name="password" type="password" class="txt"
-                   value="{{ register_user_form.password.data or ''}}">
+            <input id="password" name="password" type="password" class="txt" value="{{ register_user_form.password.data or '' }}">
           </li>
           {% if register_user_form.password.errors %}
             {% for error in register_user_form.password.errors %}
@@ -65,9 +59,8 @@
 
           <li><label for="password_confirm">确认密码:</label></li>
           <li>
-            <input id="password_confirm" name="password_confirm"
-                   type="password" class="txt"
-                   value="{{ register_user_form.password_confirm.data or ''}}">
+            <input id="password_confirm" name="password_confirm" type="password" class="txt"
+                   value="{{ register_user_form.password_confirm.data or '' }}">
           </li>
           {% if register_user_form.password_confirm.errors %}
             {% for error in register_user_form.password_confirm.errors %}
@@ -77,9 +70,12 @@
           <li><label for="type_id">用户类型</label></li>
           <li><select name="type_id" id="type_id" class="txt">
             <option value="{{ register_user_form.normal_user_type.id }}"
-                    {% if register_user_form.normal_user_type.id | string ==  register_user_form.type_id.data %}selected{% endif %}>普通用户</option>
+                    {% if register_user_form.normal_user_type.id | string ==  register_user_form.type_id.data %}selected{% endif %}>普通用户
+            </option>
             <option value="{{ register_user_form.photographer_user_type.id }}"
-                    {% if register_user_form.photographer_user_type.id | string ==  register_user_form.type_id.data %}selected{% endif %}>摄影师用户</option>
+                    {% if register_user_form.photographer_user_type.id | string ==  register_user_form.type_id.data %}selected{% endif %}>
+              摄影师用户
+            </option>
           </select>
           </li>
           <li class="last-item">
