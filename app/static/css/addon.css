@@ -545,3 +545,15 @@
 #ui-datepicker-div {
     z-index: 10003 !important;
 }
+
+.item_list {
+    margin-left: 27px;
+}
+
+.item_t .title h5 {
+    font-size: 16px;
+}
+
+.item_t .title dl dt {
+    font-weight: normal;
+}
