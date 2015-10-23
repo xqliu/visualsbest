@@ -7,7 +7,7 @@ from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.photo_collection_util import render_search_result
 from app.util.view_util import rt
-from flask import request
+from flask import request, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
 from sqlalchemy import desc
@@ -120,5 +120,7 @@ def settings():
                     (len(request.files.get('photo').filename) > 0):
                 view_util.save_user_gallery(user, request.files['photo'])
             save_obj_commit(user)
+        else:
+            flash('请确保所有必填字段已填写(日拍摄报价为必填字段)')
     return rt('settings.html', user_profile_form=UserProfileForm(), user_styles=user.styles,
               user=user, all_styles=all_styles)
