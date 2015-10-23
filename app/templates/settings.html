@@ -110,7 +110,18 @@
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
-        <li class="inherit-height">
+        <li>
+          <div class="basic_xinxi_01"><label for="users_styles">擅长风格</label></div>
+          <div class="basic_xinxi_02 styles-container">
+            {% for s in all_styles %}
+              <span class="{% if s in user_styles %}selected{% else %}unselected{% endif %}" id="g_a_style_{{ s.id }}">
+                {{ s.display }}
+              </span>
+            {% endfor %}
+          </div>
+          <div class="basic_xinxi_03"></div>
+        </li>
+        <li class="inherit-height hidden">
           <div class="basic_xinxi_01"><label for="users_styles">擅长风格</label></div>
           <div class="basic_xinxi_02 inherit-height">
             <select multiple="multiple" name="users_styles" id="users_styles">

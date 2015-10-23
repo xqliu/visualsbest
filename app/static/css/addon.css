@@ -557,3 +557,23 @@
 .item_t .title dl dt {
     font-weight: normal;
 }
+
+.styles-container .unselected, .styles-container .selected {
+    padding: 0 10px 2px 10px;
+    border-radius: 10px;
+    border: 1px solid #999999;
+    color: #FFFFFF;
+    background: #999999;
+    margin: auto 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.styles-container .selected {
+    background-color: rgb(100, 195, 211);
+    border: 1px solid rgb(100, 195, 211);
+}
+
+.styles-container {
+    padding-left: 20px;
+}
