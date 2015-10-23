@@ -24,16 +24,22 @@
                 </a>
               </div>
               <div class="title">
-                <h5><a href="{{ url_for('blog', photographer_id=p.id) }}">
-                  {% if p.image is defined and p.image != None %}
-                    <img src="{{ url_for('images', filename=p.image.path, width=42, height=39, mode='fit') }}"
-                         class="md-circular">
-                  {% else %}
-                    <img src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
-                         class="md-circular"/>
-                  {% endif %}
-                  <span>{{ p.display or '无名大侠' }}</span></a>
-                  <span><a href="{{ url_for('request_service', photographer_id=p.id) }}">预约</a></span>
+                <h5>
+                  <span><a href="{{ url_for('blog', photographer_id=p.id) }}">
+                    {% if p.image is defined and p.image != None %}
+                      <img src="{{ url_for('images', filename=p.image.path, width=42, height=39, mode='fit') }}"
+                           class="md-circular">
+                    {% else %}
+                      <img src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"
+                           class="md-circular"/>
+                    {% endif %}
+                    <span>{{ p.display|substring("left",9) or '无名大侠' }}</span></a>
+                </span>
+                  <span style="float:right;font-size:11px">
+                    <a href="{{ url_for('request_service', photographer_id=p.id) }}" style="color:rgb(100, 195, 211)">
+                      预约<span class="glyphicon glyphicon-phone" style="margin-left:0"></span>
+                    </a>
+                  </span>
                 </h5>
                 <dl>
                   <dt>擅长风格:</dt>
