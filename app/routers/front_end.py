@@ -1,4 +1,5 @@
 # encoding=utf-8
+import datetime
 from app import app_provider, const, AppInfo
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
@@ -18,7 +19,10 @@ db = AppInfo.get_db()
 
 @app.route("/")
 def index():
-    return rt('index.html')
+    all_styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    all_categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    start_date = datetime.datetime.now() + datetime.timedelta(1)
+    return rt('index.html', all_styles=all_styles, all_categories=all_categories, start_date=start_date)
 
 
 @app.route("/photograph", methods=['GET', 'POST'])
@@ -50,9 +54,10 @@ def works():
     return render_search_result(template='works.html', router='/works', get_all=get_all, get_filtered=get_filtered)
 
 
-@app.route("/search")
+@app.route('/search', methods=['POST'])
 def search():
-    return rt('search.html')
+    if request.method == 'POST':
+        return rt('search.html')
 
 
 @app.route("/comments")

@@ -577,3 +577,7 @@
 .styles-container {
     padding-left: 20px;
 }
+
+.li_lis a {
+    cursor: pointer;
+}

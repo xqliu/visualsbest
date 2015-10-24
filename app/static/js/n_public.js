@@ -124,4 +124,42 @@ $(function () {
         users_styles.find("option[value='" + style_id + "']").prop("selected", data[current_class].prop);
         elem.attr('class', data[current_class].elem_class);
     });
+    $("#index_search_link").unbind('click').click(function () {
+        $('form[name="search_form"]').submit();
+    });
+    $("a[id^='index_search_category_']").unbind('click').click(function (e) {
+        var elemId = e.currentTarget.id,
+                category_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        $("#index_search_category").val(category_id);
+        $("#category_label").text($("#" + elemId).text());
+        $(".photo_add").hide();
+    });
+    $("a[id^='index_search_style_']").unbind('click').click(function (e) {
+        var elemId = e.currentTarget.id,
+                style_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        $("#index_search_style").val(style_id);
+        $("#style_label").text($("#" + elemId).text());
+        $(".photo_add").hide();
+    });
+    $("a[id^='index_search_loc_']").unbind('click').click(function (e) {
+        var elemId = e.currentTarget.id,
+                loc_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        $("#index_search_loc").val(loc_id);
+        $("#loc_label").text($("#" + elemId).text());
+        $(".photo_add").hide();
+    });
+    $("a[id^='index_search_earliest_']").unbind('click').click(function (e) {
+        var elemId = e.currentTarget.id,
+                style_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        $("#index_search_earliest_date").val(style_id);
+        $("#earliest_start_date_label").text($("#" + elemId).text());
+        $(".photo_add").hide();
+    });
+    $("a[id^='index_search_latest_']").unbind('click').click(function (e) {
+        var elemId = e.currentTarget.id,
+                style_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1);
+        $("#index_search_latest_date").val(style_id);
+        $("#latest_start_date_label").text($("#" + elemId).text());
+        $(".photo_add").hide();
+    });
 });
