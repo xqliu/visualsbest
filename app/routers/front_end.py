@@ -35,7 +35,7 @@ def photograph():
     def get_filtered(collections):
         photographs = []
         for c in collections:
-            if not c.photographer in photographs:
+            if c.photographer not in photographs:
                 photographs.append(c.photographer)
         return photographs
 
