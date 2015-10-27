@@ -10,9 +10,10 @@
     </a>
 
     <h2>{{ photo_collection.name }}</h2>
+    <h6>时间: {{ photo_collection.date.strftime('%Y-%-m-%-d') or '' }}</h6>
+    <h6>类别: {{ photo_collection.category.display or '' }}</h6>
+    <h6>风格: {{ photo_collection.style.display or '' }}</h6>
     <h6>{{ photo_collection.introduce|substring("left", 20) + '...' or '' }}</h6>
-    <h6>时间: {{ photo_collection.date or '' }}</h6>
-
     <div>
       <a href="#" class="zan">（0）</a>
       <a href="#" class="wx">（0）</a>
