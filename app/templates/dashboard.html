@@ -73,8 +73,8 @@
       <h4>服务订单</h4>
     </div>
     <ul class="personal_gl">
-      <li><a href="{{ url_for('orders', obj_type='order', status_code='draft') }}">草稿</a></li>
-      <li><a href="{{ url_for('orders', obj_type='order', status_code='paid') }}">已确认</a></li>
+      <li><a href="{{ url_for('orders', obj_type='order', status_code='draft') }}">未付款</a></li>
+      <li><a href="{{ url_for('orders', obj_type='order', status_code='paid') }}">已付款</a></li>
       <li><a href="{{ url_for('orders', obj_type='order', status_code='completed') }}">已完成</a></li>
       <li><a href="{{ url_for('orders', obj_type='order', status_code='rated') }}">已评价</a></li>
     </ul>

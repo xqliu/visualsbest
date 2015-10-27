@@ -100,7 +100,7 @@
           {% else %}
         <li>
       {% endif %}
-      <a href="{{ url_for('orders', obj_type='order', status_code='draft') }}">草稿</a>
+      <a href="{{ url_for('orders', obj_type='order', status_code='draft') }}">未付款</a>
       </li>
       {{ ul_tab_cell(url_for('orders', obj_type='order', status_code='paid'), "已付款") }}
       {{ ul_tab_cell(url_for('orders', obj_type='order', status_code='completed'), "已完成") }}
