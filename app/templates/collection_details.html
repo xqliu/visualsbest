@@ -88,7 +88,7 @@
             <a href="{{ url_for('collection_details', collection_id=collection.id) }}">{{ collection.date or '' }} 发布</a>
           </div>
           <div class="pinglun">
-            <p><img src="../static/images/top_ico.png"/></p>
+            <p><img src="{{ url_for('static', filename='images/top_ico.png') }}"></p>
             {% for c in collection.comments %}
               <span><a href="{{ url_for('blog', photographer_id=c.comment.user.id) }}">
                 {{ c.comment.user.display or '无名氏' }}</a>：{{ c.comment.content or 'TA什么也没说...' }}
