@@ -39,7 +39,7 @@ table{border-collapse:collapse;border-spacing:0;}
 /*搜索*/
 .header_right{ width:480px; float:right;}
 .header_right1{ width:310px;}
-.search{ width:117px; height:25px; float:left; margin-top:14px; position:relative; top:0px; left:0px;border:1px solid #fff; border-radius:15px;} 
+.search{ width:117px; height:25px; float:left; margin-top:14px; position:relative; top:0px; left:0px;border:1px solid #fff; border-radius:15px;}
 .search input{ width:80px; height:20px; border:none; background:none; margin:0 auto; margin-top:3px; margin-left:5px; color:#fff;}
 .search button{ display:block; width:20px; height:20px; background:none;border:none; position:absolute; right:5px; top:2px; text-align:center; cursor:pointer;}
 .search button{ border:none;}
@@ -139,7 +139,7 @@ table{border-collapse:collapse;border-spacing:0;}
 .community ul li a.community_01{ background:url(../pic/community_01.png) no-repeat center;}
 .community ul li a.community_02{ background:url(../pic/community_02.png) no-repeat center; margin-left:26px;}
 .community ul li a.community_03{ background:url(../pic/community_03.jpg) no-repeat center; margin-left:52px;}
-.community ul li a h5{ font-size:24px; color:#fff; font-weight:normal; letter-spacing:5px; margin-top:205px;} 
+.community ul li a h5{ font-size:24px; color:#fff; font-weight:normal; letter-spacing:5px; margin-top:205px;}
 .community ul li a span{ font-size:18px; color:#fff; width:100%; letter-spacing:3px;}
 /*foot*/
 .foot{ width:100%; height:338px; background:url(../pic/footer_bg.jpg) no-repeat center; margin-top:60px;font-family: "微软雅黑", "Microsoft YaHei", serif; overflow:hidden;}
@@ -233,8 +233,8 @@ table{border-collapse:collapse;border-spacing:0;}
 .other_qie li.curr{background:url(../images/n_curr_xz.png) no-repeat center;}
 /*个人主页head*/
 .main_head{ width:100%; height:54px; background:#53cbdd; overflow:hidden;}
-.main_head ul li{ width:70px; line-height:54px; float:left; margin-right:30px; text-align:center;}
-.main_head ul li.curr{ background:#42bacc;color:#EEEEEE;}
+.main_head ul li{ width:90px; line-height:54px; float:left; margin-right:30px; text-align:center;}
+.main_head ul li.curr{ background:#42bacc;color:#EEEEEE;padding-left:10px;padding-right:10px}
     .main_head ul li a{ color:#fff; font-size:14px;}
 /*个人主页1--我的照片*/
 .others_xq h5 a{ color:#64C3D3; font-size:14px;}
