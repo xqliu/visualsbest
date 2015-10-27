@@ -44,7 +44,7 @@
                   </p>
 
                   <p style="line-height:200%;float:right;width:90%">
-                    {{ m.content|substring('left',80) or '' }}... | 发送时间:{{ m.date.strftime('%y-%m-%d') or '' }}
+                    {{ m.content|substring('left',80) or '' }}... | 发送时间:{{ m.date.strftime('%y-%m-%d %H:%M') or '' }}
                   </p>
 
                   <div class="rw_button" style="clear:both;padding-top:12px;">

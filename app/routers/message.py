@@ -19,7 +19,7 @@ db = AppInfo.get_db()
 def messages(status_code='unread'):
     msgs = db.session.query(Message).outerjoin(EnumValues, Message.status) \
         .filter(EnumValues.code == "MESSAGE_STATUS_" + status_code.upper()).filter(
-        Message.receive_user_id == current_user.id).all()
+        Message.receive_user_id == current_user.id).order_by(Message.date.desc()).all()
     return rt('messages.html', messages=msgs)
 
 
