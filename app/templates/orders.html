@@ -27,6 +27,13 @@
       <a href="{{ url_for('orders', obj_type='request', status_code='draft') }}">未确认</a>
       </li>
       {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='confirmed'), "已确认") }}
+      {% if current_user.is_authenticated() %}
+        {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+          {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='rejected'), "已拒绝") }}
+        {% else %}
+          {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='rejected'), "已被拒绝") }}
+        {% endif %}
+      {% endif %}
       {{ ul_tab_cell(url_for('orders', obj_type='request', status_code='cancelled'), "已取消") }}
     </ul>
     {% if requests|length > 0 %}
