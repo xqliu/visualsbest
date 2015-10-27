@@ -68,20 +68,50 @@
         </div>
         {% if current_user.is_authenticated() %}
           <div class="header_gallery_setting">
-            <a href="{{ url_for('dashboard') }}">
-              {% if current_user.image is defined and current_user.image != None %}
-                <img alt="个人设定" class="circular"
-                     src="{{ url_for('images', filename=current_user.image.path, width=42, height=39, mode='fit') }}">
-              {% else %}
-                <img alt="个人设定" class="circular"
-                     src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"/>
-              {% endif %}
-            </a>
-            {% if unread_msg_size > 0 %}
-              <a href="{{ url_for('messages') }}">
-                <span class="noti_bubble">{{ unread_msg_size }}</span>
+            <div id="header_gallery">
+              <a href="{{ url_for('dashboard') }}">
+                {% if current_user.image is defined and current_user.image != None %}
+                  <img alt="个人设定" class="circular"
+                       src="{{ url_for('images', filename=current_user.image.path, width=42, height=39, mode='fit') }}">
+                {% else %}
+                  <img alt="个人设定" class="circular"
+                       src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"/>
+                {% endif %}
               </a>
-            {% endif %}
+              {% if unread_msg_size > 0 %}
+                <a href="{{ url_for('messages') }}">
+                  <span class="noti_bubble">{{ unread_msg_size }}</span>
+                </a>
+              {% endif %}
+            </div>
+            <div id="popup-menu">
+              <p><img src="{{ url_for('static', filename='images/top_ico.png') }}"></p>
+
+              <div>
+                <ul>
+                  <li {% if page == "dashboard" %}class="curr"{% endif %}>
+                    <a href="{{ url_for('dashboard') }}">我的中心</a>
+                  </li>
+                  <li {% if page == "orders" %}class="curr"{% endif %}>
+                    <a href="{{ url_for('orders') }}">订单管理</a>
+                  </li>
+                  <li {% if page == "messages" %}class="curr"{% endif %}>
+                    <a href="{{ url_for('messages') }}">消息中心</a>
+                  </li>
+                  <li {% if page == "settings" %}class="curr"{% endif %}>
+                    <a href="{{ url_for('settings') }}">账户设置</a>
+                  </li>
+                  {% if current_user.is_authenticated() and current_user.type.code == 'PHOTOGRAPHER_USER' %}
+                    <li {% if page == "my_photos" or page == "create_collection" or page == "edit_collection" %}class="curr"{% endif %}>
+                      <a href="{{ url_for('my_photos') }}">作品管理</a>
+                    </li>
+                  {% endif %}
+                  {% if current_user.is_authenticated() %}
+                    <li><a href="{{ url_for('security.logout') }}">退出系统</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
           </div>
         {% else %}
           <div class="login">
@@ -190,17 +220,9 @@
           </div>
         {% endif %}
         <div class="help"><a href="#">帮助</a></div>
-        {% if current_user.is_authenticated() %}
-          {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
-            <div class="help header_create_collection_link">
-              <a href="{{ url_for('my_photos') }}">作品管理</a>
-            </div>
-          {% endif %}
-          <div class="help"><a href="{{ url_for('security.logout') }}">退出</a>
-        {% endif %}
-        </div>
       </div>
     </div>
+  </div>
   </div>
 {% endblock %}
 <!--导航 end-->

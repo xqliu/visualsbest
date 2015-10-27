@@ -581,3 +581,28 @@
 .li_lis a {
     cursor: pointer;
 }
+
+#popup-menu {
+    display: none;
+    position: relative;
+    left: -10px;
+    top: -15px;
+    color: #333333;
+    width: 100px;
+}
+
+#popup-menu p {
+    position: relative;
+    left: 20px;
+    top: 5px
+}
+
+#popup-menu div {
+    background: #EEEEEE;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    margin: 5px;
+    line-height: 200%;
+    border: solid 1px #DDDDDD;
+}

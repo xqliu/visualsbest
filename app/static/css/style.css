@@ -232,10 +232,10 @@ table{border-collapse:collapse;border-spacing:0;}
 .other_qie li{ width:13px; height:13px; background:url(../images/n_curr.png) no-repeat center; float:left; padding:0 5px; cursor:pointer;}
 .other_qie li.curr{background:url(../images/n_curr_xz.png) no-repeat center;}
 /*个人主页head*/
-.main_head{ width:100%; height:54px; background:#EFEFEF; overflow:hidden;}
+.main_head{ width:100%; height:54px; background:#53cbdd; overflow:hidden;}
 .main_head ul li{ width:70px; line-height:54px; float:left; margin-right:30px; text-align:center;}
-.main_head ul li.curr{ background:#fff;}
-.main_head ul li a{ color:#42bacc; font-size:14px;}
+.main_head ul li.curr{ background:#42bacc;color:#EEEEEE;}
+    .main_head ul li a{ color:#fff; font-size:14px;}
 /*个人主页1--我的照片*/
 .others_xq h5 a{ color:#64C3D3; font-size:14px;}
 .personal_contacts{ color:#64C3D3; line-height:40px;}
