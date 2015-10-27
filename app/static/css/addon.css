@@ -606,3 +606,15 @@
     line-height: 200%;
     border: solid 1px #DDDDDD;
 }
+
+.geren2_order .status_cell, .geren2_order .location {
+    width: 15%;
+}
+
+.geren2_order .operation {
+    width: 30%;
+}
+
+.me_service dd div {
+    font-size: 12px;
+}

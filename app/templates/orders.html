@@ -120,10 +120,10 @@
         {% else %}
           <div>摄影师</div>
         {% endif %}
-      <div>地点</div>
+      <div class="location">地点</div>
       <div>时间</div>
-      <div>状态</div>
-      <div>操作</div>
+      <div class="status_cell">状态</div>
+      <div class="operation">操作</div>
       </dt>
       {% if orders|length > 0 %}
         <form name='process_order' id='process_order' method="post" action="{{ url_for('process_order') }}">
@@ -132,15 +132,18 @@
           {% for order in orders %}
             <dd>
               <div>{{ order.request.requester.display or '' }}</div>
-              <div>{{ order.request.location or '' }}</div>
-              <div>{{ order.request.start_date.strftime('%m-%d') or '' }}
-                到 {{ order.request.end_date.strftime('%m-%d') or '' }} </div>
-              <div>{{ order.status.display or '' }}</div>
-              <div>
+              <div class="location">{{ order.request.location or '' }}</div>
+              <div>{{ order.request.start_date.strftime('%-m-%-d') or '' }}
+                到 {{ order.request.end_date.strftime('%-m-%-d') or '' }} </div>
+              <div class="status_cell">{{ order.status.display or '' }}</div>
+              <div class="operation">
                 {% if order.status.code == 'ORDER_STATUS_DRAFT' and current_user.id == order.request.photographer_id %}
                   <a href="#" id="confirm_paid_order_{{ order.id }}">标记订单已付款</a>
                 {% elif order.status.code == 'ORDER_STATUS_PAID' and current_user.id == order.request.requester_id %}
                   <a href="#" id="complete_order_{{ order.id }}">标记订单已完成</a>
+                {% elif order.status.code == 'ORDER_STATUS_PAID' and current_user.id == order.request.photographer_id %}
+                  于{{ order.request.start_date.strftime('%-m-%-d') or '' }}到{{ order.request.end_date.strftime('%-m-%-d') or '' }}在
+                  {{ order.request.location or '' }}拍摄
                 {% elif (order.status.code == 'ORDER_STATUS_COMPLETED' or order.status.code == 'ORDER_STATUS_COMPLETED')
                 and current_user.id == order.request.photographer_id %}
                   <a href="{{ url_for('create_collection') }}" target="_blank">上传拍摄作品集</a>
