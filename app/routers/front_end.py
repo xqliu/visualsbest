@@ -69,7 +69,7 @@ def comments():
 def blog(photographer_id):
     photographer = User.query.get(photographer_id)
     sorted_collections = PhotoCollection.query.filter_by(photographer_id=photographer.id) \
-        .order_by(desc(PhotoCollection.date)).all()
+        .order_by(PhotoCollection.date.desc()).all()
     return rt('blog.html', photographer=photographer, collections=sorted_collections)
 
 

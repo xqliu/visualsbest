@@ -20,70 +20,77 @@
         <div class="others_right_head">
           <h4>他的动态</h4>
         </div>
-        {% for c in collections %}
-          <div class="bowen">
-            <div class="bowen_touxiang">
-              {% if photographer.image is defined and photographer.image != None %}
-                <img src="{{ url_for('images', filename=photographer.image.path, width=55, height=56, mode='fit') }}"
-                     class="md-circular">
-              {% else %}
-                <img src="{{ url_for('images', filename="big_tx.png", width=55, height=56, mode='fit') }}"
-                     class="md-circular"/>
-              {% endif %}
-            </div>
-            <div class="bowen_xiangqing">
-              <h5>发布新拍摄作品系列：{{ c.name or '' }}</h5>
-
-              <p>
-                {{ c.introduce|substring("left", 90) }}<span>{{ c.introduce|substring("right", 90) }}</span>
-                {% if c.introduce|length > 90 %}
-                  <a href="javascript:" class="all">查看全部</a>
-                  <a href="javascript:" class="shouqi">收起</a>
+        {% if collections|length > 0 %}
+          {% for c in collections %}
+            <div class="bowen">
+              <div class="bowen_touxiang">
+                {% if photographer.image is defined and photographer.image != None %}
+                  <img src="{{ url_for('images', filename=photographer.image.path, width=55, height=56, mode='fit') }}"
+                       class="md-circular">
+                {% else %}
+                  <img src="{{ url_for('images', filename="big_tx.png", width=55, height=56, mode='fit') }}"
+                       class="md-circular"/>
                 {% endif %}
-              </p>
+              </div>
+              <div class="bowen_xiangqing">
+                <h5>发布新拍摄作品系列：{{ c.name or '' }}</h5>
 
-              <div class="bowen_img">
-                {% for photo in c.photos %}
-                  <a href="{{ url_for('collection_details', collection_id=c.id) }}">
-                    <img src="{{ url_for('images', filename=photo.image.path, width=80, height=70, mode='crop') }}"/>
-                  </a>
-                {% endfor %}
-              </div>
-              <div class="bowen_time">
-                <a href="{{ url_for('collection_details', collection_id=c.id) }}">{{ c.date or '' }} 发布新作品集</a>
-              </div>
-              {% if c.comments|length > 0 %}
-                <div class="pinglun">
-                  <p><img src="{{ url_for('static', filename='images/top_ico.png') }}"></p>
-                  {% for c in c.comments %}
-                    <span><a href="{{ url_for('blog', photographer_id=c.comment.user.id) }}">
-                      {{ c.comment.user.display or '无名氏' }}</a>：{{ c.comment.content or 'TA什么也没说...' }}
-                    </span>
+                <p>
+                  {{ c.introduce|substring("left", 90) }}<span>{{ c.introduce|substring("right", 90) }}</span>
+                  {% if c.introduce|length > 90 %}
+                    <a href="javascript:" class="all">查看全部</a>
+                    <a href="javascript:" class="shouqi">收起</a>
+                  {% endif %}
+                </p>
+
+                <div class="bowen_img">
+                  {% for photo in c.photos %}
+                    <a href="{{ url_for('collection_details', collection_id=c.id) }}">
+                      <img src="{{ url_for('images', filename=photo.image.path, width=80, height=70, mode='crop') }}"/>
+                    </a>
                   {% endfor %}
                 </div>
-              {% endif %}
-              <div class="clear"></div>
-              <div class="center-block">
-                <ul>
-                  <li>
+                <div class="bowen_time">
+                  <a href="{{ url_for('collection_details', collection_id=c.id) }}">{{ c.date or '' }} 查看作品集详情</a>
+                </div>
+                {% if c.comments|length > 0 %}
+                  <div class="pinglun">
+                    <p><img src="{{ url_for('static', filename='images/top_ico.png') }}"></p>
+                    {% for c in c.comments|reverse %}
+                      <span><a href="{{ url_for('blog', photographer_id=c.comment.user.id) }}">
+                        {{ c.comment.user.display or '无名氏' }}
+                        @ {{ c.comment.date.strftime('%-m-%-d %-H:%-M') or '' }}</a>：{{ c.comment.content or 'TA什么也没说...' }}
+                    </span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                <div class="clear"></div>
+                <div class="center-block">
+                  <ul>
+                    <li>
                     <span class="link-cursor" id="comment_collection_{{ c.id }}">
                       评论<span>({{ c.comments|length }})</span>
                       <span class="loose-left-icon glyphicon glyphicon-comment"></span>
                     </span>
-                  </li>
-                  <li>
-                    <a href="#" title="加入收藏"><img src="../static/images/zan1.png" style="padding-right:5px">1500</a>
-                  </li>
-                </ul>
+                    </li>
+                    <li>
+                      <a href="#" title="加入收藏"><img src="../static/images/zan1.png" style="padding-right:5px">1500</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="la"><img src="../static/images/la.png" width="21" height="18"/></div>
+              <div class="la_block">
+                <a href="#">帮上头条</a>
+                <a href="#">举报</a>
               </div>
             </div>
-            <div class="la"><img src="../static/images/la.png" width="21" height="18"/></div>
-            <div class="la_block">
-              <a href="#">帮上头条</a>
-              <a href="#">举报</a>
-            </div>
+          {% endfor %}
+        {% else %}
+          <div class="bowen">
+            <div style="text-align:center;margin:auto;font-size:14px;line-height: 200%;padding:20px;">该摄影师暂时没有任何动态哦</div>
           </div>
-        {% endfor %}
+        {% endif %}
       </div>
     </div>
     <!--other_right end-->
