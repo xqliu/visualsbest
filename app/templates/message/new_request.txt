@@ -1,4 +1,4 @@
-您好 {{request.photographer.display}}， {{ request.requester.display }} 邀请您从 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄。
+您好 {{request.photographer.display}}， {{ request.requester.display }} 邀请您从 {{ request.start_date.strftime('%Y-%m-%d') or '' }} 到 {{ request.end_date.strftime('%Y-%m-%d') or '' }} 在 {{ request.location.display or '' }} 进行拍摄。
 
 相关信息如下：拍摄作品分类：{{request.category.display}}，拍摄作品风格：{{request.style.display}}，所需要的镜头：{{request.lens_needed}}
 

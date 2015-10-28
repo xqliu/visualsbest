@@ -41,7 +41,9 @@ class Request(db.Model):
     category = relationship('EnumValues', backref=backref('request_of_category', uselist=True),
                             foreign_keys=[category_id])
     # 拍摄地点
-    location = Column(String(128), nullable=False)
+    location_id = Column(Integer, ForeignKey('enum_values.id'), nullable=True)
+    location = relationship('EnumValues', backref=backref('requests_of_location', uselist=True), foreign_keys=[location_id])
+
     # 需要带的镜头
     lens_needed = Column(String(128))
     # 其他备注信息

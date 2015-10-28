@@ -67,7 +67,13 @@
           <li>
             <div class="basic_xinxi_01"><label for="location">拍摄地点</label></div>
             <div class="basic_xinxi_02">
-              <input name="location" id="location" type="text" value="" placeholder="拍摄地点">
+              {% if locations|length > 0 %}
+                <select name="location" id="location">
+                  {% for location in locations %}
+                    <option value="{{ location.id }}">{{ location.display }}</option>
+                  {% endfor %}
+                </select>
+              {% endif %}
             </div>
           </li>
           <li>

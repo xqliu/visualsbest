@@ -5,6 +5,13 @@ from wtforms.fields.html5 import DecimalField, DateField
 from wtforms.validators import Optional
 
 
+def list_from_enum_values(enum_values):
+    values = []
+    for v in enum_values:
+        values.append((str(v.id), v.display))
+    return values
+
+
 class RequestServiceForm(Form):
     photographer_id = StringField('photographer_id', [Required()])
     requester_id = StringField('requester_id', [Required()])
@@ -14,17 +21,12 @@ class RequestServiceForm(Form):
     style = SelectField('style', [Required()])
     lens_needed = StringField('lens_needed', [Required()])
     remark = StringField('remark', [Optional()])
-    location = StringField('location', [Required()])
+    location = SelectField('Location', [Required()])
     price = DecimalField('price', [Required()])
     amount = DecimalField('amount', [Optional()])
 
-    def __init__(self, categories, styles):
+    def __init__(self, categories, styles, locations):
         super(RequestServiceForm, self).__init__()
-        cats = []
-        for c in categories:
-            cats.append((str(c.id), c.display))
-        self.category.choices = cats
-        scs = []
-        for s in styles:
-            scs.append((str(s.id), s.display))
-        self.style.choices = scs
+        self.category.choices = list_from_enum_values(categories)
+        self.location.choices = list_from_enum_values(locations)
+        self.style.choices = list_from_enum_values(styles)

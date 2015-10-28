@@ -178,8 +178,9 @@ def request_service(photographer_id):
     user = User.query.filter_by(id=photographer_id).first()
     styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    locations = EnumValues.type_filter(const.LOCATION_TYPE_KEY).all()
     request_obj = Request()
-    form = RequestServiceForm(categories, styles)
+    form = RequestServiceForm(categories, styles, locations)
     if request.method == 'POST':
         if form.validate_on_submit():
             default_status = EnumValues.find_one_by_code(REQUEST_STATUS_DRAFT)
@@ -187,6 +188,8 @@ def request_service(photographer_id):
             request_obj.category = EnumValues.query.get(request_obj.category_id)
             request_obj.style_id = int(form.style.data)
             request_obj.style = EnumValues.query.get(request_obj.style_id)
+            request_obj.location_id = int(form.location.data)
+            request_obj.location = EnumValues.query.get(request_obj.location_id)
             request_obj.start_date = form.start_date.data
             request_obj.end_date = form.end_date.data
             request_obj.lens_needed = form.lens_needed.data
@@ -194,7 +197,6 @@ def request_service(photographer_id):
             request_obj.requester_id = current_user.id
             request_obj.photographer_id = int(form.photographer_id.data)
             request_obj.photographer = User.query.get(request_obj.photographer_id)
-            request_obj.location = form.location.data
             request_obj.remark = form.remark.data
             request_obj.status = default_status
             request_obj.price = Decimal(form.price.data)
@@ -206,6 +208,6 @@ def request_service(photographer_id):
             return redirect(url_for('orders'))
         else:
             flash('校验失败，请填写所有信息并再次尝试创建拍摄请求(拍摄价格为必填字段)')
-            return rt('request_service.html', photographer=user, categories=categories, styles=styles, form=form)
+            return rt('request_service.html', photographer=user, categories=categories, styles=styles, locations=locations, form=form)
     else:
-        return rt('request_service.html', photographer=user, categories=categories, styles=styles, form=form)
+        return rt('request_service.html', photographer=user, categories=categories, styles=styles, locations=locations, form=form)
