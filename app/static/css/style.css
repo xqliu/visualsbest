@@ -161,7 +161,7 @@ table{border-collapse:collapse;border-spacing:0;}
 .others_jj{ width:100%; height:auto; border:1px solid #EDEDED; margin-bottom:24px;}
 .others_jj div.others_tx img{ width:100%;}
 .others_jj div.others_xq{ padding-bottom:15px; overflow:hidden; text-align:center;}
-.others_jj .zuozhe_name{ font-size:20px; text-align:center; margin:15px auto 0px;}
+.others_jj .zuozhe_name{ font-size:16px; text-align:center; margin:15px auto 0px;}
 .others_jj .about{ text-align:center; width:100%; height:35px; line-height:35px; text-align:center; font-size:16px;}
 .others_jj .about a{color:#42bacc; }
 .others_jj div.others_xq h5{ font-weight:normal; font-size:14px; color:#42bacc; margin:0 auto; overflow:hidden; line-height:22px;}
