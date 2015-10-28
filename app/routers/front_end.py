@@ -1,9 +1,10 @@
 # encoding=utf-8
 import datetime
+
 from app import app_provider, const, AppInfo
 from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
-    PhotoCollection, Request, Order, Message
+    PhotoCollection, Request
 from app.util import view_util
 from app.util.db_util import save_obj_commit
 from app.util.photo_collection_util import render_search_result
@@ -11,7 +12,6 @@ from app.util.view_util import rt
 from flask import request, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
-from sqlalchemy import desc
 
 app = app_provider.AppInfo.get_app()
 db = AppInfo.get_db()
@@ -98,7 +98,7 @@ def my_photos():
 @login_required
 def settings():
     user = User.query.filter_by(id=current_user.id).first()
-    all_styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    all_locations = EnumValues.type_filter(const.LOCATION_TYPE_KEY).all()
     if request.method == 'POST':
         form = UserProfileForm()
         if request.form.get('gender') is None \
@@ -116,16 +116,14 @@ def settings():
             user.qq_number = form.qq_number.data
             user.introduce = form.introduce.data
             user.daily_price = form.daily_price.data
-            user.styles = []
-            for style_id in form.users_styles.data:
-                style = EnumValues.query.get(int(style_id))
-                if style is not None:
-                    user.styles.append(style)
+            user.accept_travel = form.accept_travel.data
+            user.location_id = int(form.location.data)
             if ('photo' in request.files) and \
                     (len(request.files.get('photo').filename) > 0):
                 view_util.save_user_gallery(user, request.files['photo'])
             save_obj_commit(user)
+            flash('更新个人信息成功！')
         else:
             flash('请确保所有必填字段已填写(日拍摄报价为必填字段)')
     return rt('settings.html', user_profile_form=UserProfileForm(), user_styles=user.styles,
-              user=user, all_styles=all_styles)
+              user=user, all_locations=all_locations)

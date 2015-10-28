@@ -6,7 +6,7 @@ from app.const import USER_STATUS_UN_VERIFIED, USER_STATUS_VERIFIED
 from app.models.enum_values import EnumValues
 from flask.ext.security import RoleMixin, UserMixin
 from image import Image
-from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime, Date, Numeric
+from sqlalchemy import Column, Integer, ForeignKey, Text, DateTime, Date, Numeric, String
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import backref, relationship
 
@@ -70,6 +70,13 @@ class User(db.Model, UserMixin):
 
     # 每天的报价(用户提交请求时，自动生成报价)
     daily_price = Column(Numeric(precision=8, scale=2, decimal_return_scale=2), nullable=True)
+
+    # 常驻摄影地
+    location_id = Column(Integer, ForeignKey('enum_values.id'), nullable=True)
+    location = relationship('EnumValues', backref=backref('users_of_location', uselist=True), foreign_keys=[location_id])
+
+    # 是否接受出差
+    accept_travel = db.Column(db.Boolean(), nullable=True)
 
     @staticmethod
     def type_filter():

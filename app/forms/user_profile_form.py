@@ -2,7 +2,7 @@
 from app import const
 from app.models import EnumValues
 from flask.ext.security.forms import Form, Required
-from wtforms import StringField, RadioField, DateField, SelectMultipleField
+from wtforms import StringField, RadioField, DateField, SelectField, BooleanField
 from wtforms.fields.html5 import DecimalField
 from wtforms.validators import Optional
 
@@ -20,13 +20,14 @@ class UserProfileForm(Form):
     weibo_account = StringField('Weibo Account')
     wechat_account = StringField('Wechat Account')
     introduce = StringField('Introduce')
-    users_styles = SelectMultipleField('users_styles')
-    daily_price = DecimalField('daily_price', validators=(Required(),))
+    location = SelectField('Location')
+    daily_price = DecimalField('Daily Price', validators=(Required(),))
+    accept_travel = BooleanField('Accept Travel')
 
     def __init__(self):
         super(UserProfileForm, self).__init__()
-        styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
-        scs = []
-        for s in styles:
-            scs.append((str(s.id), s.display))
-        self.users_styles.choices = scs
+        locations = EnumValues.type_filter(const.LOCATION_TYPE_KEY).all()
+        loc = []
+        for s in locations:
+            loc.append((str(s.id), s.display))
+        self.location.choices = loc

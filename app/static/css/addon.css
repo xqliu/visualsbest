@@ -622,3 +622,17 @@
 .others_jj .zuozhe_name {
     margin-bottom: 10px;
 }
+
+.basic_xinxi li .basic_xinxi_02 select, .basic_xinxi li .basic_xinxi_02 input[type=checkbox] {
+    height: 100%;
+    background: none;
+    border: none;
+    background: #FAFAFA no-repeat 0 0 scroll;
+    outline: medium;
+    color: #000;
+    font-size: 16px;
+    margin-left: 30px;
+    margin-top: auto;
+    width: 90%;
+    font-family: "微软雅黑", "Microsoft YaHei", serif;
+}
