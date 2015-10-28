@@ -103,31 +103,33 @@
           </div>
           <div class="basic_xinxi_03"></div>
         </li>
-        <li>
-          <div class="basic_xinxi_01"><label for="daily_price">日拍摄报价</label></div>
-          <div class="basic_xinxi_02">
-            <input type="text" id="daily_price" name="daily_price" value="{{ user.daily_price or '' }}"/>
-          </div>
-          <div class="basic_xinxi_03"></div>
-        </li>
-        <li>
-          <div class="basic_xinxi_01"><label for="location">常驻摄影地</label></div>
-          <div class="basic_xinxi_02">
-            <select name="location" id="location">
-              {% for l in all_locations %}
-                <option value="{{ l.id }}" {% if l.id == user.location.id %}selected{% endif %}>{{ l.display }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="basic_xinxi_03"></div>
-        </li>
-        <li>
-          <div class="basic_xinxi_01"><label for="accept_travel">是否接受出差</label></div>
-          <div class="basic_xinxi_02">
-            <input name="accept_travel" id="accept_travel" type="checkbox" {% if user.accept_travel %}checked{% endif %}>
-          </div>
-          <div class="basic_xinxi_03"></div>
-        </li>
+        {% if current_user.is_authenticated() and current_user.type.code == 'PHOTOGRAPHER_USER' %}
+          <li>
+            <div class="basic_xinxi_01"><label for="daily_price">日拍摄报价</label></div>
+            <div class="basic_xinxi_02">
+              <input type="text" id="daily_price" name="daily_price" value="{{ user.daily_price or '' }}"/>
+            </div>
+            <div class="basic_xinxi_03"></div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="location">常驻摄影地</label></div>
+            <div class="basic_xinxi_02">
+              <select name="location" id="location">
+                {% for l in all_locations %}
+                  <option value="{{ l.id }}" {% if l.id == user.location.id %}selected{% endif %}>{{ l.display }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="basic_xinxi_03"></div>
+          </li>
+          <li>
+            <div class="basic_xinxi_01"><label for="accept_travel">是否接受出差</label></div>
+            <div class="basic_xinxi_02">
+              <input name="accept_travel" id="accept_travel" type="checkbox" {% if user.accept_travel %}checked{% endif %}>
+            </div>
+            <div class="basic_xinxi_03"></div>
+          </li>
+        {% endif %}
       </ul>
       <button class="button">保存</button>
     </form>

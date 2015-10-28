@@ -2,7 +2,8 @@
 import datetime
 
 from app import app_provider, const, AppInfo
-from app.forms.user_profile_form import UserProfileForm
+from app.forms.normal_user_profile_form import NormalUserProfileForm
+from app.forms.photographer_profile_form import PhotographerProfileForm
 from app.models import User, EnumValues, \
     PhotoCollection, Request
 from app.util import view_util
@@ -99,8 +100,11 @@ def my_photos():
 def settings():
     user = User.query.filter_by(id=current_user.id).first()
     all_locations = EnumValues.type_filter(const.LOCATION_TYPE_KEY).all()
+    if current_user.type.code == const.PHOTOGRAPHER_USER_TYPE:
+        form = PhotographerProfileForm()
+    else:
+        form = NormalUserProfileForm()
     if request.method == 'POST':
-        form = UserProfileForm()
         if request.form.get('gender') is None \
                 or request.form.get('gender') == '':
             form.gender.data = u'保密'
@@ -125,5 +129,4 @@ def settings():
             flash('更新个人信息成功！')
         else:
             flash('请确保所有必填字段已填写(日拍摄报价为必填字段)')
-    return rt('settings.html', user_profile_form=UserProfileForm(), user_styles=user.styles,
-              user=user, all_locations=all_locations)
+    return rt('settings.html', user_profile_form=form, user=user, all_locations=all_locations)

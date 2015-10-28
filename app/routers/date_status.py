@@ -5,7 +5,6 @@ from datetime import date, timedelta
 from app import app_provider, AppInfo
 from app.const import DATE_STATUS_NOT_AVAILABLE
 from app.forms.date_status_form import DateStatusForm
-from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
     DateStatus
 from app.util.db_util import save_obj_commit, delete_by_id
@@ -66,7 +65,7 @@ def edit_date_status(photographer_id):
                 delete_by_id(DateStatus, id_to_del)
                 flash('工作日历中不可用时间段删除成功')
         date_statuses = user.date_statuses
-        return rt('edit_date_status.html', user_profile_form=UserProfileForm(), form=form, date_statuses=date_statuses)
+        return rt('edit_date_status.html', form=form, date_statuses=date_statuses)
     else:
         flash('您没有权限编辑该用户的工作日历')
         return redirect(url_for('index'))

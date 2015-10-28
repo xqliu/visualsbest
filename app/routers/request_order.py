@@ -1,12 +1,12 @@
 # encoding=utf-8
 from decimal import Decimal
 import datetime
+
 from app import app_provider, const, AppInfo
 from app.const import *
 from app.forms.request_service_form import RequestServiceForm
-from app.forms.user_profile_form import UserProfileForm
 from app.models import User, EnumValues, \
-    Request, Order, DateStatus, OrderComment, Comment, Message
+    Request, Order, DateStatus, OrderComment, Comment
 from app.util.db_util import save_obj_commit, save_objects_commit
 from app.util.message_util import create_message, create_request_msg
 from app.util.view_util import rt
@@ -206,8 +206,6 @@ def request_service(photographer_id):
             return redirect(url_for('orders'))
         else:
             flash('校验失败，请填写所有信息并再次尝试创建拍摄请求(拍摄价格为必填字段)')
-            return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user,
-                      categories=categories, styles=styles, form=form)
+            return rt('request_service.html', photographer=user, categories=categories, styles=styles, form=form)
     else:
-        return rt('request_service.html', user_profile_form=UserProfileForm(), photographer=user,
-                  categories=categories, styles=styles, form=form)
+        return rt('request_service.html', photographer=user, categories=categories, styles=styles, form=form)
