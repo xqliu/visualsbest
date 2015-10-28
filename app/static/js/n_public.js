@@ -117,19 +117,19 @@ $(function () {
     $("button[id^='reject_request']").click(function (e) {
         process_request(e, '无法接受', 'reject');
     });
-    $("span[id^='g_a_style_']").unbind('click').click(function (e) {
-        var elemId = e.currentTarget.id,
-                style_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1),
-                elem = $("#" + elemId),
-                current_class = elem.attr('class'),
-                users_styles = $("#users_styles"),
-                data = {
-                    'unselected': {prop: true, elem_class: 'selected'},
-                    'selected': {prop: false, elem_class: 'unselected'}
-                };
-        users_styles.find("option[value='" + style_id + "']").prop("selected", data[current_class].prop);
-        elem.attr('class', data[current_class].elem_class);
-    });
+    /*    $("span[id^='g_a_style_']").unbind('click').click(function (e) {
+     var elemId = e.currentTarget.id,
+     style_id = elemId.substring(elemId.lastIndexOf('_') + 1, elemId.length + 1),
+     elem = $("#" + elemId),
+     current_class = elem.attr('class'),
+     users_styles = $("#users_styles"),
+     data = {
+     'unselected': {prop: true, elem_class: 'selected'},
+     'selected': {prop: false, elem_class: 'unselected'}
+     };
+     users_styles.find("option[value='" + style_id + "']").prop("selected", data[current_class].prop);
+     elem.attr('class', data[current_class].elem_class);
+     });*/
     $("#index_search_link").unbind('click').click(function () {
         $('form[name="search_form"]').submit();
     });
