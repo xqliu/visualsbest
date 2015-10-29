@@ -1,5 +1,6 @@
 # coding=utf-8
-from app.util.filter import jinja2_filter_substring, jinja2_filter_startswith, jinja2_filter_date_with_delta
+from app.util.filter import jinja2_filter_substring, jinja2_filter_startswith, jinja2_filter_date_with_delta, \
+    jinja2_filter_photo_collection_heat_map
 from app.util.image_store import ImageStore
 from flask import Flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
@@ -21,6 +22,7 @@ app.config.from_object(config)
 app.jinja_env.filters['substring'] = jinja2_filter_substring
 app.jinja_env.filters['startswith'] = jinja2_filter_startswith
 app.jinja_env.filters['datedelta'] = jinja2_filter_date_with_delta
+app.jinja_env.filters['heatmap'] = jinja2_filter_photo_collection_heat_map
 
 from flask_babelex import Babel
 

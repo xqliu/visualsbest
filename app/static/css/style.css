@@ -389,15 +389,15 @@ table{border-collapse:collapse;border-spacing:0;}
 .item .btns{display:none;}
 .img_album_btn{top:0px;right:0px;position:absolute;background:#ff6fa6;color:#ffffff;height:20px;line-height:20px;width:56px;border-radius:3px;}
 .img_album_btn:hover{color:#fff;}
-.item_t .title{padding:12px 0;line-height:18px; text-align:center; font-size:16px;}
+.item_t .title{padding:12px 0;line-height:18px; font-size:16px;}
 .item_b{padding:10px 8px;}
 .item_b .items_likes .like_btn{background:url("../style/css/style/images/img/fav_icon_word_new_1220.png") no-repeat;display:block;float:left;height:23px;width:59px;margin-right:5px;}
 .item_b .items_likes em{line-height:23px;display:block;float:left;padding:0px 6px;color:#FF6699;font-weight:800;border:1px solid #ff6fa6;border-radius:3px;}
 
 .item_t .title h5{ font-size:20px; font-weight:normal; width:90%; margin:0 auto; border-bottom:1px solid #ebebeb; line-height:50px;padding-bottom:15px;}
 .item_t .title h5 span{ margin-left:10px;}
-.item_t .title dl{ width:100%; height:auto; margin-top:20px;}
-.item_t .title dl dt{ float:left; width:70px; height:60px;line-height:25px;}
+.item_t .title dl{ width:100%; height:auto; margin-top:10px;}
+.item_t .title dl dt{ float:left; width:70px; height:25px;line-height:25px;}
 .item_t .title dl dd{ float:left; line-height:25px; width:70px; text-align:left;}
 /* more */
 #more{display:block;margin:10px auto 20px;}

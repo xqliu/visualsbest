@@ -42,14 +42,14 @@
                   </span>
                 </h5>
                 <dl>
-                  <dt>擅长风格:</dt>
-                  {% if p.styles|length > 0 %}
-                    {% for s in p.styles %}
-                      <dt>{{ s.display }}</dt>
-                    {% endfor %}
+                  {% if p.produced_photo_collections|length > 0 %}
+                    <dt>{{ p.produced_photo_collections|heatmap }}</dt>
                   {% else %}
-                    <dt>不详</dt>
+                    <dt><span class="styles-categories">还没有发布作品</span></dt>
                   {% endif %}
+                  <dt>所在地： {{ p.location.display or '未知' }}({% if p.accept_travel %}接受出差拍摄{% else %}不接受出差拍摄{% endif %})</dt>
+                  <dt>被预约次数：{{ p.received_requests|length }}次</dt>
+                  <dt>发布作品集：{{ p.produced_photo_collections|length }}个</dt>
                 </dl>
               </div>
             </div>

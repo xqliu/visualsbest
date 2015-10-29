@@ -556,6 +556,12 @@
 
 .item_t .title dl dt {
     font-weight: normal;
+    font-size: 14px;
+    width: 100%;
+}
+
+.item_t .title dl dt:first-child{
+    text-align: center;
 }
 
 .styles-container .unselected, .styles-container .selected {
@@ -635,4 +641,15 @@
     margin-top: auto;
     width: 90%;
     font-family: "微软雅黑", "Microsoft YaHei", serif;
+}
+
+.styles-categories{
+    padding: 0 10px 2px 10px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    margin: auto 4px;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: rgb(100, 195, 211);
+    border: 1px solid rgb(100, 195, 211);
 }
