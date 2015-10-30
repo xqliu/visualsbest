@@ -39,23 +39,7 @@
 {% endblock %}
 {% block dashboard_main %}
   {{ super() }}
-  {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
-    <div class="others_right_top">
-      <div class="others_right_head">
-        <h4>我的工作日历</h4>
-      </div>
-      <div id="events-calendar-container">
-        <input type="hidden" id="photographer_id" value="{{ current_user.id }}"/>
-
-        <div id="events-calendar"></div>
-      <span id="event-calender-info" class="glyphicon glyphicon-info-sign">
-        显示为灰色的是已经标记为不可用或者有拍摄安排的日期
-      </span>
-      </div>
-      <br/>
-    </div>
-  {% endif %}
-  <div class="others_right_bottom">
+  <div class="others_right_top">
     <div class="others_right_head">
       <h4>拍摄请求</h4>
     </div>
@@ -84,6 +68,22 @@
       {% endfor %}
     </div>
   </div>
+  {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+    <div class="others_right_bottom">
+      <div class="others_right_head">
+        <h4>我的工作日历</h4>
+      </div>
+      <div id="events-calendar-container">
+        <input type="hidden" id="photographer_id" value="{{ current_user.id }}"/>
+
+        <div id="events-calendar"></div>
+       <span id="event-calender-info" class="glyphicon glyphicon-info-sign">
+         显示为灰色的是已经标记为不可用或者有拍摄安排的日期
+       </span>
+      </div>
+      <br/>
+    </div>
+  {% endif %}
   <div class="others_right_bottom">
     <div class="others_right_head">
       <h4>服务订单</h4>
