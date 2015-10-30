@@ -1,6 +1,7 @@
 {% extends 'layout/dashboard_layout.html' %}
 {% from "macro/dashboard_nav.html" import dashboard_nav %}
 {% from "macro/request_shortcut.html" import request_shortcut %}
+{% from "macro/photo_collection_cell.html" import display_photo_collection %}
 
 {% block dashboard_left_widget %}
   {{ profile_left_widget(photographer, current_user) }}
@@ -9,11 +10,69 @@
   {{ super() }}
   <div class="others_right_top">
     <div class="others_right_head">
-      <h4><label for="content">{{ photographer.display or '' }}的摄影经历</label></h4>
+      <h4><label for="content">相关信息</label></h4>
+    </div>
+    <div>
+      <div class="photographer-intro">
+        您好，我叫<span class="highlight-info">{{ photographer.display or '无名氏' }}</span>，
+        我的日摄影报价是
+        <span class="highlight-info highlight-digit">
+          {% if photographer.daily_price != None %}{{ photographer.daily_price }}{% else %}未知{% endif %}
+        </span>元人民币，
+        我的常驻摄影地是<span class="highlight-info">{{ photographer.location.display or '未知' }}</span>，
+        {% if photographer.accept_travel %}
+          如果您需要我在其他城市进行摄影，也是<span class="highlight-info">可以的</span>。
+        {% else %}
+          我<span class="highlight-info">不能</span>接受去其他城市出差摄影。
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4><label for="content">工作日历</label></h4>
+    </div>
+    <div id="events-calendar-container">
+      <input type="hidden" name="photographer_id" id="photographer_id" value="{{ photographer.id }}"/>
+
+      <div id="events-calendar"></div>
+      <span id="event-calender-info" class="glyphicon glyphicon-info-sign"><span class="loose-left-icon"></span>背景为灰色的日期不可预约</span>
+    </div>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4><label for="content">作品集</label></h4>
+    </div>
+    <div style="padding:10px;">
+      {% if photographer.produced_photo_collections|length > 0 %}
+        <ul class="others_works others_works_small">
+          {% for c in photographer.produced_photo_collections %}
+            {{ display_photo_collection(c, 'collection_details') }}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="search_no_result">该摄影师还未上传任何作品集</div>
+      {% endif %}
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="others_right_bottom">
+    <div class="others_right_head">
+      <h4><label for="content">摄影经历</label></h4>
     </div>
     <div class="experience">
       {{ experience.content|safe or '' }}
     </div>
   </div>
   {{ request_shortcut(photographer, False, True) }}
+{% endblock %}
+
+{% block tail_js %}
+  <script src="{{ url_for('static', filename='js/moment-with-locales.js', version='2.10.6') }}"></script>
+  <script src="{{ url_for('static', filename='js/date_status.js', version='0.0.2') }}"></script>
+  <script src="{{ url_for('static', filename='js/bic_calendar.js', version='3.3.0') }}"></script>
+{% endblock %}
+
+{% block header_tail %}
+  <link href="{{ url_for('static', filename='css/bic_calendar.css', v='3.3.0') }}" rel="stylesheet">
 {% endblock %}

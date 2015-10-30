@@ -1,6 +1,6 @@
-{% macro display_photo_collection(photo_collection) %}
+{% macro display_photo_collection(photo_collection, url='edit_collection') %}
   <li>
-    <a href="{{ url_for('edit_collection', collection_id=photo_collection.id) }}">
+    <a href="{{ url_for(url, collection_id=photo_collection.id) }}">
       {% if photo_collection.photos|length > 0 %}
         {% set filename = photo_collection.photos[0].image.path %}
       {% else %}
@@ -10,13 +10,17 @@
     </a>
 
     <h2>{{ photo_collection.name }}</h2>
-    <h6>时间: {{ photo_collection.date.strftime('%Y-%-m-%-d') or '' }}</h6>
-    <h6>类别: {{ photo_collection.category.display or '' }}</h6>
-    <h6>风格: {{ photo_collection.style.display or '' }}</h6>
-    <h6>{{ photo_collection.introduce|substring("left", 20) + '...' or '' }}</h6>
-    <div>
-      <a href="#" class="zan">（0）</a>
-      <a href="#" class="wx">（0）</a>
-    </div>
+    {% if  photo_collection.date != None %}
+      <h6>时间: {{ photo_collection.date.strftime('%Y-%-m-%-d') or '' }}</h6>
+    {% endif %}
+    {% if  photo_collection.category != None %}
+      <h6>类别: {{ photo_collection.category.display or '' }}</h6>
+    {% endif %}
+    {% if  photo_collection.style != None %}
+      <h6>风格: {{ photo_collection.style.display or '' }}</h6>
+    {% endif %}
+    {% if photo_collection.introduce != None %}
+      <h6>{{ photo_collection.introduce|substring("left", 20) + '...' or '' }}</h6>
+    {% endif %}
   </li>
 {% endmacro %}

@@ -19,7 +19,7 @@
                 {% if filename is undefined or filename == None %}
                   {% set filename = 'photo_pic1.jpg' %}
                 {% endif %}
-                <a href="{{ url_for('blog', photographer_id=p.id) }}">
+                <a href="{{ url_for('experience', photographer_id=p.id) }}">
                   <img src="{{ url_for('images', filename=filename, width=285, height=184) }}"/>
                 </a>
               </div>

@@ -210,6 +210,7 @@
     margin: auto;
     text-align: center;
     padding-top: 30px;
+    padding-bottom: 30px;
     font-size: 18px;
 }
 
@@ -560,7 +561,7 @@
     width: 100%;
 }
 
-.item_t .title dl dt:first-child{
+.item_t .title dl dt:first-child, .item_t .title {
     text-align: center;
 }
 
@@ -643,7 +644,7 @@
     font-family: "微软雅黑", "Microsoft YaHei", serif;
 }
 
-.styles-categories{
+.styles-categories {
     padding: 0 10px 2px 10px;
     border-radius: 10px;
     color: #FFFFFF;
@@ -652,4 +653,40 @@
     cursor: pointer;
     background-color: rgb(100, 195, 211);
     border: 1px solid rgb(100, 195, 211);
+}
+
+.highlight-info {
+    font-size: 20px;
+    vertical-align: super;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(100, 195, 211);
+    margin: auto 10px;
+}
+
+.highlight-digit {
+    font-family: monospace;
+    font-size: 24px;
+}
+
+.photographer-intro {
+    padding: 10px;
+    margin-left: 30px;
+    line-height: 180%;
+    font-size: 16px;
+    font-family: '微软雅黑', 'Microsoft YaHei', serif;
+}
+
+.others_works_small li {
+    width: 220px;
+    height: auto;
+    border: 1px solid #EDEDED;
+    float: left;
+    margin-left: 19px;
+    margin-top: 23px;
+}
+
+.common-header .nav li a:hover {
+    color: rgb(100, 195, 211);
 }
