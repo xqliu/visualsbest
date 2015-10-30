@@ -66,8 +66,8 @@ def jinja2_filter_photo_collection_heat_map(collections):
                 categories[c.category.display] = 1
     if len(styles) > 0:
         for k, v in styles.iteritems():
-            result = result + '<span class="styles">' + str(v) + '个' + k + '风格</span>'
+            result = result + '<span class="styles">' + str(v) + '个' + k + '</span>'
     if len(categories) > 0:
         for k, v in categories.iteritems():
-            result = result + '<span class="categories">' + str(v) + '个' + k + '分类</span>'
+            result = result + '<span class="categories">' + str(v) + '个' + k + '</span>'
     return Markup(result)
