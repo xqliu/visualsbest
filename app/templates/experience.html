@@ -25,6 +25,19 @@
         {% else %}
           我<span class="highlight-info">不能</span>接受去其他城市出差摄影。
         {% endif %}
+        <hr>
+        在光影派网站，我一共被预约了<span class="highlight-info highlight-digit">{{ photographer.received_requests|length }}</span>次，
+        执行了<span class="highlight-info highlight-digit">{{ photographer|numberoforder }}</span>个订单，
+        获得了<span class="highlight-info highlight-digit">{{ photographer|averagerating }}</span>的服务满意度(满分5分)。
+        {% if photographer.produced_photo_collections|length > 0 %}
+          <hr/>
+          <div>发布过<span class="highlight-info highlight-digit">{{ photographer.produced_photo_collections|length }}</span>个作品集，
+            分布如下
+            <div style="text-align: center;padding-top:20px;padding-bottom: 20px;">
+              {{ photographer.produced_photo_collections|heatmap }}
+            </div>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

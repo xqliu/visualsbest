@@ -644,15 +644,20 @@
     font-family: "微软雅黑", "Microsoft YaHei", serif;
 }
 
-.styles-categories {
+.styles, .categories {
     padding: 0 10px 2px 10px;
     border-radius: 10px;
     color: #FFFFFF;
     margin: auto 4px;
     font-size: 12px;
     cursor: pointer;
-    background-color: rgb(100, 195, 211);
-    border: 1px solid rgb(100, 195, 211);
+    background-color: rgba(100, 195, 211, 0.95);
+    border: 1px solid rgba(100, 195, 211, 0.95);
+}
+
+.photographer-intro .styles, .photographer-intro .categories {
+    font-size: 14px;
+    padding: 5px 10px;
 }
 
 .highlight-info {
@@ -672,7 +677,7 @@
 
 .photographer-intro {
     padding: 10px;
-    margin-left: 30px;
+    margin: auto 30px;
     line-height: 180%;
     font-size: 16px;
     font-family: '微软雅黑', 'Microsoft YaHei', serif;
