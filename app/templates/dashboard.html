@@ -68,6 +68,21 @@
       <li><a href="{{ url_for('orders', obj_type='request', status_code='rejected') }}">已拒绝</a></li>
     </ul>
     <br/>
+
+    <div class="request-bell-container">
+      {% for request in draft_requests %}
+        <div>
+          <span class="glyphicon glyphicon-bell"></span>
+          {% if current_user.type.code == 'PHOTOGRAPHER_USER' %}
+            {{ request.requester.display }}请求从 {{ request.start_date.strftime('%m-%d') or '' }}
+            到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄
+          {% else %}
+            请求 {{ request.photographer.display }} 于 {{ request.start_date.strftime('%m-%d') or '' }}
+            到 {{ request.end_date.strftime('%m-%d') or '' }} 在 {{ request.location or '' }} 进行拍摄
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
   </div>
   <div class="others_right_bottom">
     <div class="others_right_head">

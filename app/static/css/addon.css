@@ -695,3 +695,17 @@
 .common-header .nav li a:hover {
     color: rgb(100, 195, 211);
 }
+
+.request-bell-container {
+    line-height: 180%;
+    font-size: 16px;
+    padding: 10px 10px 20px 25px;
+}
+
+.request-bell-container div {
+    line-height: 180%;
+    font-family: 'Microsoft YaHei', serif;
+    border-bottom: 1px solid #EDEDED;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
