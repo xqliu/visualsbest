@@ -149,7 +149,7 @@
 }
 
 .header_gallery_setting {
-    width: 100px;
+    width: 250px;
     display: inline-block;
 }
 
@@ -708,4 +708,10 @@
     border-bottom: 1px solid #EDEDED;
     padding-bottom: 5px;
     margin-bottom: 15px;
+}
+
+.header_gallery_name {
+    padding-left: 15px;
+    vertical-align: bottom;
+    line-height: 40px;
 }

@@ -54,7 +54,7 @@ $(function () {
 /*messages.html，标记 message为已读、查看message详情*/
 $(function () {
     /* front_layout.html 页面上部头像悬停导航菜单 */
-    $("#header_gallery").unbind('click').toggle(function () {
+    $("#header_gallery_image").unbind('click').toggle(function () {
         $("#popup-menu").css('display', 'block');
     }, function () {
         $("#popup-menu").css('display', 'none');

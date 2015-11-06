@@ -69,7 +69,7 @@
         {% if current_user.is_authenticated() %}
           <div class="header_gallery_setting">
             <div id="header_gallery">
-              <a href="{{ url_for('dashboard') }}">
+              <a href="{{ url_for('dashboard') }}" id="header_gallery_image">
                 {% if current_user.image is defined and current_user.image != None %}
                   <img alt="个人设定" class="circular"
                        src="{{ url_for('images', filename=current_user.image.path, width=42, height=39, mode='fit') }}">
@@ -78,6 +78,7 @@
                        src="{{ url_for('images', filename="big_tx.png", width=42, height=39, mode='fit') }}"/>
                 {% endif %}
               </a>
+              <span class="header_gallery_name">{{ current_user.display or '' }}</span>
               {% if unread_msg_size > 0 %}
                 <a href="{{ url_for('messages') }}">
                   <span class="noti_bubble">{{ unread_msg_size }}</span>
