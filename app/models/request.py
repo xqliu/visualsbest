@@ -76,4 +76,4 @@ class Request(db.Model):
     def __repr__(self):
         return self.requester.display + '->' + self.photographer.display + ' @ [' \
                + self.start_date.strftime('%Y/%m/%d') + ' TO ' + self.end_date.strftime('%Y/%m/%d') + '] @ ' \
-               + self.location
+               + str(self.location or '未知地点')
