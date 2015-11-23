@@ -22,10 +22,10 @@ def init_admin_views(app, db):
                                       category=u'订单相关', menu_icon_value='glyphicon-inbox'))
     admin_views.add_view(OrderAdmin(Order, db_session, name=u'订单', menu_icon_type=ICON_TYPE_GLYPH,
                                     category=u'订单相关', menu_icon_value='glyphicon-shopping-cart'))
-    admin_views.add_view(OmnibusTemplateAdmin(OmnibusTemplate, db_session, name=u'主推模板', menu_icon_type=ICON_TYPE_GLYPH,
-                                              category=u'主推', menu_icon_value='glyphicon-th'))
-    admin_views.add_view(PhotoOmnibusAdmin(PhotoOmnibus, db_session, name=u'主推作品', menu_icon_type=ICON_TYPE_GLYPH,
-                                           category=u'主推', menu_icon_value='glyphicon-star'))
+    admin_views.add_view(OmnibusTemplateAdmin(OmnibusTemplate, db_session, name=u'推荐模板', menu_icon_type=ICON_TYPE_GLYPH,
+                                              category=u'推荐', menu_icon_value='glyphicon-th'))
+    admin_views.add_view(PhotoOmnibusAdmin(PhotoOmnibus, db_session, name=u'推荐作品', menu_icon_type=ICON_TYPE_GLYPH,
+                                           category=u'推荐', menu_icon_value='glyphicon-star'))
     admin_views.add_view(UserAdmin(User, db_session, name=u'用户', menu_icon_type=ICON_TYPE_GLYPH,
                                    category=u'用户相关', menu_icon_value='glyphicon-user'))
     admin_views.add_view(RoleAdmin(Role, db_session, name=u'角色', menu_icon_type=ICON_TYPE_GLYPH,

@@ -4,13 +4,20 @@
 {% import 'admin/static.html' as admin_static with context %}
 
 {% block body %}
-{{ super() }}
-<div class="row-fluid">
+  {{ super() }}
+  <div class="row-fluid">
 
     <div>
-        {% if current_user.is_authenticated() %}
-          <div style="text-align:center">欢迎访问系统后台</div>
-        {% endif %}
+      {% if current_user.is_authenticated() %}
+        <div style="font-size:18px;margin:auto;text-align:center;margin-top:50px;">欢迎访问系统后台</div>
+        <div class="admin-dashboard-panel">
+          <div><a href="/admin/request/">查看拍摄请求</a></div>
+          <div><a href="/admin/order/">查看订单</a></div>
+          <div><a href="/admin/photoomnibus/">推荐作品</a></div>
+          <div><a href="/admin/user/">管理用户</a></div>
+          <div><a href="/admin/enumvalues/">系统列表值设定</a></div>
+        </div>
+      {% endif %}
     </div>
-</div>
+  </div>
 {% endblock body %}
