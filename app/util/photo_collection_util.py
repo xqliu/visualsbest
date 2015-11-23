@@ -94,24 +94,3 @@ def extra_fields_from_form():
     include_none_price = request.form.get('include_none_price')
     include_none_date = request.form.get('include_none_date')
     return category_id, include_none_date, include_none_price, max_date, max_price, min_date, min_price, style_id
-
-
-def render_search_result(template, router, get_all, get_filtered):
-    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
-    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
-    category, style, include_none_date, include_none_price, min_price, max_price, min_date, max_date = \
-        [None, None, None, None, None, None, None, None]
-    if request.method == 'POST':
-        category_id, include_none_date, include_none_price, max_date, max_price, min_date, min_price, style_id = \
-            extra_fields_from_form()
-        collections, category, style = query_for_photo_collection(category_id, include_none_date, include_none_price,
-                                                                  max_date, max_price, min_date, min_price, style_id)
-        min_date = request.form.get('min_date')
-        max_date = request.form.get('max_date')
-        result_list = get_filtered(collections)
-    else:
-        result_list = get_all()
-    return rt(template, result_list=result_list, categories=categories,
-                                        styles=styles, category=category, style=style, route=router,
-                                        min_price=min_price, max_price=max_price, include_none_price=include_none_price,
-                                        min_date=min_date, max_date=max_date, include_none_date=include_none_date)

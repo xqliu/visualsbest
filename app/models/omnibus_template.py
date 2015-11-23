@@ -18,3 +18,6 @@ class OmnibusTemplate(db.Model):
 
     # 主推的显示模板的路径
     path = db.Column(db.String(128), nullable=False)
+
+    def __repr__(self):
+        return self.name

@@ -7,13 +7,15 @@
 
 @media (min-width: 992px) {
     .container {
-        min-width: 970px width : 100 %
+        min-width: 970px;
+        width: 100%;
     }
 }
 
 @media (min-width: 1200px) {
     .container {
-        min-width: 1170px width : 100 %
+        min-width: 1170px;
+        width: 100%;
     }
 }
 
@@ -51,8 +53,8 @@ input[name='_add_another'] {
     color: #fff;
     height: 53px;
     line-height: 53px;
-    margin:auto;
-    width:100%;
+    margin: auto;
+    width: 100%;
 }
 
 .login a, .register a {
@@ -70,7 +72,7 @@ input[name='_add_another'] {
     color: #333;
     background: #F7F7F7;
     opacity: 0.99;
-    margin:auto;
+    margin: auto;
 }
 
 .fixed_register {
@@ -78,7 +80,7 @@ input[name='_add_another'] {
 }
 
 .fixed_login h3 {
-    padding-top:25px;
+    padding-top: 25px;
     font-size: 18px;
 }
 
@@ -93,7 +95,7 @@ input[name='_add_another'] {
     color: #BDBDBD;
 }
 
-.fixed_login ul li input.txt,  #type_id {
+.fixed_login ul li input.txt, #type_id {
     width: 100%;
     height: 25px;
     background: #EAEAEA;
@@ -124,7 +126,7 @@ input[name='_add_another'] {
 
 .last-item {
     text-align: center;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 .login_error {
@@ -140,4 +142,8 @@ input[name='_add_another'] {
 
 .fixed_login .flashes, .fixed_register .flashes {
     padding-bottom: 45px;
+}
+
+.select2-icon {
+    width: 100px;
 }

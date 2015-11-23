@@ -111,174 +111,24 @@
 {% block main %}
   {{ super() }}
   <div class="layer">
-    <div class="main_jingw">
-      <!--静物类摄影作品-->
-      <h6 class="jingwu">静物类摄影作品</h6>
-      <ul>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_01.png"/>
+    {% for omnibus in photo_omnibuses %}
+      <div class="main_jingw">
+        <h6 class="{{ omnibus.title_class or ''}}">{{ omnibus.name or '' }}</h6>
+        <ul>
+          {% for photo_work_omnibus in omnibus.photo_works %}
+            <li>
+              <a href="{{ url_for('collection_details', collection_id=photo_work_omnibus.photo_work.photo_collection_id) }}">
+                <img
+                    src="{{ url_for('images', filename=photo_work_omnibus.photo_work.image.path, width=430, height=220, mode='crop') }}"/>
 
-          <p></p>
+                <p></p>
 
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_02.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_03.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_04.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_05.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_06.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-      </ul>
-    </div>
-    <!--活动类摄影作品-->
-    <div class="main_jingw">
-      <h6 class="huodong">活动类摄影作品</h6>
-      <ul>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_07.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_08.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_09.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_10.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_11.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_12.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-      </ul>
-    </div>
-    <!--其他拍摄商业作品-->
-    <div class="main_jingw">
-      <h6 class="jingwu other">其他拍摄商业作品</h6>
-      <ul>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_01.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_02.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_03.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_04.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_05.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_06.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-      </ul>
-    </div>
-    <!--个人摄影作品-->
-    <div class="main_jingw">
-      <h6 class="geren huodong">个人摄影作品</h6>
-      <ul>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_07.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_08.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_09.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_10.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_11.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-        <li><a href="{{ url_for('collection_details', collection_id=1) }}"><img src="../static/pic/photo_12.png"/>
-
-          <p></p>
-
-          <div><img src="../static/images/video_hover.png"/></div>
-        </a></li>
-      </ul>
-    </div>
+                <div><img src="../static/images/video_hover.png"/></div>
+              </a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
     <!--季节主打或套餐-->
     <div class="season">
       <h6>季节主打或套餐（摄影+摄像）</h6>

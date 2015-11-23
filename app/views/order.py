@@ -2,7 +2,6 @@
 from app.models import Request, Order
 from app.views.base_view import ModelViewWithAccess
 from flask.ext.admin.model import InlineFormAdmin
-from app.models.order import OrderComment
 
 
 class OrderCommentsInlineAdmin(InlineFormAdmin):

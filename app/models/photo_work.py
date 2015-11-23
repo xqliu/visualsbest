@@ -2,6 +2,7 @@
 
 from app.app_provider import AppInfo
 from image import Image
+from markupsafe import Markup
 from photo_omnibus import PhotoOmnibus
 from photo_collection import PhotoCollection
 from sqlalchemy import Column, Integer, ForeignKey, Text, Boolean
@@ -24,13 +25,15 @@ class PhotoWork(db.Model):
 
     # 该作品的图片对象
     image_id = db.Column(db.Integer, db.ForeignKey(Image.id))
-    image = db.relation(Image, backref=backref('image_photo_work', uselist=False),
-                        cascade="all, delete-orphan", single_parent=True)
+    image = db.relation(Image, backref=backref('image_photo_work', uselist=False), cascade="all, delete-orphan", single_parent=True)
 
     is_cover = db.Column(Boolean, nullable=True)
 
     # 可选的，对作品的描述
     remark = Column(Text, nullable=True)
+
+    def __repr__(self):
+        return (self.image.public_id or '') + "@" + (self.photo_collection.name or '')
 
 
 class PhotoWorkComment(db.Model):
@@ -41,17 +44,12 @@ class PhotoWorkComment(db.Model):
     id = Column(Integer, primary_key=True)
 
     # 关联作品
-    photo_work_id = Column(Integer, ForeignKey('photo_work.id'),
-                           nullable=False)
-    photo_work = relationship('PhotoWork', foreign_keys=[photo_work_id],
-                              backref=backref('photo_work_comments',
-                                              uselist=True))
+    photo_work_id = Column(Integer, ForeignKey('photo_work.id'), nullable=False)
+    photo_work = relationship('PhotoWork', foreign_keys=[photo_work_id], backref=backref('photo_work_comments', uselist=True))
 
     # 关联的评论
     comment_id = Column(Integer, ForeignKey('comment.id'), nullable=False)
-    comment = relationship('Comment', foreign_keys=[comment_id],
-                           backref=backref('associated_photo_work',
-                                           uselist=False))
+    comment = relationship('Comment', foreign_keys=[comment_id], backref=backref('associated_photo_work', uselist=False))
 
 
 class PhotoWorkFavourite(db.Model):
@@ -62,17 +60,12 @@ class PhotoWorkFavourite(db.Model):
     id = Column(Integer, primary_key=True)
 
     # 关联作品
-    photo_work_id = Column(Integer, ForeignKey(
-        'photo_work.id'), nullable=False)
-    photo_work = relationship('PhotoWork', foreign_keys=[photo_work_id],
-                              backref=backref('associated_favourites',
-                                              uselist=True))
+    photo_work_id = Column(Integer, ForeignKey('photo_work.id'), nullable=False)
+    photo_work = relationship('PhotoWork', foreign_keys=[photo_work_id], backref=backref('associated_favourites', uselist=True))
 
     # 关联的收藏
     favourite_id = Column(Integer, ForeignKey('favourite.id'), nullable=False)
-    favourite = relationship('Favourite', foreign_keys=[favourite_id],
-                             backref=backref('associated_photo_work',
-                                             uselist=False))
+    favourite = relationship('Favourite', foreign_keys=[favourite_id], backref=backref('associated_photo_work', uselist=False))
 
 
 class PhotoWorkOmnibus(db.Model):
@@ -83,15 +76,12 @@ class PhotoWorkOmnibus(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # 主推
-    photo_omnibus_id = Column(Integer, ForeignKey(
-        PhotoOmnibus.id), nullable=False)
-    photo_omnibus = db.relation(
-        PhotoOmnibus, backref=backref('photo_works', uselist=True))
+    photo_omnibus_id = Column(Integer, ForeignKey(PhotoOmnibus.id), nullable=False)
+    photo_omnibus = db.relation(PhotoOmnibus, backref=backref('photo_works', uselist=True))
 
     # 照片
     photo_work_id = Column(Integer, ForeignKey(PhotoWork.id), nullable=False)
-    photo_work = db.relation(
-        PhotoWork, backref=backref('omnibuses', uselist=True))
+    photo_work = db.relation(PhotoWork, backref=backref('omnibuses', uselist=True))
 
     # 该作品放置的行
     work_row = Column(Integer, nullable=False)

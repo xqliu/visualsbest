@@ -1,18 +1,18 @@
 # encoding=utf-8
 import datetime
-
 from app import app_provider, const, AppInfo
 from app.forms.normal_user_profile_form import NormalUserProfileForm
 from app.forms.photographer_profile_form import PhotographerProfileForm
 from app.models import User, EnumValues, \
-    PhotoCollection, Request
+    PhotoCollection, Request, OmnibusTemplate, PhotoOmnibus
 from app.util import view_util
 from app.util.db_util import save_obj_commit
-from app.util.photo_collection_util import render_search_result
+from app.util.photo_collection_util import query_for_photo_collection, extra_fields_from_form
 from app.util.view_util import rt
 from flask import request, flash
 from flask.ext.login import current_user
 from flask.ext.security import login_required
+from sqlalchemy import or_
 
 app = app_provider.AppInfo.get_app()
 db = AppInfo.get_db()
@@ -23,36 +23,82 @@ def index():
     all_styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
     all_categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
     start_date = datetime.datetime.now() + datetime.timedelta(1)
-    return rt('index.html', all_styles=all_styles, all_categories=all_categories, start_date=start_date)
+    photo_omnibuses = PhotoOmnibus.query.all()
+    return rt('index.html', all_styles=all_styles, all_categories=all_categories, start_date=start_date, photo_omnibuses=photo_omnibuses)
 
 
 @app.route("/photograph", methods=['GET', 'POST'])
 def photograph():
-    def get_all():
-        pg_type = EnumValues.find_one_by_code(const.PHOTOGRAPHER_USER_TYPE)
-        photographs = User.query.filter_by(type_id=pg_type.id).all()
-        return photographs
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    category, style, include_none_date, include_none_price, min_price, max_price, min_date, max_date = \
+        [None, None, None, None, None, None, None, None]
+    if request.method == 'POST':
+        category_id, include_none_date, include_none_price, max_date, max_price, min_date, min_price, style_id = extra_fields_from_form()
+        collections, category, style = query_for_photo_collection(category_id, True, True, None, None, None, None, style_id)
 
-    def get_filtered(collections):
-        photographs = []
+        query = AppInfo.get_db().session.query(User).join(PhotoCollection, User.id == PhotoCollection.photographer_id)
+        category, style = None, None
+        if category_id is not None:
+            query = query.filter(PhotoCollection.category_id == category_id)
+            category = EnumValues.query.get(category_id)
+        if style_id is not None:
+            query = query.filter(PhotoCollection.style_id == style_id)
+            style = EnumValues.query.get(style_id)
+        if min_price is not None:
+            if include_none_price:
+                query = query.filter(or_(PhotoCollection.price >= min_price, PhotoCollection.price.is_(None)))
+            else:
+                query = query.filter(PhotoCollection.price >= min_price)
+        if max_price is not None:
+            if include_none_price:
+                query = query.filter(or_(PhotoCollection.price <= max_price, PhotoCollection.price.is_(None)))
+            else:
+                query = query.filter(PhotoCollection.price <= max_price)
+        if min_date is not None:
+            if include_none_date:
+                query = query.filter(or_(PhotoCollection.date >= min_date, PhotoCollection.date.is_(None)))
+            else:
+                query = query.filter(PhotoCollection.date >= min_date)
+        if max_date is not None:
+            if include_none_date:
+                query = query.filter(or_(PhotoCollection.date <= max_date, PhotoCollection.date.is_(None)))
+            else:
+                query = query.filter(PhotoCollection.date <= max_date)
+        collections = query.filter(PhotoCollection.photos.any()).all()
+
+        result_list = []
         for c in collections:
-            if c.photographer not in photographs:
-                photographs.append(c.photographer)
-        return photographs
-
-    return render_search_result(template='photograph.html', router='/photograph', get_all=get_all,
-                                get_filtered=get_filtered)
+            if c.photographer not in result_list:
+                result_list.append(c.photographer)
+    else:
+        pg_type = EnumValues.find_one_by_code(const.PHOTOGRAPHER_USER_TYPE)
+        result_list = User.query.filter_by(type_id=pg_type.id).all()
+    return rt("photograph.html", result_list=result_list, categories=categories,
+              styles=styles, category=category, style=style, route='/photograph',
+              min_price=min_price, max_price=max_price, include_none_price=include_none_price,
+              min_date=min_date, max_date=max_date, include_none_date=include_none_date)
 
 
 @app.route("/works", methods=['GET', 'POST'])
 def works():
-    def get_all():
-        return PhotoCollection.query.filter(PhotoCollection.photos.any()).all()
-
-    def get_filtered(collections):
-        return collections
-
-    return render_search_result(template='works.html', router='/works', get_all=get_all, get_filtered=get_filtered)
+    categories = EnumValues.type_filter(const.PHOTO_CATEGORY_KEY).all()
+    styles = EnumValues.type_filter(const.PHOTO_STYLE_KEY).all()
+    category, style, include_none_date, include_none_price, min_price, max_price, min_date, max_date = \
+        [None, None, None, None, None, None, None, None]
+    if request.method == 'POST':
+        category_id, include_none_date, include_none_price, max_date, max_price, min_date, min_price, style_id = \
+            extra_fields_from_form()
+        result_list, category, style = query_for_photo_collection(category_id, include_none_date, include_none_price,
+                                                                  max_date, max_price, min_date, min_price, style_id)
+        min_date = request.form.get('min_date')
+        max_date = request.form.get('max_date')
+    else:
+        result_list = PhotoCollection.query.filter(PhotoCollection.photos.any()).all()
+    return rt("works.html", result_list=result_list, categories=categories,
+              styles=styles, category=category, style=style, route='/works',
+              min_price=min_price, max_price=max_price, include_none_price=include_none_price,
+              min_date=min_date, max_date=max_date, include_none_date=include_none_date)
 
 
 @app.route('/search', methods=['POST'])
