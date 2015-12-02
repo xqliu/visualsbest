@@ -1,5 +1,52 @@
-{% extends "fragment/base_search_panel.html" %}
-
-{% block additional_condition %}
-  {{ enum_value_search_field(style, styles, '擅长风格', 'good_at_style') }}
-{% endblock %}
+{% from "macro/enum_value_search_field.html" import enum_value_search_field %}
+<div class="search_top">
+  <form action="{{ route }}" method="post">
+    {{ enum_value_search_field(category, categories, '拍摄类别', 'category') }}
+    {{ enum_value_search_field(style, styles, '拍摄风格', 'style') }}
+    <div class="search_top_concet">
+      <h6>拍摄日期</h6>
+      <ul class="search_time">
+        <li><label>
+          <script>
+            $(function () {
+              $("#min_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                showButtonPanel: true
+              });
+              $("#max_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                showButtonPanel: true
+              });
+            });
+          </script>
+          <input value="{{ min_date or '' }}" name="min_date" type="text" id="min_date" style="z-index:1;position: relative"/>
+        </label></li>
+        <li class="zhi">至</li>
+        <li><label>
+          <input type="text" id="max_date" name="max_date" value="{{ max_date or '' }}" style="z-index:1;position: relative"/>
+        </label></li>
+      </ul>
+    </div>
+    <div class="search_top_concet">
+      <h6>拍摄价位</h6>
+      <ul class="search_time">
+        <li><label>
+          <input type="text" class="serach_txt" value="{{ min_price or '' }}" name="min_price"/>
+        </label></li>
+        <li class="zhi">至</li>
+        <li><label>
+          <input type="text" class="serach_txt" value="{{ max_price or '' }}" name="max_price">
+        </label></li>
+        <li class="zhi">
+          <label>
+            <input type="checkbox" name="include_none_price" class="include_none"
+                   {% if include_none_price == 'on' %}checked{% endif %}>
+            <span class="lose-left">包含未填写拍摄日报价的摄影师</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+    {{ enum_value_search_field(style, styles, '擅长风格', 'good_at_style') }}
+    <button type="submit">搜索</button>
+  </form>
+</div>

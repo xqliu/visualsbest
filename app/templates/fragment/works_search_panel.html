@@ -28,7 +28,7 @@
         <li class="zhi">
           <label>
             <input type="checkbox" name="include_none_date" class="include_none" {% if include_none_date == 'on' %}checked{% endif %}>
-            <span class="lose-left">包含日期为空</span>
+            <span class="lose-left">包含拍摄日期为空</span>
           </label>
         </li>
       </ul>
@@ -47,13 +47,11 @@
           <label>
             <input type="checkbox" name="include_none_price" class="include_none"
                    {% if include_none_price == 'on' %}checked{% endif %}>
-            <span class="lose-left">包含价格为空的作品集</span>
+            <span class="lose-left">包含价格为空</span>
           </label>
         </li>
       </ul>
     </div>
-    {% block additional_condition %}
-    {% endblock %}
     <button type="submit">搜索</button>
   </form>
 </div>
