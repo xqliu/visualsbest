@@ -21,5 +21,5 @@ cloudinary==1.1.3
 -e git+https://github.com/betterlife/flask-admin.git@8936f748531742656e9fb4325799aeefe98b380b#egg=Flask_Admin
 blinker==1.4.0
 raven==5.5.0
-email-validator=1.1.2
+email-validator==1.1.2
 
